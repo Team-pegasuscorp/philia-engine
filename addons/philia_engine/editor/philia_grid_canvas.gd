@@ -28,6 +28,14 @@ const TILE_COLORS := {
 	"Caisse": Color(0.6, 0.45, 0.25),
 	"Machine": Color(0.3, 0.6, 0.6),
 	"Rocher": Color(0.5, 0.48, 0.45),
+	"Plaine": Color(0.55, 0.72, 0.35),
+	"Forêt": Color(0.18, 0.42, 0.2),
+	"Désert": Color(0.85, 0.75, 0.45),
+	"Plage": Color(0.85, 0.8, 0.62),
+	"Neige": Color(0.92, 0.95, 0.97),
+	"Marais": Color(0.35, 0.38, 0.22),
+	"Montagne": Color(0.45, 0.42, 0.4),
+	"Eau": Color(0.2, 0.4, 0.65),
 }
 
 var map: PhiliaMap = PhiliaMap.new()

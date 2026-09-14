@@ -6,6 +6,7 @@ signal import_requested(map: PhiliaMap)
 const PALETTE: Array[String] = [
 	"Sol", "Mur", "Coin", "Bord", "Terrain",
 	"Porte", "Fenêtre", "Escalier", "Pilier", "Caisse", "Machine", "Rocher",
+	"Plaine", "Forêt", "Désert", "Plage", "Neige", "Marais", "Montagne", "Eau",
 ]
 const DEFAULT_MAP_PATH := "res://maps/example.philiamap"
 

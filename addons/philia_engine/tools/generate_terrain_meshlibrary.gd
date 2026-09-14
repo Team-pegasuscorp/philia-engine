@@ -21,8 +21,8 @@ func _initialize() -> void:
 	var lib := MeshLibrary.new()
 	for i in range(terrain_names.size()):
 		var terrain_name: String = terrain_names[i]
-		var is_wall := terrain_name == "Mur"
-		var height := WALL_HEIGHT if is_wall else FLOOR_THICKNESS
+		var is_solid: bool = PhiliaMap.DEFAULT_SOLID_TYPES.has(terrain_name)
+		var height := WALL_HEIGHT if is_solid else FLOOR_THICKNESS
 
 		var mesh := BoxMesh.new()
 		mesh.size = Vector3(1, height, 1)

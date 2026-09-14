@@ -12,7 +12,13 @@ const DEFAULT_LAYER := "Sol"
 ## est recalculée automatiquement selon les voisins de même type sur le même
 ## calque. Les modules (Porte, Pilier…) et Coin/Bord posés à la main restent
 ## des choix manuels, non recalculés.
-const AUTOTILE_TYPES: Array[String] = ["Sol", "Mur", "Terrain"]
+## Sol/Mur/Terrain : usage manuel (donjons, §1-§8). Le reste : biomes du
+## générateur de monde par bruit (§9) — Eau n'est pas dans la liste du doc
+## mais complète naturellement Marais/Montagne comme zone infranchissable.
+const AUTOTILE_TYPES: Array[String] = [
+	"Sol", "Mur", "Terrain",
+	"Plaine", "Forêt", "Désert", "Plage", "Neige", "Marais", "Montagne", "Eau",
+]
 
 ## Bitmask de voisinage (N=1, E=2, S=4, W=8), convention Godot TileSet.
 const NEIGHBOR_OFFSETS := {
@@ -27,7 +33,7 @@ const NEIGHBOR_OFFSETS := {
 ## (bool) d'une tuile. Le jeu qui importe la carte reste libre d'ignorer
 ## cette info générique (ex: une Porte peut devenir non-solide une fois
 ## ouverte) — voir docs/concept.md §11.
-const DEFAULT_SOLID_TYPES: Array[String] = ["Mur", "Coin", "Bord", "Pilier", "Caisse", "Machine", "Rocher"]
+const DEFAULT_SOLID_TYPES: Array[String] = ["Mur", "Coin", "Bord", "Pilier", "Caisse", "Machine", "Rocher", "Montagne", "Eau"]
 
 ## Empreinte (largeur, hauteur en cases) des modules qui occupent plusieurs
 ## cases (doc §7 : "Un module peut occuper plusieurs cases"). Absent de la
