@@ -22,6 +22,7 @@ func _initialize() -> void:
 	await process_frame
 
 	_test_template_tab()
+	_test_template_behavior()
 	_test_quest_tab()
 	_test_dialogue_tab()
 	_test_rename_instead_of_duplicate()
@@ -65,6 +66,35 @@ func _test_template_tab() -> void:
 
 	var stats: PhiliaStats = _dock.data.instantiate_stats("loup")
 	_check(stats.get_stat("hp") == 8.0, "PhiliaGameplayData.instantiate_stats() utilisable directement")
+
+
+func _test_template_behavior() -> void:
+	print("Onglet Gabarits : formulaire Comportement")
+	_dock._on_new_template_pressed()
+	_dock._template_id_edit.text = "ours"
+	_dock._behavior_preset_option.select(_dock.BEHAVIOR_PRESETS.find("aggressive"))
+	_dock._behavior_action_edit.text = "maul"
+	_dock._behavior_detection_spin.value = 8.0
+	_dock._behavior_action_radius_spin.value = 2.0
+	_dock._on_apply_template_pressed()
+
+	var behavior_cfg: Dictionary = _dock.data.entity_templates["ours"]["behavior"]
+	_check(behavior_cfg["preset"] == "aggressive", "preset agressif appliqué")
+	_check(behavior_cfg["action"] == "maul", "nom d'action appliqué")
+	_check(behavior_cfg["detection_radius"] == 8.0, "rayon de détection appliqué")
+
+	## Sélectionner une autre entrée puis revenir sur "ours" doit remettre
+	## le formulaire dans le même état (round-trip formulaire <-> dict).
+	_dock._on_new_template_pressed()
+	_dock._on_template_selected(_index_of(_dock._template_list, "ours"))
+	_check(_dock._behavior_preset_option.selected == _dock.BEHAVIOR_PRESETS.find("aggressive"), "preset rechargé dans le formulaire")
+	_check(_dock._behavior_action_edit.text == "maul", "action rechargée dans le formulaire")
+
+	## PhiliaGameplayData.instantiate_behavior_config() doit être directement
+	## utilisable pour configurer un vrai PhiliaBehavior.
+	var behavior := PhiliaBehavior.new()
+	behavior.configure(_dock.data.instantiate_behavior_config("ours"))
+	_check(behavior.preset == PhiliaBehavior.Preset.AGGRESSIVE and behavior.action_name == "maul", "config consommable par PhiliaBehavior.configure()")
 
 
 func _test_quest_tab() -> void:
@@ -217,9 +247,10 @@ func _test_save_load_round_trip() -> void:
 	_check(_dock.data.entity_templates.has("grand_loup"), "gabarit rechargé depuis le disque (id renommé)")
 	_check(_dock.data.quests.has("hunt_wolf"), "quête rechargée depuis le disque (id renommé)")
 	_check(_dock.data.dialogues.has("guard_talk_v2"), "dialogue rechargé depuis le disque (id renommé)")
-	## Le renommage (test précédent) a bien remplacé "gabarit_1" par
-	## "grand_loup" sans laisser d'entrée fantôme.
-	_check(_dock._template_list.item_count == 1, "un seul gabarit après renommage, pas d'entrée fantôme")
+	## "loup" a été renommé "grand_loup" sans laisser de fantôme ; "ours" et
+	## le "gabarit_1" créé sans jamais être appliqué (juste sélectionné puis
+	## abandonné) restent tels quels : 3 gabarits au total.
+	_check(_dock._template_list.item_count == 3, "3 gabarits après renommage (grand_loup, ours, gabarit_1)")
 
 	DirAccess.remove_absolute(TEST_PATH)
 

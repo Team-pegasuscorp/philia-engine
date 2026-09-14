@@ -67,6 +67,13 @@ func instantiate_inventory(template_id: String) -> PhiliaInventory:
 	return PhiliaInventory.new(tmpl.get("inventory", []), tmpl.get("inventory_capacity", 0))
 
 
+## Champ "behavior" brut d'un gabarit, prêt à passer à PhiliaBehavior.configure().
+## Gabarit inconnu ou sans comportement défini -> dict vide (PASSIVE par
+## défaut côté PhiliaBehavior).
+func instantiate_behavior_config(template_id: String) -> Dictionary:
+	return entity_templates.get(template_id, {}).get("behavior", {})
+
+
 func get_quest(quest_id: String) -> PhiliaQuest:
 	if not quests.has(quest_id):
 		return null

@@ -136,6 +136,119 @@ layout_mode = 2
 max_value = 9999.0
 value = 1.0
 
+[node name="BehaviorLabel" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+text = "Comportement (IA)"
+
+[node name="BehaviorPresetRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorPresetRow"]
+layout_mode = 2
+text = "Préréglage :"
+
+[node name="BehaviorPresetOption" type="OptionButton" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorPresetRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(140, 0)
+
+[node name="BehaviorActionRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorActionRow"]
+layout_mode = 2
+text = "Action déclenchée :"
+
+[node name="BehaviorActionEdit" type="LineEdit" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorActionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "attack"
+
+[node name="BehaviorDetectionRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorDetectionRow"]
+layout_mode = 2
+text = "Rayon de détection (zone) :"
+
+[node name="BehaviorDetectionSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorDetectionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 999.0
+step = 0.1
+value = 6.0
+
+[node name="BehaviorActionRadiusRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorActionRadiusRow"]
+layout_mode = 2
+text = "Portée d'action :"
+
+[node name="BehaviorActionRadiusSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorActionRadiusRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 999.0
+step = 0.1
+value = 1.5
+
+[node name="BehaviorMoveSpeedRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorMoveSpeedRow"]
+layout_mode = 2
+text = "Vitesse de déplacement :"
+
+[node name="BehaviorMoveSpeedSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorMoveSpeedRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 999.0
+step = 0.1
+value = 1.5
+
+[node name="BehaviorCooldownRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorCooldownRow"]
+layout_mode = 2
+text = "Cooldown de l'action :"
+
+[node name="BehaviorCooldownSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorCooldownRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 999.0
+step = 0.1
+value = 1.0
+
+[node name="BehaviorWanderRadiusRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorWanderRadiusRow"]
+layout_mode = 2
+text = "Rayon d'errance / fuite :"
+
+[node name="BehaviorWanderRadiusSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorWanderRadiusRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 999.0
+step = 0.1
+value = 4.0
+
+[node name="BehaviorFleeRatioRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorFleeRatioRow"]
+layout_mode = 2
+text = "Seuil de fuite (PV/PV max) :"
+
+[node name="BehaviorFleeRatioSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/BehaviorFleeRatioRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.3
+
 [node name="InventoryLabel" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
 layout_mode = 2
 text = "Inventaire de départ"

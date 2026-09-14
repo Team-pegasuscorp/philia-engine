@@ -11,6 +11,11 @@ extends Control
 const DEFAULT_PATH := "res://gameplay/example.philiagameplay"
 const DIALOGUE_NODE_SCENE := preload("res://addons/philia_engine/editor/philia_dialogue_graph_node.tscn")
 
+## Ordre = index de %BehaviorPresetOption ; clé = valeur attendue par
+## PhiliaBehavior.configure()'s PRESET_NAMES.
+const BEHAVIOR_PRESETS: Array[String] = ["passive", "wander", "aggressive", "flee"]
+const BEHAVIOR_PRESET_LABELS: Array[String] = ["Passif", "Erratique", "Agressif", "Fuite"]
+
 @onready var _path_edit: LineEdit = %PathEdit
 @onready var _new_button: Button = %NewButton
 @onready var _save_button: Button = %SaveButton
@@ -24,6 +29,14 @@ const DIALOGUE_NODE_SCENE := preload("res://addons/philia_engine/editor/philia_d
 @onready var _force_spin: SpinBox = %ForceSpin
 @onready var _speed_spin: SpinBox = %SpeedSpin
 @onready var _perception_spin: SpinBox = %PerceptionSpin
+@onready var _behavior_preset_option: OptionButton = %BehaviorPresetOption
+@onready var _behavior_action_edit: LineEdit = %BehaviorActionEdit
+@onready var _behavior_detection_spin: SpinBox = %BehaviorDetectionSpin
+@onready var _behavior_action_radius_spin: SpinBox = %BehaviorActionRadiusSpin
+@onready var _behavior_move_speed_spin: SpinBox = %BehaviorMoveSpeedSpin
+@onready var _behavior_cooldown_spin: SpinBox = %BehaviorCooldownSpin
+@onready var _behavior_wander_radius_spin: SpinBox = %BehaviorWanderRadiusSpin
+@onready var _behavior_flee_ratio_spin: SpinBox = %BehaviorFleeRatioSpin
 @onready var _inventory_list: ItemList = %InventoryList
 @onready var _item_name_edit: LineEdit = %ItemNameEdit
 @onready var _item_qty_spin: SpinBox = %ItemQtySpin
@@ -71,6 +84,8 @@ var _selected_dialogue_id := ""
 
 func _ready() -> void:
 	_path_edit.text = DEFAULT_PATH
+	for label in BEHAVIOR_PRESET_LABELS:
+		_behavior_preset_option.add_item(label)
 
 	_new_button.pressed.connect(_on_new_pressed)
 	_save_button.pressed.connect(_on_save_pressed)
@@ -186,6 +201,7 @@ func _on_template_selected(index: int) -> void:
 	_force_spin.value = stats.get("force", PhiliaStats.DEFAULT_STATS["force"])
 	_speed_spin.value = stats.get("speed", PhiliaStats.DEFAULT_STATS["speed"])
 	_perception_spin.value = stats.get("perception", PhiliaStats.DEFAULT_STATS["perception"])
+	_load_behavior_form(tmpl.get("behavior", {}))
 	_capacity_spin.value = tmpl.get("inventory_capacity", 0)
 	_pending_inventory = []
 	for entry in tmpl.get("inventory", []):
@@ -196,8 +212,36 @@ func _on_template_selected(index: int) -> void:
 func _clear_template_form() -> void:
 	_template_id_edit.text = ""
 	_selected_template_id = ""
+	_load_behavior_form({})
 	_pending_inventory.clear()
 	_refresh_inventory_list()
+
+
+## Remplit les champs Comportement depuis le dict "behavior" d'un gabarit
+## (ou les valeurs par défaut de PhiliaBehavior si absent/vide).
+func _load_behavior_form(behavior_cfg: Dictionary) -> void:
+	var preset_index := BEHAVIOR_PRESETS.find(String(behavior_cfg.get("preset", "passive")))
+	_behavior_preset_option.select(maxi(preset_index, 0))
+	_behavior_action_edit.text = behavior_cfg.get("action", "attack")
+	_behavior_detection_spin.value = behavior_cfg.get("detection_radius", 6.0)
+	_behavior_action_radius_spin.value = behavior_cfg.get("action_radius", 1.5)
+	_behavior_move_speed_spin.value = behavior_cfg.get("move_speed", 1.5)
+	_behavior_cooldown_spin.value = behavior_cfg.get("action_cooldown", 1.0)
+	_behavior_wander_radius_spin.value = behavior_cfg.get("wander_radius", 4.0)
+	_behavior_flee_ratio_spin.value = behavior_cfg.get("flee_hp_ratio", 0.3)
+
+
+func _behavior_form_to_dict() -> Dictionary:
+	return {
+		"preset": BEHAVIOR_PRESETS[_behavior_preset_option.selected],
+		"action": _behavior_action_edit.text.strip_edges(),
+		"detection_radius": _behavior_detection_spin.value,
+		"action_radius": _behavior_action_radius_spin.value,
+		"move_speed": _behavior_move_speed_spin.value,
+		"action_cooldown": _behavior_cooldown_spin.value,
+		"wander_radius": _behavior_wander_radius_spin.value,
+		"flee_hp_ratio": _behavior_flee_ratio_spin.value,
+	}
 
 
 func _refresh_inventory_list() -> void:
@@ -236,6 +280,7 @@ func _on_apply_template_pressed() -> void:
 			"hp": _hp_spin.value, "max_hp": _max_hp_spin.value, "force": _force_spin.value,
 			"speed": _speed_spin.value, "perception": _perception_spin.value,
 		},
+		"behavior": _behavior_form_to_dict(),
 		"inventory": _pending_inventory.duplicate(true),
 		"inventory_capacity": int(_capacity_spin.value),
 	}

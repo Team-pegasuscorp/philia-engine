@@ -12,6 +12,7 @@ var _failures := 0
 
 func _initialize() -> void:
 	_test_instantiate_stats_and_inventory()
+	_test_instantiate_behavior_config()
 	_test_get_quest_and_dialogue()
 	_test_disk_round_trip()
 
@@ -35,6 +36,7 @@ func _make_data() -> PhiliaGameplayData:
 	var data := PhiliaGameplayData.new()
 	data.entity_templates["wolf"] = {
 		"stats": {"hp": 8.0, "max_hp": 8.0, "force": 3.0},
+		"behavior": {"preset": "aggressive", "detection_radius": 6.0, "action": "bite"},
 		"inventory": [{"item": "pelt", "quantity": 1}],
 		"inventory_capacity": 4,
 	}
@@ -55,6 +57,19 @@ func _test_instantiate_stats_and_inventory() -> void:
 
 	var default_stats := data.instantiate_stats("inconnu")
 	_check(default_stats.get_stat("hp") == PhiliaStats.DEFAULT_STATS["hp"], "gabarit inconnu -> stats par défaut")
+
+
+func _test_instantiate_behavior_config() -> void:
+	print("PhiliaGameplayData: instantiate_behavior_config")
+	var data := _make_data()
+	var cfg := data.instantiate_behavior_config("wolf")
+	_check(cfg.get("preset") == "aggressive" and cfg.get("action") == "bite", "config comportement reprise du gabarit")
+
+	var behavior := PhiliaBehavior.new()
+	behavior.configure(cfg)
+	_check(behavior.preset == PhiliaBehavior.Preset.AGGRESSIVE, "utilisable directement par PhiliaBehavior.configure()")
+
+	_check(data.instantiate_behavior_config("inconnu").is_empty(), "gabarit inconnu -> dict vide")
 
 
 func _test_get_quest_and_dialogue() -> void:
