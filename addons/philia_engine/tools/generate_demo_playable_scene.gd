@@ -16,7 +16,7 @@ const PLAYER_SCRIPT_PATH := "res://scenes/demo_playable/player.gd"
 const ENEMY_SCRIPT_PATH := "res://scenes/demo_playable/enemy.gd"
 const HUD_SCRIPT_PATH := "res://scenes/demo_playable/hud.gd"
 const OUTPUT_PATH := "res://scenes/demo_playable.tscn"
-const GROUND_SIZE := 20.0
+const GROUND_SIZE := 40.0
 
 
 func _initialize() -> void:
