@@ -1,8 +1,8 @@
 @tool
-class_name ArkMap
+class_name PhiliaMap
 extends RefCounted
 
-## Modèle de données d'une carte .arkmap : générique, indépendant du jeu qui l'importe.
+## Modèle de données d'une carte .philiamap : générique, indépendant du jeu qui l'importe.
 ## Sérialisé en JSON lisible (voir docs/concept.md §21.2) pour rester diffable/mergeable.
 
 const FORMAT_VERSION := 1
@@ -22,8 +22,8 @@ func to_dict() -> Dictionary:
 	}
 
 
-static func from_dict(data: Dictionary) -> ArkMap:
-	var map := ArkMap.new()
+static func from_dict(data: Dictionary) -> PhiliaMap:
+	var map := PhiliaMap.new()
 	map.format_version = data.get("format_version", FORMAT_VERSION)
 	map.seed = data.get("seed", 0)
 	map.tiles.assign(data.get("tiles", []))
@@ -39,7 +39,7 @@ func save(path: String) -> Error:
 	return OK
 
 
-static func load(path: String) -> ArkMap:
+static func load(path: String) -> PhiliaMap:
 	if not FileAccess.file_exists(path):
 		return null
 	var file := FileAccess.open(path, FileAccess.READ)

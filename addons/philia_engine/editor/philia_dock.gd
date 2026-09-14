@@ -11,5 +11,5 @@ func _ready() -> void:
 
 
 func _on_new_map_pressed() -> void:
-	var map := ArkMap.new()
+	var map := PhiliaMap.new()
 	_status_label.text = "Carte vide créée (%d tuiles, %d entités)" % [map.tiles.size(), map.entities.size()]

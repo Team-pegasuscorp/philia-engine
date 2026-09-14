@@ -1,13 +1,13 @@
 @tool
 extends EditorPlugin
 
-const ArknoidDock := preload("res://addons/arknoid_engine/editor/arknoid_dock.tscn")
+const PhiliaDock := preload("res://addons/philia_engine/editor/philia_dock.tscn")
 
 var _dock: Control
 
 
 func _enter_tree() -> void:
-	_dock = ArknoidDock.instantiate()
+	_dock = PhiliaDock.instantiate()
 	add_control_to_dock(DOCK_SLOT_LEFT_UR, _dock)
 
 

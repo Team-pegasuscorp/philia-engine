@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blf8atqmyc3f4"
-path="res://.godot/imported/plugin_icon.svg-7c01748cf8bf9e9a4c3f26b5adfb1d03.ctex"
+path="res://.godot/imported/plugin_icon.svg-f9e2ad950b1912e8dc6f6fb20a79a6d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/arknoid_engine/icons/plugin_icon.svg"
-dest_files=["res://.godot/imported/plugin_icon.svg-7c01748cf8bf9e9a4c3f26b5adfb1d03.ctex"]
+source_file="res://addons/philia_engine/icons/plugin_icon.svg"
+dest_files=["res://.godot/imported/plugin_icon.svg-f9e2ad950b1912e8dc6f6fb20a79a6d1.ctex"]
 
 [params]
 

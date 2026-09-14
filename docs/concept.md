@@ -1,4 +1,4 @@
-# Arknoid Engine — Concept & Architecture
+# Philia-Engine — Concept & Architecture
 
 ## Vision
 
@@ -11,7 +11,7 @@ L'objectif n'est pas de remplacer Godot, mais de construire une couche spéciali
 # 1. Architecture générale
 
 ```text
-                 ARKNOID ENGINE
+                 PHILIA ENGINE
         ┌─────────────────────────┐
         │ Éditeur de niveaux      │
         │ Génération procédurale  │
@@ -33,7 +33,7 @@ L'objectif n'est pas de remplacer Godot, mais de construire une couche spéciali
         └─────────────────────────┘
 ```
 
-Godot reste le moteur technique. Arknoid Engine constitue la couche de création et d'abstraction.
+Godot reste le moteur technique. Philia-Engine constitue la couche de création et d'abstraction.
 
 ---
 
@@ -61,10 +61,10 @@ L'éditeur permet de construire une carte en plaçant des éléments sur une gri
 Une carte peut être sauvegardée dans un format propriétaire, par exemple :
 
 ```text
-MyWorld.arkmap
+MyWorld.philiamap
 ```
 
-L'idée importante est que `.arkmap` ne soit pas une scène Godot. Le format décrit le monde de manière générique afin qu'il puisse être importé dans plusieurs jeux.
+L'idée importante est que `.philiamap` ne soit pas une scène Godot. Le format décrit le monde de manière générique afin qu'il puisse être importé dans plusieurs jeux.
 
 ---
 
@@ -479,7 +479,7 @@ Godot peut gérer :
 - retargeting
 - bibliothèques d'animations
 
-Arknoid Engine peut gérer la logique et les standards.
+Philia-Engine peut gérer la logique et les standards.
 
 Exemple :
 
@@ -536,7 +536,7 @@ Retargeting
 Personnage animé
 ```
 
-Arknoid Engine pourrait définir des standards :
+Philia-Engine pourrait définir des standards :
 
 ```text
 Humanoid
@@ -592,10 +592,10 @@ Le moteur orchestre le comportement, tandis que Godot réalise l'animation.
 
 # 16. Réutilisation entre plusieurs jeux
 
-Le but principal du format `.arkmap` est de permettre de réutiliser une même carte dans différents projets.
+Le but principal du format `.philiamap` est de permettre de réutiliser une même carte dans différents projets.
 
 ```text
-             .ARKMAP
+             .PHILIAMAP
                  │
         ┌────────┼────────┐
         ↓        ↓        ↓
@@ -627,10 +627,10 @@ capital_pirate/
 │   └── metal_01_orm.png
 │
 ├── shapes/
-│   └── wall_ribbed.arkshape
+│   └── wall_ribbed.philiashape
 │
 ├── materials/
-│   └── rusty_metal.arkmaterial
+│   └── rusty_metal.philiamaterial
 │
 ├── tiles/
 │   └── tileset.json
@@ -693,7 +693,7 @@ Le catalogue d'assets peut donc alimenter directement le logiciel.
 - Placement
 - Suppression
 - Rotation
-- Sauvegarde `.arkmap`
+- Sauvegarde `.philiamap`
 - Export JSON
 - Import dans Godot
 
@@ -764,7 +764,7 @@ Godot fournit :
 - navigation
 - ressources
 
-Arknoid Engine fournit :
+Philia-Engine fournit :
 
 - workflow
 - format de monde
@@ -782,7 +782,7 @@ Le projet peut commencer comme un simple **éditeur de niveaux Godot**, puis év
 
 Le premier objectif raisonnable reste :
 
-> **Créer une carte → sauvegarder `.arkmap` → l'importer dans un jeu Godot.**
+> **Créer une carte → sauvegarder `.philiamap` → l'importer dans un jeu Godot.**
 
 Tout le reste peut être ajouté progressivement autour de cette base.
 
@@ -811,10 +811,10 @@ Points de vigilance :
 
 ## 21.2 Base de données facilement partageable
 
-Le format `.arkmap` (et les assets `.arkshape` / `.arkmaterial`) doivent rester des **fichiers texte structurés (JSON ou équivalent lisible)**, pas des blobs binaires :
+Le format `.philiamap` (et les assets `.philiashape` / `.philiamaterial`) doivent rester des **fichiers texte structurés (JSON ou équivalent lisible)**, pas des blobs binaires :
 
 ```text
-.arkmap, .arkshape, .arkmaterial
+.philiamap, .philiashape, .philiamaterial
  → JSON / texte
  → diffable et mergeable dans un système de version
  → pas de format propriétaire opaque
@@ -833,7 +833,7 @@ C'est l'exigence qui doit le plus influencer l'architecture : **toute action pos
 
 ```text
 GUI (humain)  ─┐
-                ├─→  API / CLI interne  →  moteur Arknoid
+                ├─→  API / CLI interne  →  moteur Philia
 Agent IA      ─┘
 ```
 
@@ -841,7 +841,7 @@ Concrètement :
 
 - Un mode `--headless` (comme dans SpaceRPG) qui expose les mêmes opérations que l'UI : créer une tuile, placer une entité, générer un rocher, exporter une carte — en ligne de commande ou via un petit serveur local (JSON-RPC/HTTP).
 - Chaque commande a une sortie structurée (JSON) et un code de retour exploitable par un script, pas seulement du texte pour humain.
-- Le format `.arkmap` étant déjà du JSON lisible (§21.2), un agent peut le lire/modifier directement sans passer par l'éditeur — mais l'API reste préférable dès qu'il y a de la génération procédurale (seeds, validation) à respecter.
+- Le format `.philiamap` étant déjà du JSON lisible (§21.2), un agent peut le lire/modifier directement sans passer par l'éditeur — mais l'API reste préférable dès qu'il y a de la génération procédurale (seeds, validation) à respecter.
 - Éviter toute fonctionnalité qui n'existerait *que* dans un menu GUI : chaque nouvelle feature de l'éditeur doit être pensée "commande d'abord, bouton ensuite".
 
 Cette approche évite l'écueil déjà rencontré ailleurs (SpaceRPG) où un contrôle headless ne peut pas cliquer sur des boutons d'UI — ici l'agent n'a jamais besoin de cliquer, il appelle directement la commande.

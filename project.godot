@@ -10,15 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Arknoid Engine"
+config/name="Philia-Engine"
 config/description="Éditeur de niveaux/mondes spécialisé au-dessus de Godot."
 run/main_scene=""
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://addons/arknoid_engine/icons/plugin_icon.svg"
+config/icon="res://addons/philia_engine/icons/plugin_icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/arknoid_engine/plugin.cfg")
+enabled=PackedStringArray("res://addons/philia_engine/plugin.cfg")
 
 [rendering]
 
