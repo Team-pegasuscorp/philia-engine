@@ -38,6 +38,17 @@ const MODULE_FOOTPRINTS: Dictionary = {
 	"Machine": Vector2i(2, 2),
 }
 
+## Matériau par défaut (chemin vers une ressource PhiliaMaterial, §6) pour
+## un type de module, remplaçable au cas par cas via le champ optionnel
+## "material" d'une tuile. Uniquement pour les modules non-autotile pour
+## l'instant — les terrains autotile (Sol/Mur/Terrain) sont rendus par le
+## TileSet partagé, pas par tuile individuelle.
+const DEFAULT_MATERIALS: Dictionary = {
+	"Pilier": "res://addons/philia_engine/assets/materials/stone.tres",
+	"Caisse": "res://addons/philia_engine/assets/materials/wood.tres",
+	"Machine": "res://addons/philia_engine/assets/materials/rusty_metal.tres",
+}
+
 var format_version: int = FORMAT_VERSION
 var seed: int = 0
 var layers: Array[String] = [DEFAULT_LAYER]
@@ -194,6 +205,15 @@ static func is_solid(tile: Dictionary) -> bool:
 	if tile.has("solid"):
 		return bool(tile["solid"])
 	return DEFAULT_SOLID_TYPES.has(tile.get("type", ""))
+
+
+## Chemin vers la ressource PhiliaMaterial à utiliser pour cette tuile, ou
+## "" si aucun matériau n'est défini (le rendu retombe sur une couleur de
+## secours de la palette).
+static func material_for(tile: Dictionary) -> String:
+	if tile.has("material"):
+		return String(tile["material"])
+	return DEFAULT_MATERIALS.get(tile.get("type", ""), "")
 
 
 func save(path: String) -> Error:

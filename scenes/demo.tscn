@@ -8,57 +8,59 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l20p6"]
 size = Vector2(32, 32)
 
-[node name="PhiliaMap" type="Node2D" unique_id=1729023651]
+[node name="PhiliaMap" type="Node2D" unique_id=334085592]
 metadata/philia_format_version = 4
 metadata/philia_seed = 42
 
-[node name="Tiles" type="Node2D" parent="." unique_id=482611856]
+[node name="Tiles" type="Node2D" parent="." unique_id=1772920923]
 
-[node name="Sol" type="Node2D" parent="Tiles" unique_id=33662835]
+[node name="Sol" type="Node2D" parent="Tiles" unique_id=2107048961]
 
-[node name="Tile_3_2" type="Node2D" parent="Tiles/Sol" unique_id=999199390]
+[node name="Tile_3_2" type="Node2D" parent="Tiles/Sol" unique_id=145443469]
 position = Vector2(112, 80)
 metadata/philia_type = "Pilier"
 metadata/philia_solid = true
+metadata/philia_material = "res://addons/philia_engine/assets/materials/stone.tres"
 
-[node name="Preview" type="ColorRect" parent="Tiles/Sol/Tile_3_2" unique_id=225804752]
+[node name="Preview" type="ColorRect" parent="Tiles/Sol/Tile_3_2" unique_id=438761880]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
-color = Color(0.5, 0.35, 0.55, 1)
+color = Color(0.55, 0.53, 0.5, 1)
 
-[node name="Collision" type="StaticBody2D" parent="Tiles/Sol/Tile_3_2" unique_id=154503328]
+[node name="Collision" type="StaticBody2D" parent="Tiles/Sol/Tile_3_2" unique_id=1766727583]
 
-[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="Tiles/Sol/Tile_3_2/Collision" unique_id=1149193192]
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="Tiles/Sol/Tile_3_2/Collision" unique_id=100213679]
 shape = SubResource("RectangleShape2D_ba4lm")
 
-[node name="Tile_5_3" type="Node2D" parent="Tiles/Sol" unique_id=1866709605]
+[node name="Tile_5_3" type="Node2D" parent="Tiles/Sol" unique_id=791949015]
 position = Vector2(176, 112)
 metadata/philia_type = "Caisse"
 metadata/philia_solid = true
+metadata/philia_material = "res://addons/philia_engine/assets/materials/wood.tres"
 
-[node name="Preview" type="ColorRect" parent="Tiles/Sol/Tile_5_3" unique_id=1005058358]
+[node name="Preview" type="ColorRect" parent="Tiles/Sol/Tile_5_3" unique_id=960772418]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
-color = Color(0.6, 0.45, 0.25, 1)
+color = Color(0.45, 0.3, 0.18, 1)
 
-[node name="Collision" type="StaticBody2D" parent="Tiles/Sol/Tile_5_3" unique_id=1938355258]
+[node name="Collision" type="StaticBody2D" parent="Tiles/Sol/Tile_5_3" unique_id=1076455189]
 
-[node name="@CollisionShape2D@3" type="CollisionShape2D" parent="Tiles/Sol/Tile_5_3/Collision" unique_id=2037322399]
+[node name="@CollisionShape2D@3" type="CollisionShape2D" parent="Tiles/Sol/Tile_5_3/Collision" unique_id=1956668844]
 shape = SubResource("RectangleShape2D_l20p6")
 
-[node name="Tile_4_5" type="Node2D" parent="Tiles/Sol" unique_id=1428865551]
+[node name="Tile_4_5" type="Node2D" parent="Tiles/Sol" unique_id=709398879]
 position = Vector2(160, 176)
 metadata/philia_type = "Porte"
 metadata/philia_solid = false
 metadata/philia_footprint = Vector2i(2, 1)
 
-[node name="Preview" type="ColorRect" parent="Tiles/Sol/Tile_4_5" unique_id=1875821723]
+[node name="Preview" type="ColorRect" parent="Tiles/Sol/Tile_4_5" unique_id=2054389028]
 offset_left = -32.0
 offset_top = -16.0
 offset_right = 32.0
@@ -66,17 +68,17 @@ offset_bottom = 16.0
 mouse_filter = 2
 color = Color(0.6, 0.4, 0.2, 1)
 
-[node name="Terrain" type="TileMapLayer" parent="Tiles/Sol" unique_id=194509581]
+[node name="Terrain" type="TileMapLayer" parent="Tiles/Sol" unique_id=1238738753]
 tile_map_data = PackedByteArray("AAAHAAQAAAAFAAEAAAAAAAQAAAAFAAEAAAAHAAMAAAAFAAEAAAAAAAMAAAAFAAEAAAAHAAIAAAAFAAEAAAAAAAIAAAAFAAEAAAAHAAEAAAAFAAEAAAAAAAEAAAAFAAEAAAAHAAUAAAAJAAEAAAAHAAAAAAAMAAEAAAAGAAUAAAACAAEAAAAGAAAAAAAKAAEAAAAFAAAAAAAKAAEAAAAEAAAAAAAKAAEAAAADAAUAAAAIAAEAAAADAAAAAAAKAAEAAAACAAUAAAAKAAEAAAACAAAAAAAKAAEAAAABAAUAAAAKAAEAAAABAAAAAAAKAAEAAAAAAAUAAAADAAEAAAAAAAAAAAAGAAEAAAAGAAQAAAAJAAAAAAAGAAMAAAAFAAAAAAAGAAIAAAANAAAAAAAGAAEAAAAMAAAAAAAFAAQAAAAKAAAAAAAFAAIAAAALAAAAAAAFAAEAAAAOAAAAAAAEAAQAAAALAAAAAAAEAAMAAAANAAAAAAAEAAIAAAAHAAAAAAAEAAEAAAAOAAAAAAADAAQAAAALAAAAAAADAAMAAAAOAAAAAAADAAEAAAAKAAAAAAACAAQAAAALAAAAAAACAAMAAAAPAAAAAAACAAIAAAANAAAAAAACAAEAAAAOAAAAAAABAAQAAAADAAAAAAABAAMAAAAHAAAAAAABAAIAAAAHAAAAAAABAAEAAAAGAAAAAAA=")
 tile_set = ExtResource("1_tqfh0")
 
-[node name="Entities" type="Node2D" parent="." unique_id=122706172]
+[node name="Entities" type="Node2D" parent="." unique_id=1513402412]
 
-[node name="wolf_01" type="Node2D" parent="Entities" unique_id=391106938]
+[node name="wolf_01" type="Node2D" parent="Entities" unique_id=450505959]
 position = Vector2(64, 96)
 rotation = 1.5707964
 metadata/philia_entity = "wolf_01"
 metadata/philia_entity_state = "idle"
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1434154191]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=678914163]
 position = Vector2(128, 96)

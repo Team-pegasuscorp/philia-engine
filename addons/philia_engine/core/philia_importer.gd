@@ -105,11 +105,18 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	if w > 1 or h > 1:
 		node.set_meta("philia_footprint", Vector2i(w, h))
 
+	var material_path := PhiliaMap.material_for(tile)
+	var material: PhiliaMaterial = null
+	if material_path != "" and ResourceLoader.exists(material_path):
+		material = load(material_path)
+	if material:
+		node.set_meta("philia_material", material_path)
+
 	var preview := ColorRect.new()
 	preview.name = "Preview"
 	preview.size = footprint_size
 	preview.position = footprint_size * -0.5
-	preview.color = TILE_COLORS.get(type, Color.GRAY)
+	preview.color = material.albedo_color if material else TILE_COLORS.get(type, Color.GRAY)
 	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	node.add_child(preview)
 	preview.owner = node

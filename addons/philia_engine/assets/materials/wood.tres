@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PhiliaMaterial" format=3]
+
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_material.gd" id="1_rmp8x"]
+
+[resource]
+script = ExtResource("1_rmp8x")
+albedo_color = Color(0.45, 0.3, 0.18, 1)
+roughness = 0.7
