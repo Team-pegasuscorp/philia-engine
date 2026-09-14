@@ -49,7 +49,11 @@ func _physics_process(delta: float) -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not (event is InputEventKey) or not event.pressed or event.echo:
 		return
-	match (event as InputEventKey).keycode:
+	## physical_keycode = position de la touche, indépendante de la
+	## disposition clavier (keycode dépend de la disposition — sur AZERTY,
+	## la rangée de chiffres sans Shift envoie "&"/"é"/'"'..., jamais
+	## KEY_1/2/3, donc le match sur .keycode ne marchait jamais).
+	match (event as InputEventKey).physical_keycode:
 		KEY_F:
 			attack_requested.emit()
 		KEY_1:
