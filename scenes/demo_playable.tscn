@@ -1,11 +1,11 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bqc5jr0jmjr2r"]
 
-[ext_resource type="Script" path="res://scenes/demo_playable/controller.gd" id="1_g2sg3"]
-[ext_resource type="Script" path="res://scenes/demo_playable/player.gd" id="2_f8gmj"]
+[ext_resource type="Script" uid="uid://88fdib03sbxn" path="res://scenes/demo_playable/controller.gd" id="1_g2sg3"]
+[ext_resource type="Script" uid="uid://bcgksctqbepky" path="res://scenes/demo_playable/player.gd" id="2_f8gmj"]
 [ext_resource type="PackedScene" path="res://characters/quaternius/demo_character.tscn" id="3_ec3rx"]
-[ext_resource type="Script" path="res://scenes/demo_playable/enemy.gd" id="4_ujhyr"]
-[ext_resource type="Script" path="res://addons/philia_engine/core/philia_trigger_area_3d.gd" id="5_idenb"]
-[ext_resource type="Script" path="res://scenes/demo_playable/hud.gd" id="6_sdn8o"]
+[ext_resource type="Script" uid="uid://yb2gdixam3u5" path="res://scenes/demo_playable/enemy.gd" id="4_ujhyr"]
+[ext_resource type="Script" uid="uid://vogyw8hc6tem" path="res://addons/philia_engine/core/philia_trigger_area_3d.gd" id="5_idenb"]
+[ext_resource type="Script" uid="uid://cqsn2gxmq4t4l" path="res://scenes/demo_playable/hud.gd" id="6_sdn8o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14nfw"]
 albedo_color = Color(0.35, 0.55, 0.35, 1)
@@ -48,7 +48,7 @@ script = ExtResource("2_f8gmj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_0acos")
 
-[node name="CharacterInstance" type="Node3D" parent="Player" unique_id=84295138 instance=ExtResource("3_ec3rx")]
+[node name="CharacterInstance" parent="Player" unique_id=84295138 instance=ExtResource("3_ec3rx")]
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1192586041]
 transform = Transform3D(1, 0, 0, 0, 0.9135454, 0.40673664, 0, -0.40673664, 0.9135454, 0, 2.6, 4.5)
@@ -58,7 +58,7 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 script = ExtResource("4_ujhyr")
 
-[node name="CharacterInstance" type="Node3D" parent="Wolf" unique_id=1541095366 instance=ExtResource("3_ec3rx")]
+[node name="CharacterInstance" parent="Wolf" unique_id=1541095366 instance=ExtResource("3_ec3rx")]
 
 [node name="GuardTrigger" type="Area3D" parent="." unique_id=1350747130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)

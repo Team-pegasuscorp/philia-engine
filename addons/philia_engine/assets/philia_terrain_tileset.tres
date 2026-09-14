@@ -1,6 +1,6 @@
-[gd_resource type="TileSet" format=3]
+[gd_resource type="TileSet" format=3 uid="uid://ylhwcsojsnww"]
 
-[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/terrain_atlas.png" id="1_78jtd"]
+[ext_resource type="Texture2D" uid="uid://gdq2w8ot2kee" path="res://addons/philia_engine/assets/terrain_atlas.png" id="1_78jtd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5y13l"]
 texture = ExtResource("1_78jtd")
