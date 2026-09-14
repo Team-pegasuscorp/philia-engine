@@ -19,6 +19,8 @@ const DEFAULT_MAP_PATH := "res://maps/example.philiamap"
 @onready var _save_button: Button = %SaveMapButton
 @onready var _load_button: Button = %LoadMapButton
 @onready var _import_button: Button = %ImportSceneButton
+@onready var _undo_button: Button = %UndoButton
+@onready var _redo_button: Button = %RedoButton
 @onready var _layer_option: OptionButton = %LayerOption
 @onready var _new_layer_edit: LineEdit = %NewLayerEdit
 @onready var _add_layer_button: Button = %AddLayerButton
@@ -37,13 +39,52 @@ func _ready() -> void:
 	_import_button.pressed.connect(_on_import_pressed)
 	_add_layer_button.pressed.connect(_on_add_layer_pressed)
 	_layer_option.item_selected.connect(_on_layer_selected)
+	_undo_button.pressed.connect(_on_undo_pressed)
+	_redo_button.pressed.connect(_on_redo_pressed)
+	_canvas.undo_stack.changed.connect(_refresh_undo_redo_buttons)
 
 	_canvas.tile_placed.connect(_on_map_changed)
 	_canvas.tile_removed.connect(_on_map_changed)
 	_canvas.tile_rotated.connect(_on_map_changed)
 
 	_refresh_layers()
+	_refresh_undo_redo_buttons()
 	_update_status()
+
+
+## Ctrl+Z / Ctrl+Y (actions ui_undo/ui_redo par défaut de Godot) — seulement
+## quand ce dock est réellement affiché, pour ne pas intercepter l'undo/redo
+## natif de l'éditeur ailleurs (édition de scène, script...).
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
+	if event.is_action_pressed("ui_undo"):
+		_on_undo_pressed()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_redo"):
+		_on_redo_pressed()
+		get_viewport().set_input_as_handled()
+
+
+func _on_undo_pressed() -> void:
+	if not _canvas.undo_stack.can_undo():
+		return
+	_canvas.restore_map(PhiliaMap.from_dict(_canvas.undo_stack.undo(_canvas.map.to_dict())))
+	_refresh_layers()
+	_update_status()
+
+
+func _on_redo_pressed() -> void:
+	if not _canvas.undo_stack.can_redo():
+		return
+	_canvas.restore_map(PhiliaMap.from_dict(_canvas.undo_stack.redo(_canvas.map.to_dict())))
+	_refresh_layers()
+	_update_status()
+
+
+func _refresh_undo_redo_buttons() -> void:
+	_undo_button.disabled = not _canvas.undo_stack.can_undo()
+	_redo_button.disabled = not _canvas.undo_stack.can_redo()
 
 
 func set_status(text: String) -> void:
@@ -66,6 +107,7 @@ func _on_add_layer_pressed() -> void:
 	var layer_name := _new_layer_edit.text.strip_edges()
 	if layer_name.is_empty():
 		return
+	_canvas.undo_stack.push(_canvas.map.to_dict())
 	_canvas.map.add_layer(layer_name)
 	_new_layer_edit.text = ""
 	_refresh_layers()

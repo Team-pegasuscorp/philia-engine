@@ -44,6 +44,7 @@ var map: PhiliaMap = PhiliaMap.new()
 var selected_type: String = "Sol"
 var active_layer: String = PhiliaMap.DEFAULT_LAYER
 var hovered_cell: Vector2i = Vector2i(-1, -1)
+var undo_stack := PhiliaUndoStack.new()  ## instantané de map.to_dict() poussé avant chaque mutation ci-dessous
 
 
 func _ready() -> void:
@@ -52,7 +53,16 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 
+## Nouveau document (Nouveau/Charger) : réinitialise l'historique
+## d'annulation, un nouveau fichier n'a pas de passé à annuler.
 func set_map(new_map: PhiliaMap) -> void:
+	restore_map(new_map)
+	undo_stack.clear()
+
+
+## Comme set_map(), mais sans toucher à l'historique — utilisé par le dock
+## pour appliquer un instantané restauré via undo_stack.undo()/redo().
+func restore_map(new_map: PhiliaMap) -> void:
 	map = new_map
 	if not map.layers.has(active_layer):
 		active_layer = map.layers[0]
@@ -133,15 +143,18 @@ func _gui_input(event: InputEvent) -> void:
 		if not _is_in_bounds(cell):
 			return
 		if event.button_index == MOUSE_BUTTON_LEFT:
+			undo_stack.push(map.to_dict())
 			map.set_tile(cell.x, cell.y, selected_type, 0, active_layer)
 			tile_placed.emit(cell.x, cell.y, selected_type)
 			queue_redraw()
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			undo_stack.push(map.to_dict())
 			map.remove_tile(cell.x, cell.y, active_layer)
 			tile_removed.emit(cell.x, cell.y)
 			queue_redraw()
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		if _is_in_bounds(hovered_cell):
+			undo_stack.push(map.to_dict())
 			map.rotate_tile(hovered_cell.x, hovered_cell.y, active_layer)
 			tile_rotated.emit(hovered_cell.x, hovered_cell.y)
 			queue_redraw()

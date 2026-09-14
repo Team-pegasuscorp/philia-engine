@@ -20,6 +20,8 @@ const BEHAVIOR_PRESET_LABELS: Array[String] = ["Passif", "Erratique", "Agressif"
 @onready var _new_button: Button = %NewButton
 @onready var _save_button: Button = %SaveButton
 @onready var _load_button: Button = %LoadButton
+@onready var _undo_button: Button = %UndoButton
+@onready var _redo_button: Button = %RedoButton
 @onready var _status_label: Label = %StatusLabel
 
 @onready var _template_list: ItemList = %TemplateList
@@ -81,6 +83,8 @@ var _selected_template_id := ""
 var _selected_quest_id := ""
 var _selected_dialogue_id := ""
 
+var _undo_stack := PhiliaUndoStack.new()  ## instantané de data.to_dict() poussé avant chaque mutation
+
 
 func _ready() -> void:
 	_path_edit.text = DEFAULT_PATH
@@ -90,6 +94,9 @@ func _ready() -> void:
 	_new_button.pressed.connect(_on_new_pressed)
 	_save_button.pressed.connect(_on_save_pressed)
 	_load_button.pressed.connect(_on_load_pressed)
+	_undo_button.pressed.connect(_on_undo_pressed)
+	_redo_button.pressed.connect(_on_redo_pressed)
+	_undo_stack.changed.connect(_refresh_undo_redo_buttons)
 
 	_template_list.item_selected.connect(_on_template_selected)
 	_add_item_button.pressed.connect(_on_add_item_pressed)
@@ -114,6 +121,46 @@ func _ready() -> void:
 	_dialogue_graph.disconnection_request.connect(_on_disconnection_request)
 
 	_refresh_all()
+	_refresh_undo_redo_buttons()
+
+
+## Ctrl+Z / Ctrl+Y (actions ui_undo/ui_redo par défaut de Godot) — seulement
+## quand ce dock est réellement affiché, même principe que
+## editor/philia_dock.gd (ne pas intercepter l'undo/redo natif ailleurs).
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
+	if event.is_action_pressed("ui_undo"):
+		_on_undo_pressed()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_redo"):
+		_on_redo_pressed()
+		get_viewport().set_input_as_handled()
+
+
+func _on_undo_pressed() -> void:
+	if not _undo_stack.can_undo():
+		return
+	data = PhiliaGameplayData.from_dict(_undo_stack.undo(data.to_dict()))
+	_clear_template_form()
+	_clear_quest_form()
+	_clear_dialogue_form()
+	_refresh_all()
+
+
+func _on_redo_pressed() -> void:
+	if not _undo_stack.can_redo():
+		return
+	data = PhiliaGameplayData.from_dict(_undo_stack.redo(data.to_dict()))
+	_clear_template_form()
+	_clear_quest_form()
+	_clear_dialogue_form()
+	_refresh_all()
+
+
+func _refresh_undo_redo_buttons() -> void:
+	_undo_button.disabled = not _undo_stack.can_undo()
+	_redo_button.disabled = not _undo_stack.can_redo()
 
 
 func _update_status(message: String = "") -> void:
@@ -134,6 +181,7 @@ func _refresh_all() -> void:
 
 func _on_new_pressed() -> void:
 	data = PhiliaGameplayData.new()
+	_undo_stack.clear()
 	_clear_template_form()
 	_clear_quest_form()
 	_clear_dialogue_form()
@@ -158,6 +206,7 @@ func _on_load_pressed() -> void:
 		_status_label.text = "Impossible de charger %s" % path
 		return
 	data = loaded
+	_undo_stack.clear()
 	_clear_template_form()
 	_clear_quest_form()
 	_clear_dialogue_form()
@@ -174,6 +223,7 @@ func _refresh_template_list() -> void:
 
 
 func _on_new_template_pressed() -> void:
+	_undo_stack.push(data.to_dict())
 	var template_id := _unique_id(data.entity_templates, "gabarit")
 	data.entity_templates[template_id] = {"stats": {}, "inventory": [], "inventory_capacity": 0}
 	_refresh_template_list()
@@ -185,6 +235,7 @@ func _on_delete_template_pressed() -> void:
 	var selected := _template_list.get_selected_items()
 	if selected.is_empty():
 		return
+	_undo_stack.push(data.to_dict())
 	data.entity_templates.erase(_template_list.get_item_text(selected[0]))
 	_refresh_template_list()
 	_clear_template_form()
@@ -271,6 +322,7 @@ func _on_apply_template_pressed() -> void:
 	var template_id := _template_id_edit.text.strip_edges()
 	if template_id.is_empty():
 		return
+	_undo_stack.push(data.to_dict())
 	## L'id a changé depuis le chargement -> renomme (retire l'ancienne
 	## entrée) plutôt que de laisser une entrée fantôme sous l'ancien id.
 	if _selected_template_id != "" and _selected_template_id != template_id:
@@ -299,6 +351,7 @@ func _refresh_quest_list() -> void:
 
 
 func _on_new_quest_pressed() -> void:
+	_undo_stack.push(data.to_dict())
 	var quest_id := _unique_id(data.quests, "quete")
 	data.quests[quest_id] = PhiliaQuest.new(quest_id, []).to_dict()
 	_refresh_quest_list()
@@ -310,6 +363,7 @@ func _on_delete_quest_pressed() -> void:
 	var selected := _quest_list.get_selected_items()
 	if selected.is_empty():
 		return
+	_undo_stack.push(data.to_dict())
 	data.quests.erase(_quest_list.get_item_text(selected[0]))
 	_refresh_quest_list()
 	_clear_quest_form()
@@ -360,6 +414,7 @@ func _on_apply_quest_pressed() -> void:
 	var quest_id := _quest_id_edit.text.strip_edges()
 	if quest_id.is_empty():
 		return
+	_undo_stack.push(data.to_dict())
 	if _selected_quest_id != "" and _selected_quest_id != quest_id:
 		data.quests.erase(_selected_quest_id)
 	data.quests[quest_id] = {
@@ -382,6 +437,7 @@ func _refresh_dialogue_list() -> void:
 
 
 func _on_new_dialogue_pressed() -> void:
+	_undo_stack.push(data.to_dict())
 	var dialogue_id := _unique_id(data.dialogues, "dialogue")
 	data.dialogues[dialogue_id] = {"id": dialogue_id, "start": "", "nodes": {}}
 	_refresh_dialogue_list()
@@ -393,6 +449,7 @@ func _on_delete_dialogue_pressed() -> void:
 	var selected := _dialogue_list.get_selected_items()
 	if selected.is_empty():
 		return
+	_undo_stack.push(data.to_dict())
 	data.dialogues.erase(_dialogue_list.get_item_text(selected[0]))
 	_refresh_dialogue_list()
 	_clear_dialogue_form()
@@ -546,6 +603,7 @@ func _on_apply_dialogue_pressed() -> void:
 	var dialogue_id := _dialogue_id_edit.text.strip_edges()
 	if dialogue_id.is_empty():
 		return
+	_undo_stack.push(data.to_dict())
 	if _selected_dialogue_id != "" and _selected_dialogue_id != dialogue_id:
 		data.dialogues.erase(_selected_dialogue_id)
 	data.dialogues[dialogue_id] = serialize_dialogue_graph()

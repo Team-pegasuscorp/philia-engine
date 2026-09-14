@@ -38,6 +38,18 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Importer dans la scène"
 
+[node name="UndoButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Annuler"
+
+[node name="RedoButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Rétablir"
+
 [node name="LayerBar" type="HBoxContainer" parent="."]
 layout_mode = 2
 
