@@ -56,6 +56,7 @@ func _initialize() -> void:
 	## repoussent violemment au premier tick de physique et faussent tout.
 	_controller.free()
 	await _test_wolf_chases_and_attacks()
+	await _test_equip_weapon_increases_damage()
 
 	if _failures == 0:
 		print("OK: scène jouable (0 échec).")
@@ -92,6 +93,44 @@ func _test_wolf_chases_and_attacks() -> void:
 		if player.stats.get_stat("hp") < player_hp_before:
 			break
 	_check(player.stats.get_stat("hp") < player_hp_before, "le loup finit par attaquer et blesser le joueur")
+
+	controller.free()
+
+
+## Instance séparée : vérifie que le joueur démarre avec une épée en
+## réserve, et qu'équiper (touche E, PhiliaEquipment) augmente réellement
+## les dégâts infligés au loup.
+func _test_equip_weapon_increases_damage() -> void:
+	print("Équipement : E équipe l'épée et augmente les dégâts")
+	var packed: PackedScene = load(SCENE_PATH)
+	var controller: Node3D = packed.instantiate()
+	root.add_child(controller)
+	await process_frame
+
+	var player: CharacterBody3D = controller._player
+	var wolf: Node3D = controller._wolf
+	wolf.position = player.position  ## à portée d'attaque sans avoir à marcher
+
+	_check(player.inventory.has_item("epee"), "le joueur démarre avec une épée dans l'inventaire")
+	_check(not player.inventory.is_equipped("epee"), "l'épée n'est pas équipée par défaut")
+
+	var force_before: float = player.stats.get_stat("force")
+	var max_hp: float = wolf.stats.get_stat("max_hp")
+	controller._on_player_attack_requested()
+	var unarmed_damage: float = max_hp - wolf.stats.get_stat("hp")
+	wolf.stats.heal(999.0)  ## remet le loup à plein PV pour une comparaison équitable (pas de dégâts clampés)
+
+	player.equip_toggle_requested.emit()
+	_check(player.inventory.is_equipped("epee"), "equip_toggle_requested (touche E) équipe l'épée")
+	_check(player.stats.get_stat("force") > force_before, "la force du joueur augmente une fois équipé")
+
+	controller._on_player_attack_requested()
+	var armed_damage: float = max_hp - wolf.stats.get_stat("hp")
+	_check(armed_damage > unarmed_damage, "l'attaque équipée inflige plus de dégâts que l'attaque à mains nues")
+
+	player.equip_toggle_requested.emit()
+	_check(not player.inventory.is_equipped("epee"), "equip_toggle_requested à nouveau déséquipe l'épée")
+	_check(player.stats.get_stat("force") == force_before, "la force revient à sa valeur d'origine")
 
 	controller.free()
 

@@ -11,12 +11,15 @@ extends Node3D
 ## à l'exécution.
 ##
 ## Contrôles : flèches pour se déplacer, F pour attaquer le loup à portée,
-## touches 1/2/3 pour choisir une réplique de dialogue. Le loup poursuit
-## et attaque via PhiliaBehavior (préréglage AGGRESSIVE, configuré dans
+## E pour équiper/déséquiper l'épée de départ (PhiliaEquipment, bonus de
+## force défini dans gameplay/demo.philiagameplay), touches 1/2/3 pour
+## choisir une réplique de dialogue. Le loup poursuit et attaque via
+## PhiliaBehavior (préréglage AGGRESSIVE, configuré dans
 ## tools/generate_demo_playable_scene.gd) dès qu'il détecte le joueur.
 
 const GAMEPLAY_DATA_PATH := "res://gameplay/demo.philiagameplay"
 const ATTACK_RANGE := 2.5
+const STARTING_WEAPON := "epee"
 
 @onready var _player: CharacterBody3D = $Player
 @onready var _wolf: Node3D = $Wolf
@@ -45,10 +48,13 @@ func _ready() -> void:
 	_trigger.triggered.connect(_on_trigger_entered)
 	_player.attack_requested.connect(_on_player_attack_requested)
 	_player.dialogue_choice_requested.connect(_on_dialogue_choice_requested)
+	_player.equip_toggle_requested.connect(_on_equip_toggle_requested)
+	_player.inventory.add_item(STARTING_WEAPON)
 
 	_hud.set_player_hp(_player.stats.get_stat("hp"), _player.stats.get_stat("max_hp"))
 	_hud.set_enemy_hp(_wolf.stats.get_stat("hp"), _wolf.stats.get_stat("max_hp"))
 	_hud.set_quest_text(_quest_status_text())
+	_hud.set_weapon_text(_weapon_status_text())
 
 
 func _on_trigger_entered(body: Node3D) -> void:
@@ -87,6 +93,22 @@ func _on_player_attack_requested() -> void:
 		return
 	PhiliaCombat.attack(_player.stats, _wolf.stats, -1.0, _player.animator, _wolf.animator)
 	_hud.set_enemy_hp(_wolf.stats.get_stat("hp"), _wolf.stats.get_stat("max_hp"))
+
+
+func _on_equip_toggle_requested() -> void:
+	var bonuses := gameplay_data.item_bonuses(STARTING_WEAPON)
+	if _player.inventory.is_equipped(STARTING_WEAPON):
+		PhiliaEquipment.unequip(_player.inventory, _player.stats, STARTING_WEAPON, bonuses)
+	else:
+		PhiliaEquipment.equip(_player.inventory, _player.stats, STARTING_WEAPON, bonuses)
+	_hud.set_weapon_text(_weapon_status_text())
+
+
+func _weapon_status_text() -> String:
+	var force := int(_player.stats.get_stat("force"))
+	if _player.inventory.is_equipped(STARTING_WEAPON):
+		return "Épée équipée (Force %d) — E pour ranger" % force
+	return "Épée en réserve (Force %d) — E pour équiper" % force
 
 
 func _on_wolf_action_triggered(action: String) -> void:

@@ -187,7 +187,8 @@ func _add_hud(root: Node3D) -> void:
 		["PlayerHpLabel", "Joueur PV : --"],
 		["EnemyHpLabel", "Loup PV : --"],
 		["QuestLabel", "Quête non commencée"],
-		["InstructionsLabel", "Flèches : déplacer — F : attaquer — 1/2/3 : choix de dialogue"],
+		["WeaponLabel", "Épée en réserve — E pour équiper"],
+		["InstructionsLabel", "Flèches : déplacer — F : attaquer — E : équiper/déséquiper — 1/2/3 : choix de dialogue"],
 	]:
 		var label := Label.new()
 		label.name = entry[0]

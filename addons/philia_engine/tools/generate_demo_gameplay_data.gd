@@ -26,6 +26,8 @@ func _initialize() -> void:
 		{"id": "kill_wolf", "required": 1},
 	]).to_dict()
 
+	data.items["epee"] = {"stat_bonuses": {"force": 3.0}}
+
 	## "action" du choix "accept" : convention propre à cette démo (§20 —
 	## Philia ne l'interprète jamais), lue par
 	## scenes/demo_playable/controller.gd pour démarrer la quête.

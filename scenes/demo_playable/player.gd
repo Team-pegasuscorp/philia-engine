@@ -3,12 +3,14 @@ extends CharacterBody3D
 ## Contrôleur du joueur pour la scène jouable de démo (pas un composant
 ## réutilisable de l'addon, voir characters/quaternius/demo_character_cycle.gd
 ## pour le même principe). Déplacement aux flèches, attaque (touche F),
-## choix de dialogue (touches 1/2/3) relayés au contrôleur de scène via
-## des signaux — ce script ne connaît ni la quête, ni le dialogue, ni
-## l'ennemi (§20).
+## équiper/déséquiper l'objet en main (touche E), choix de dialogue
+## (touches 1/2/3) relayés au contrôleur de scène via des signaux — ce
+## script ne connaît ni la quête, ni le dialogue, ni l'ennemi, ni le sens
+## de "equip_toggle_requested" (§20).
 
 signal attack_requested
 signal dialogue_choice_requested(index: int)
+signal equip_toggle_requested
 
 const SPEED := 3.0
 const GRAVITY := 12.0
@@ -17,6 +19,7 @@ const GRAVITY := 12.0
 @onready var animator: PhiliaCharacterAnimator = $CharacterInstance/Animator
 
 var stats := PhiliaStats.new({"hp": 20.0, "max_hp": 20.0, "force": 4.0})
+var inventory := PhiliaInventory.new()
 
 
 func _physics_process(delta: float) -> void:
@@ -62,6 +65,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			dialogue_choice_requested.emit(1)
 		KEY_3:
 			dialogue_choice_requested.emit(2)
+		KEY_E:
+			equip_toggle_requested.emit()
 
 
 func _key_strength(keycode: Key) -> float:

@@ -47,6 +47,13 @@
 		}
 	},
 	"format_version": 1,
+	"items": {
+		"epee": {
+			"stat_bonuses": {
+				"force": 3.0
+			}
+		}
+	},
 	"quests": {
 		"hunt_wolves": {
 			"id": "hunt_wolves",

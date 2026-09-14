@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var _player_hp_label: Label = $Margin/VBox/PlayerHpLabel
 @onready var _enemy_hp_label: Label = $Margin/VBox/EnemyHpLabel
 @onready var _quest_label: Label = $Margin/VBox/QuestLabel
+@onready var _weapon_label: Label = $Margin/VBox/WeaponLabel
 @onready var _dialogue_panel: PanelContainer = $DialoguePanel
 @onready var _speaker_label: Label = $DialoguePanel/VBox/SpeakerLabel
 @onready var _text_label: Label = $DialoguePanel/VBox/TextLabel
@@ -28,6 +29,10 @@ func set_enemy_hp(hp: float, max_hp: float) -> void:
 
 func set_quest_text(text: String) -> void:
 	_quest_label.text = text
+
+
+func set_weapon_text(text: String) -> void:
+	_weapon_label.text = text
 
 
 func show_dialogue(speaker: String, text: String, choices: Array) -> void:
