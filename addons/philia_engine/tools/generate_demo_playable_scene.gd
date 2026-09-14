@@ -17,6 +17,8 @@ const ENEMY_SCRIPT_PATH := "res://scenes/demo_playable/enemy.gd"
 const HUD_SCRIPT_PATH := "res://scenes/demo_playable/hud.gd"
 const OUTPUT_PATH := "res://scenes/demo_playable.tscn"
 const GROUND_SIZE := 40.0
+const GROUND_MATERIAL_PATH := "res://addons/philia_engine/assets/materials/grass_field.tres"
+const GROUND_UV_TILES := 16.0  ## nombre de répétitions de la texture sur toute la largeur du sol
 
 
 func _initialize() -> void:
@@ -58,8 +60,13 @@ func _add_ground(root: Node3D) -> void:
 	mesh_instance.name = "Mesh"
 	var box := BoxMesh.new()
 	box.size = Vector3(GROUND_SIZE, 0.2, GROUND_SIZE)
-	var material := StandardMaterial3D.new()
-	material.albedo_color = Color(0.35, 0.55, 0.35)
+	## Texture seamless (albedo/normal/ORM/relief) générée par tile-gen,
+	## voir tools/generate_grass_field_material.gd. uv1_scale répète la
+	## tuile sur toute la surface plutôt que de l'étirer une seule fois.
+	var philia_material: PhiliaMaterial = load(GROUND_MATERIAL_PATH)
+	var material := PhiliaImporter3D.build_standard_material(philia_material)
+	material.uv1_scale = Vector3(GROUND_UV_TILES, GROUND_UV_TILES, 1.0)
+	material.heightmap_scale = 0.1
 	box.material = material
 	mesh_instance.mesh = box
 	mesh_instance.position = Vector3(0, -0.1, 0)

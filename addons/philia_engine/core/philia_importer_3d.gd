@@ -128,7 +128,7 @@ static func _build_tile_node(tile: Dictionary, cell_size: float, map_seed: int) 
 		mesh_instance.mesh = box
 
 	mesh_instance.position = Vector3(0, footprint_size.y * 0.5, 0)
-	mesh_instance.material_override = _build_standard_material(material) if material else _flat_color_material(TILE_COLORS.get(type, Color.GRAY))
+	mesh_instance.material_override = build_standard_material(material) if material else _flat_color_material(TILE_COLORS.get(type, Color.GRAY))
 	node.add_child(mesh_instance)
 
 	if solid:
@@ -185,7 +185,10 @@ static func _build_procedural_mesh(kind: String, size: Vector3, gen_seed: int) -
 	return PhiliaProceduralMesh.generate_rock(params)
 
 
-static func _build_standard_material(mat: PhiliaMaterial) -> StandardMaterial3D:
+## Construit un StandardMaterial3D à partir d'un PhiliaMaterial (§6) —
+## public : réutilisé aussi par les scènes de démo (voir
+## tools/generate_demo_playable_scene.gd) pour ne pas dupliquer ce mapping.
+static func build_standard_material(mat: PhiliaMaterial) -> StandardMaterial3D:
 	var sm := StandardMaterial3D.new()
 	sm.albedo_color = mat.albedo_color
 	if mat.albedo_texture:
@@ -193,8 +196,23 @@ static func _build_standard_material(mat: PhiliaMaterial) -> StandardMaterial3D:
 	if mat.normal_texture:
 		sm.normal_enabled = true
 		sm.normal_texture = mat.normal_texture
-	sm.roughness = mat.roughness
-	sm.metallic = mat.metallic
+	if mat.orm_texture:
+		## Convention tile-gen : R=roughness, G=metallic, B=AO packés dans
+		## une seule texture — Godot multiplie chaque canal par le
+		## scalaire correspondant, donc 1.0 comme facteur pour laisser la
+		## texture piloter entièrement roughness/metallic.
+		sm.roughness = 1.0
+		sm.roughness_texture = mat.orm_texture
+		sm.roughness_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_RED
+		sm.metallic = 1.0
+		sm.metallic_texture = mat.orm_texture
+		sm.metallic_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_GREEN
+		sm.ao_enabled = true
+		sm.ao_texture = mat.orm_texture
+		sm.ao_texture_channel = BaseMaterial3D.TEXTURE_CHANNEL_BLUE
+	else:
+		sm.roughness = mat.roughness
+		sm.metallic = mat.metallic
 	if mat.height_texture:
 		sm.heightmap_enabled = true
 		sm.heightmap_texture = mat.height_texture

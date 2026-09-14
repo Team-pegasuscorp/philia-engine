@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PhiliaMaterial" format=3]
+
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/grass_field/grass_field_albedo.png" id="1_tf68r"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/grass_field/grass_field_height.png" id="2_tbfdp"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/grass_field/grass_field_normal.png" id="3_eaw26"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/grass_field/grass_field_orm.png" id="4_x18l4"]
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_material.gd" id="5_ccnc0"]
+
+[resource]
+script = ExtResource("5_ccnc0")
+albedo_texture = ExtResource("1_tf68r")
+normal_texture = ExtResource("3_eaw26")
+orm_texture = ExtResource("4_x18l4")
+height_texture = ExtResource("2_tbfdp")
