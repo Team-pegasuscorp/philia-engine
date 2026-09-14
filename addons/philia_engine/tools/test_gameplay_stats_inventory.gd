@@ -13,6 +13,7 @@ func _initialize() -> void:
 	_test_stats_apply_to_entity()
 	_test_inventory_stack_and_capacity()
 	_test_inventory_apply_to_entity()
+	_test_inventory_equip_flag()
 
 	if _failures == 0:
 		print("OK: PhiliaStats + PhiliaInventory (0 échec).")
@@ -77,3 +78,19 @@ func _test_inventory_apply_to_entity() -> void:
 	inv.add_item("torch", 2)
 	inv.apply_to_entity(entity)
 	_check(entity["inventory"][0]["quantity"] == 3, "modification répercutée sur l'entité")
+
+
+func _test_inventory_equip_flag() -> void:
+	print("PhiliaInventory: drapeau equipped")
+	var inv := PhiliaInventory.new()
+	inv.add_item("epee")
+	_check(not inv.is_equipped("epee"), "pas équipé par défaut")
+	_check(inv.set_equipped("epee", true), "set_equipped réussit pour un item présent")
+	_check(inv.is_equipped("epee"), "is_equipped reflète le changement")
+	_check(not inv.set_equipped("inconnu", true), "set_equipped échoue pour un item absent")
+
+	## Round-trip via from_entity/apply_to_entity (equipped doit survivre).
+	var entity := {}
+	inv.apply_to_entity(entity)
+	var reloaded := PhiliaInventory.from_entity(entity)
+	_check(reloaded.is_equipped("epee"), "drapeau equipped préservé par un aller-retour entité")

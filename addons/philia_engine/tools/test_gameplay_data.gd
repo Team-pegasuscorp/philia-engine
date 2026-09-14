@@ -13,6 +13,7 @@ var _failures := 0
 func _initialize() -> void:
 	_test_instantiate_stats_and_inventory()
 	_test_instantiate_behavior_config()
+	_test_item_bonuses()
 	_test_get_quest_and_dialogue()
 	_test_disk_round_trip()
 
@@ -44,6 +45,7 @@ func _make_data() -> PhiliaGameplayData:
 	data.dialogues["guard_talk"] = PhiliaDialogue.new("guard_talk", {
 		"greet": {"speaker": "Garde", "text": "Halte !", "next": ""},
 	}, "greet").to_dict()
+	data.items["epee"] = {"stat_bonuses": {"force": 3.0}}
 	return data
 
 
@@ -72,6 +74,21 @@ func _test_instantiate_behavior_config() -> void:
 	_check(data.instantiate_behavior_config("inconnu").is_empty(), "gabarit inconnu -> dict vide")
 
 
+func _test_item_bonuses() -> void:
+	print("PhiliaGameplayData: item_bonuses")
+	var data := _make_data()
+	var bonuses := data.item_bonuses("epee")
+	_check(bonuses.get("force") == 3.0, "bonus de l'objet repris")
+	_check(data.item_bonuses("inconnu").is_empty(), "objet inconnu -> dict vide")
+
+	## Utilisable directement par PhiliaEquipment.
+	var stats := PhiliaStats.new({"force": 1.0})
+	var inv := PhiliaInventory.new()
+	inv.add_item("epee")
+	PhiliaEquipment.equip(inv, stats, "epee", bonuses)
+	_check(stats.get_stat("force") == 4.0, "bonus consommable directement par PhiliaEquipment.equip()")
+
+
 func _test_get_quest_and_dialogue() -> void:
 	print("PhiliaGameplayData: get_quest / get_dialogue")
 	var data := _make_data()
@@ -91,6 +108,7 @@ func _test_disk_round_trip() -> void:
 	var loaded := PhiliaGameplayData.load(TEST_PATH)
 	_check(loaded != null, "lecture disque réussie")
 	_check(loaded.entity_templates.has("wolf"), "gabarit préservé")
+	_check(loaded.items.has("epee"), "objet préservé")
 	_check(loaded.quests.has("hunt_wolves"), "quête préservée")
 	_check(loaded.dialogues.has("guard_talk"), "dialogue préservé")
 	DirAccess.remove_absolute(TEST_PATH)

@@ -17,7 +17,11 @@ var capacity: int = 0  ## 0 = illimité (nombre d'emplacements distincts)
 func _init(source: Array = [], max_capacity: int = 0) -> void:
 	capacity = max_capacity
 	for entry in source:
-		slots.append({"item": entry.get("item", ""), "quantity": int(entry.get("quantity", 1))})
+		slots.append({
+			"item": entry.get("item", ""),
+			"quantity": int(entry.get("quantity", 1)),
+			"equipped": bool(entry.get("equipped", false)),
+		})
 
 
 static func from_entity(entity: Dictionary, max_capacity: int = 0) -> PhiliaInventory:
@@ -51,9 +55,26 @@ func add_item(item: String, quantity: int = 1) -> bool:
 			return true
 	if capacity > 0 and slots.size() >= capacity:
 		return false
-	slots.append({"item": item, "quantity": quantity})
+	slots.append({"item": item, "quantity": quantity, "equipped": false})
 	item_added.emit(item, quantity)
 	return true
+
+
+## true/false purement déclaratif — PhiliaInventory ne sait pas ce
+## qu'"équipé" change mécaniquement (voir PhiliaEquipment, §20).
+func is_equipped(item: String) -> bool:
+	for slot in slots:
+		if slot["item"] == item:
+			return slot.get("equipped", false)
+	return false
+
+
+func set_equipped(item: String, value: bool) -> bool:
+	for slot in slots:
+		if slot["item"] == item:
+			slot["equipped"] = value
+			return true
+	return false
 
 
 func remove_item(item: String, quantity: int = 1) -> bool:

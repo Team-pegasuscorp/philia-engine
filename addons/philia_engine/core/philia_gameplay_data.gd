@@ -3,18 +3,19 @@ class_name PhiliaGameplayData
 extends RefCounted
 
 ## Contenu de gameplay auteuré (V6, §19) : gabarits d'entité (stats +
-## inventaire de départ), quêtes et dialogues, dans un seul fichier texte
-## JSON (.philiagameplay) — même principe que .philiamap (§21.2). Format
-## pur donnée, aucune scène Godot, aucun comportement : le jeu qui charge
-## ce fichier décide quoi en faire (§20). Édité visuellement par
-## editor/philia_gameplay_dock.gd, consommé à l'exécution via
-## instantiate_stats()/instantiate_inventory()/get_quest()/get_dialogue().
+## inventaire de départ), objets, quêtes et dialogues, dans un seul
+## fichier texte JSON (.philiagameplay) — même principe que .philiamap
+## (§21.2). Format pur donnée, aucune scène Godot, aucun comportement : le
+## jeu qui charge ce fichier décide quoi en faire (§20). Édité visuellement
+## par editor/philia_gameplay_dock.gd, consommé à l'exécution via
+## instantiate_stats()/instantiate_inventory()/item_bonuses()/get_quest()/get_dialogue().
 
 const FORMAT_VERSION := 1
 const EXTENSION := "philiagameplay"
 
 var format_version: int = FORMAT_VERSION
-var entity_templates: Dictionary = {}  ## id -> {stats: {...}, inventory: [...], inventory_capacity: int}
+var entity_templates: Dictionary = {}  ## id -> {stats: {...}, behavior: {...}, inventory: [...], inventory_capacity: int}
+var items: Dictionary = {}             ## id -> {stat_bonuses: {stat: delta}}, voir PhiliaEquipment
 var quests: Dictionary = {}            ## id -> dict au format PhiliaQuest.to_dict()
 var dialogues: Dictionary = {}         ## id -> dict au format PhiliaDialogue.to_dict()
 
@@ -23,6 +24,7 @@ func to_dict() -> Dictionary:
 	return {
 		"format_version": format_version,
 		"entity_templates": entity_templates,
+		"items": items,
 		"quests": quests,
 		"dialogues": dialogues,
 	}
@@ -32,6 +34,7 @@ static func from_dict(data: Dictionary) -> PhiliaGameplayData:
 	var gameplay_data := PhiliaGameplayData.new()
 	gameplay_data.format_version = data.get("format_version", FORMAT_VERSION)
 	gameplay_data.entity_templates = data.get("entity_templates", {})
+	gameplay_data.items = data.get("items", {})
 	gameplay_data.quests = data.get("quests", {})
 	gameplay_data.dialogues = data.get("dialogues", {})
 	return gameplay_data
@@ -72,6 +75,12 @@ func instantiate_inventory(template_id: String) -> PhiliaInventory:
 ## défaut côté PhiliaBehavior).
 func instantiate_behavior_config(template_id: String) -> Dictionary:
 	return entity_templates.get(template_id, {}).get("behavior", {})
+
+
+## Bonus de stats d'un objet, prêts pour PhiliaEquipment.equip()/unequip().
+## Objet inconnu ou sans bonus défini -> dict vide.
+func item_bonuses(item_id: String) -> Dictionary:
+	return items.get(item_id, {}).get("stat_bonuses", {})
 
 
 func get_quest(quest_id: String) -> PhiliaQuest:

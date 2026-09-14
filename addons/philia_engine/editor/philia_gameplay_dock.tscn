@@ -478,3 +478,88 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Objets" type="HBoxContainer" parent="Tabs"]
+visible = false
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="Tabs/Objets"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemScroll" type="ScrollContainer" parent="Tabs/Objets"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemForm" type="VBoxContainer" parent="Tabs/Objets/ItemScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemIdRow" type="HBoxContainer" parent="Tabs/Objets/ItemScroll/ItemForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Objets/ItemScroll/ItemForm/ItemIdRow"]
+layout_mode = 2
+text = "Id :"
+
+[node name="ItemIdEdit" type="LineEdit" parent="Tabs/Objets/ItemScroll/ItemForm/ItemIdRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BonusesLabel" type="Label" parent="Tabs/Objets/ItemScroll/ItemForm"]
+layout_mode = 2
+text = "Bonus de stats"
+
+[node name="BonusesList" type="ItemList" parent="Tabs/Objets/ItemScroll/ItemForm"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="BonusAddRow" type="HBoxContainer" parent="Tabs/Objets/ItemScroll/ItemForm"]
+layout_mode = 2
+
+[node name="BonusStatEdit" type="LineEdit" parent="Tabs/Objets/ItemScroll/ItemForm/BonusAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "nom de la stat (ex: force)"
+
+[node name="BonusDeltaSpin" type="SpinBox" parent="Tabs/Objets/ItemScroll/ItemForm/BonusAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -999.0
+max_value = 999.0
+step = 0.1
+value = 1.0
+
+[node name="AddBonusButton" type="Button" parent="Tabs/Objets/ItemScroll/ItemForm/BonusAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+"
+
+[node name="RemoveBonusButton" type="Button" parent="Tabs/Objets/ItemScroll/ItemForm"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retirer le bonus sélectionné"
+
+[node name="ItemButtons" type="HBoxContainer" parent="Tabs/Objets/ItemScroll/ItemForm"]
+layout_mode = 2
+
+[node name="NewItemButton" type="Button" parent="Tabs/Objets/ItemScroll/ItemForm/ItemButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouvel objet"
+
+[node name="DeleteItemButton" type="Button" parent="Tabs/Objets/ItemScroll/ItemForm/ItemButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Supprimer"
+
+[node name="ApplyItemButton" type="Button" parent="Tabs/Objets/ItemScroll/ItemForm/ItemButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Appliquer"

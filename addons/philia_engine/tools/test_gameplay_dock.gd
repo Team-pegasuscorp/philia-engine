@@ -23,6 +23,7 @@ func _initialize() -> void:
 
 	_test_template_tab()
 	_test_template_behavior()
+	_test_item_tab()
 	_test_quest_tab()
 	_test_dialogue_tab()
 	_test_rename_instead_of_duplicate()
@@ -97,6 +98,32 @@ func _test_template_behavior() -> void:
 	_check(behavior.preset == PhiliaBehavior.Preset.AGGRESSIVE and behavior.action_name == "maul", "config consommable par PhiliaBehavior.configure()")
 
 
+func _test_item_tab() -> void:
+	print("Onglet Objets")
+	_dock._on_new_item_pressed()
+	_dock._item_id_edit.text = "epee"
+	_dock._bonus_stat_edit.text = "force"
+	_dock._bonus_delta_spin.value = 3.0
+	_dock._on_add_bonus_pressed()
+	_dock._on_apply_item_pressed()
+
+	_check(_dock.data.items.has("epee"), "objet présent après Appliquer")
+	_check(_dock.data.item_bonuses("epee").get("force") == 3.0, "bonus de stat correct")
+
+	## Round-trip formulaire <-> dict après changement de sélection.
+	_dock._on_new_item_pressed()
+	_dock._on_item_selected(_index_of(_dock._item_list, "epee"))
+	_check(_dock._item_id_edit.text == "epee", "id rechargé dans le formulaire")
+	_check(_dock._pending_bonuses.get("force") == 3.0, "bonus rechargé dans le formulaire")
+
+	## Consommable directement par PhiliaEquipment (avec un inventaire réel).
+	var stats := PhiliaStats.new({"force": 1.0})
+	var inv := PhiliaInventory.new()
+	inv.add_item("epee")
+	PhiliaEquipment.equip(inv, stats, "epee", _dock.data.item_bonuses("epee"))
+	_check(stats.get_stat("force") == 4.0, "bonus appliqué via PhiliaEquipment.equip()")
+
+
 func _test_quest_tab() -> void:
 	print("Onglet Quêtes")
 	_dock._on_new_quest_pressed()
@@ -168,6 +195,13 @@ func _test_rename_instead_of_duplicate() -> void:
 	_dock._on_apply_quest_pressed()
 	_check(not _dock.data.quests.has("hunt_wolves"), "ancien id \"hunt_wolves\" retiré après renommage")
 	_check(_dock.data.quests.has("hunt_wolf"), "nouvel id \"hunt_wolf\" présent")
+
+	## Objet : "epee" -> "epee_longue".
+	_dock._on_item_selected(_index_of(_dock._item_list, "epee"))
+	_dock._item_id_edit.text = "epee_longue"
+	_dock._on_apply_item_pressed()
+	_check(not _dock.data.items.has("epee"), "ancien id \"epee\" retiré après renommage")
+	_check(_dock.data.items.has("epee_longue"), "nouvel id \"epee_longue\" présent")
 
 	## Dialogue : "guard_talk" -> "guard_talk_v2".
 	_dock._on_dialogue_selected(_index_of(_dock._dialogue_list, "guard_talk"))
@@ -245,6 +279,7 @@ func _test_save_load_round_trip() -> void:
 
 	_dock._on_load_pressed()
 	_check(_dock.data.entity_templates.has("grand_loup"), "gabarit rechargé depuis le disque (id renommé)")
+	_check(_dock.data.items.has("epee_longue"), "objet rechargé depuis le disque (id renommé)")
 	_check(_dock.data.quests.has("hunt_wolf"), "quête rechargée depuis le disque (id renommé)")
 	_check(_dock.data.dialogues.has("guard_talk_v2"), "dialogue rechargé depuis le disque (id renommé)")
 	## "loup" a été renommé "grand_loup" sans laisser de fantôme ; "ours" et

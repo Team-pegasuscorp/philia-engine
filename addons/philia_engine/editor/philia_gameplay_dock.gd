@@ -69,9 +69,21 @@ const BEHAVIOR_PRESET_LABELS: Array[String] = ["Passif", "Erratique", "Agressif"
 @onready var _apply_dialogue_button: Button = %ApplyDialogueButton
 @onready var _add_node_button: Button = %AddNodeButton
 
+@onready var _item_list: ItemList = %ItemList
+@onready var _item_id_edit: LineEdit = %ItemIdEdit
+@onready var _bonuses_list: ItemList = %BonusesList
+@onready var _bonus_stat_edit: LineEdit = %BonusStatEdit
+@onready var _bonus_delta_spin: SpinBox = %BonusDeltaSpin
+@onready var _add_bonus_button: Button = %AddBonusButton
+@onready var _remove_bonus_button: Button = %RemoveBonusButton
+@onready var _new_item_button: Button = %NewItemButton
+@onready var _delete_item_button: Button = %DeleteItemButton
+@onready var _apply_item_button: Button = %ApplyItemButton
+
 var data := PhiliaGameplayData.new()
 var _pending_inventory: Array[Dictionary] = []  ## édité pour le gabarit sélectionné, appliqué au clic sur "Appliquer"
 var _pending_objectives: Array[Dictionary] = []
+var _pending_bonuses: Dictionary = {}  ## {stat: delta} édité pour l'objet sélectionné
 var _node_counter := 0
 
 ## Id chargé dans le formulaire au moment de la sélection (ou de la
@@ -82,6 +94,7 @@ var _node_counter := 0
 var _selected_template_id := ""
 var _selected_quest_id := ""
 var _selected_dialogue_id := ""
+var _selected_item_id := ""
 
 var _undo_stack := PhiliaUndoStack.new()  ## instantané de data.to_dict() poussé avant chaque mutation
 
@@ -120,6 +133,13 @@ func _ready() -> void:
 	_dialogue_graph.connection_request.connect(_on_connection_request)
 	_dialogue_graph.disconnection_request.connect(_on_disconnection_request)
 
+	_item_list.item_selected.connect(_on_item_selected)
+	_add_bonus_button.pressed.connect(_on_add_bonus_pressed)
+	_remove_bonus_button.pressed.connect(_on_remove_bonus_pressed)
+	_new_item_button.pressed.connect(_on_new_item_pressed)
+	_delete_item_button.pressed.connect(_on_delete_item_pressed)
+	_apply_item_button.pressed.connect(_on_apply_item_pressed)
+
 	_refresh_all()
 	_refresh_undo_redo_buttons()
 
@@ -145,6 +165,7 @@ func _on_undo_pressed() -> void:
 	_clear_template_form()
 	_clear_quest_form()
 	_clear_dialogue_form()
+	_clear_item_form()
 	_refresh_all()
 
 
@@ -155,6 +176,7 @@ func _on_redo_pressed() -> void:
 	_clear_template_form()
 	_clear_quest_form()
 	_clear_dialogue_form()
+	_clear_item_form()
 	_refresh_all()
 
 
@@ -164,14 +186,15 @@ func _refresh_undo_redo_buttons() -> void:
 
 
 func _update_status(message: String = "") -> void:
-	var base := "%d gabarit(s), %d quête(s), %d dialogue(s)" % [
-		data.entity_templates.size(), data.quests.size(), data.dialogues.size()
+	var base := "%d gabarit(s), %d objet(s), %d quête(s), %d dialogue(s)" % [
+		data.entity_templates.size(), data.items.size(), data.quests.size(), data.dialogues.size()
 	]
 	_status_label.text = message if not message.is_empty() else base
 
 
 func _refresh_all() -> void:
 	_refresh_template_list()
+	_refresh_item_list()
 	_refresh_quest_list()
 	_refresh_dialogue_list()
 	_update_status()
@@ -185,6 +208,7 @@ func _on_new_pressed() -> void:
 	_clear_template_form()
 	_clear_quest_form()
 	_clear_dialogue_form()
+	_clear_item_form()
 	_refresh_all()
 
 
@@ -210,6 +234,7 @@ func _on_load_pressed() -> void:
 	_clear_template_form()
 	_clear_quest_form()
 	_clear_dialogue_form()
+	_clear_item_form()
 	_refresh_all()
 	_update_status("Chargé depuis %s" % path)
 
@@ -611,6 +636,87 @@ func _on_apply_dialogue_pressed() -> void:
 	_refresh_dialogue_list()
 	_select_item_by_text(_dialogue_list, dialogue_id)
 	_update_status("Dialogue \"%s\" appliqué" % dialogue_id)
+
+
+# ---------- Objets ----------
+
+func _refresh_item_list() -> void:
+	_item_list.clear()
+	for item_id in data.items:
+		_item_list.add_item(item_id)
+
+
+func _on_new_item_pressed() -> void:
+	_undo_stack.push(data.to_dict())
+	var item_id := _unique_id(data.items, "objet")
+	data.items[item_id] = {"stat_bonuses": {}}
+	_refresh_item_list()
+	_select_item_by_text(_item_list, item_id)
+	_on_item_selected(_item_list.get_selected_items()[0])
+
+
+func _on_delete_item_pressed() -> void:
+	var selected := _item_list.get_selected_items()
+	if selected.is_empty():
+		return
+	_undo_stack.push(data.to_dict())
+	data.items.erase(_item_list.get_item_text(selected[0]))
+	_refresh_item_list()
+	_clear_item_form()
+
+
+func _on_item_selected(index: int) -> void:
+	var item_id := _item_list.get_item_text(index)
+	_selected_item_id = item_id
+	_item_id_edit.text = item_id
+	_pending_bonuses = data.item_bonuses(item_id).duplicate()
+	_refresh_bonuses_list()
+
+
+func _clear_item_form() -> void:
+	_item_id_edit.text = ""
+	_selected_item_id = ""
+	_pending_bonuses.clear()
+	_refresh_bonuses_list()
+
+
+func _refresh_bonuses_list() -> void:
+	_bonuses_list.clear()
+	for stat_name in _pending_bonuses:
+		var delta: float = _pending_bonuses[stat_name]
+		_bonuses_list.add_item("%s %s%s" % [stat_name, "+" if delta >= 0.0 else "", delta])
+
+
+func _on_add_bonus_pressed() -> void:
+	var stat_name := _bonus_stat_edit.text.strip_edges()
+	if stat_name.is_empty():
+		return
+	_pending_bonuses[stat_name] = _bonus_delta_spin.value
+	_bonus_stat_edit.text = ""
+	_refresh_bonuses_list()
+
+
+func _on_remove_bonus_pressed() -> void:
+	var selected := _bonuses_list.get_selected_items()
+	if selected.is_empty():
+		return
+	var stat_name: String = _pending_bonuses.keys()[selected[0]]
+	_pending_bonuses.erase(stat_name)
+	_refresh_bonuses_list()
+
+
+func _on_apply_item_pressed() -> void:
+	var item_id := _item_id_edit.text.strip_edges()
+	if item_id.is_empty():
+		return
+	_undo_stack.push(data.to_dict())
+	if _selected_item_id != "" and _selected_item_id != item_id:
+		data.items.erase(_selected_item_id)
+	data.items[item_id] = {"stat_bonuses": _pending_bonuses.duplicate()}
+	_selected_item_id = item_id
+	_refresh_item_list()
+	_select_item_by_text(_item_list, item_id)
+	_update_status("Objet \"%s\" appliqué" % item_id)
 
 
 # ---------- Utilitaires ----------
