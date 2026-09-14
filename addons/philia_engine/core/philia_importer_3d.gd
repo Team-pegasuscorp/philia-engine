@@ -65,7 +65,7 @@ static func build_scene(map: PhiliaMap, cell_size: float = CELL_SIZE) -> Node3D:
 			var item_id: int = PhiliaMap.AUTOTILE_TYPES.find(type)
 			grid_maps[layer_name].set_cell_item(Vector3i(tile.get("x", 0), 0, tile.get("y", 0)), item_id)
 		else:
-			layer_node.add_child(_build_tile_node(tile, cell_size))
+			layer_node.add_child(_build_tile_node(tile, cell_size, map.seed))
 
 	var entities_root := Node3D.new()
 	entities_root.name = "Entities"
@@ -80,7 +80,7 @@ static func build_scene(map: PhiliaMap, cell_size: float = CELL_SIZE) -> Node3D:
 	return root
 
 
-static func _build_tile_node(tile: Dictionary, cell_size: float) -> Node3D:
+static func _build_tile_node(tile: Dictionary, cell_size: float, map_seed: int) -> Node3D:
 	var x: int = tile.get("x", 0)
 	var y: int = tile.get("y", 0)
 	var w: int = tile.get("w", 1)
@@ -111,9 +111,16 @@ static func _build_tile_node(tile: Dictionary, cell_size: float) -> Node3D:
 
 	var mesh_instance := MeshInstance3D.new()
 	mesh_instance.name = "Mesh"
-	var box := BoxMesh.new()
-	box.size = footprint_size
-	mesh_instance.mesh = box
+
+	var procedural_kind: String = PhiliaMap.PROCEDURAL_TYPES.get(type, "")
+	if procedural_kind != "":
+		var gen_seed := PhiliaMap.seed_for(tile, map_seed)
+		mesh_instance.mesh = _build_procedural_mesh(procedural_kind, footprint_size, gen_seed)
+	else:
+		var box := BoxMesh.new()
+		box.size = footprint_size
+		mesh_instance.mesh = box
+
 	mesh_instance.position = Vector3(0, footprint_size.y * 0.5, 0)
 	mesh_instance.material_override = _build_standard_material(material) if material else _flat_color_material(TILE_COLORS.get(type, Color.GRAY))
 	node.add_child(mesh_instance)
@@ -122,6 +129,16 @@ static func _build_tile_node(tile: Dictionary, cell_size: float) -> Node3D:
 		node.add_child(_build_collision_body(footprint_size))
 
 	return node
+
+
+static func _build_procedural_mesh(kind: String, size: Vector3, gen_seed: int) -> ArrayMesh:
+	var params := {"size": size, "seed": gen_seed}
+	match kind:
+		"rock":
+			return PhiliaProceduralMesh.generate_rock(params)
+		"pillar":
+			return PhiliaProceduralMesh.generate_pillar(params)
+	return PhiliaProceduralMesh.generate_rock(params)
 
 
 static func _build_standard_material(mat: PhiliaMaterial) -> StandardMaterial3D:

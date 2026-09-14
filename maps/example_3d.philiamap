@@ -196,7 +196,7 @@
 		{
 			"layer": "Sol",
 			"rotation": 0,
-			"type": "Sol",
+			"type": "Rocher",
 			"variant": 6,
 			"x": 1,
 			"y": 1
@@ -205,7 +205,7 @@
 			"layer": "Sol",
 			"rotation": 0,
 			"type": "Sol",
-			"variant": 7,
+			"variant": 6,
 			"x": 1,
 			"y": 2
 		},
@@ -213,14 +213,14 @@
 			"layer": "Sol",
 			"rotation": 0,
 			"type": "Sol",
-			"variant": 7,
+			"variant": 3,
 			"x": 1,
 			"y": 3
 		},
 		{
 			"layer": "Sol",
 			"rotation": 0,
-			"type": "Sol",
+			"type": "Rocher",
 			"variant": 3,
 			"x": 1,
 			"y": 4
@@ -229,7 +229,7 @@
 			"layer": "Sol",
 			"rotation": 0,
 			"type": "Sol",
-			"variant": 14,
+			"variant": 6,
 			"x": 2,
 			"y": 1
 		},
@@ -253,7 +253,7 @@
 			"layer": "Sol",
 			"rotation": 0,
 			"type": "Sol",
-			"variant": 11,
+			"variant": 3,
 			"x": 2,
 			"y": 4
 		},

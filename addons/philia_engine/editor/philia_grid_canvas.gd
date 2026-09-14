@@ -27,6 +27,7 @@ const TILE_COLORS := {
 	"Pilier": Color(0.5, 0.35, 0.55),
 	"Caisse": Color(0.6, 0.45, 0.25),
 	"Machine": Color(0.3, 0.6, 0.6),
+	"Rocher": Color(0.5, 0.48, 0.45),
 }
 
 var map: PhiliaMap = PhiliaMap.new()

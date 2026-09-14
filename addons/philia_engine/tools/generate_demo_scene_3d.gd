@@ -77,6 +77,8 @@ func _build_example_map() -> PhiliaMap:
 	map.set_tile(4, 5, "Porte")
 	map.set_tile(3, 2, "Pilier")
 	map.set_tile(5, 3, "Caisse")
+	map.set_tile(1, 1, "Rocher")
+	map.set_tile(1, 4, "Rocher")
 
 	map.entities.append({
 		"entity": "wolf_01",

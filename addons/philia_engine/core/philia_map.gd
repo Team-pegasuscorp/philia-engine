@@ -27,7 +27,7 @@ const NEIGHBOR_OFFSETS := {
 ## (bool) d'une tuile. Le jeu qui importe la carte reste libre d'ignorer
 ## cette info générique (ex: une Porte peut devenir non-solide une fois
 ## ouverte) — voir docs/concept.md §11.
-const DEFAULT_SOLID_TYPES: Array[String] = ["Mur", "Coin", "Bord", "Pilier", "Caisse", "Machine"]
+const DEFAULT_SOLID_TYPES: Array[String] = ["Mur", "Coin", "Bord", "Pilier", "Caisse", "Machine", "Rocher"]
 
 ## Empreinte (largeur, hauteur en cases) des modules qui occupent plusieurs
 ## cases (doc §7 : "Un module peut occuper plusieurs cases"). Absent de la
@@ -47,6 +47,16 @@ const DEFAULT_MATERIALS: Dictionary = {
 	"Pilier": "res://addons/philia_engine/assets/materials/stone.tres",
 	"Caisse": "res://addons/philia_engine/assets/materials/wood.tres",
 	"Machine": "res://addons/philia_engine/assets/materials/rusty_metal.tres",
+	"Rocher": "res://addons/philia_engine/assets/materials/stone.tres",
+}
+
+## Types dont la géométrie est produite par PhiliaProceduralMesh (§4) plutôt
+## que par un bloc/mesh fixe, uniquement à l'import 3D (PhiliaImporter2D
+## garde un aperçu couleur plat, la déformation de maillage n'a de sens
+## qu'en 3D). Valeur = nom de la fonction generate_<valeur> correspondante.
+const PROCEDURAL_TYPES: Dictionary = {
+	"Rocher": "rock",
+	"Pilier": "pillar",
 }
 
 var format_version: int = FORMAT_VERSION
@@ -172,6 +182,16 @@ func rotate_tile(x: int, y: int, layer: String = DEFAULT_LAYER) -> void:
 	var tile := get_tile_at(x, y, layer)
 	if not tile.is_empty():
 		tile["rotation"] = int(tile.get("rotation", 0) + 90) % 360
+
+
+## Seed de génération procédurale pour cette tuile : le champ optionnel
+## "seed" prime, sinon dérivé du seed de la carte + de la position (stable
+## d'un import à l'autre, mais différent d'une case à l'autre — "Le
+## générateur produit une géométrie différente selon le seed", §4).
+static func seed_for(tile: Dictionary, map_seed: int) -> int:
+	if tile.has("seed"):
+		return int(tile["seed"])
+	return hash("%d_%d_%d" % [map_seed, tile.get("x", 0), tile.get("y", 0)])
 
 
 func recompute_all_variants() -> void:

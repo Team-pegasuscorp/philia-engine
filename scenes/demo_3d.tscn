@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=4]
 
 [ext_resource type="MeshLibrary" path="res://addons/philia_engine/assets/philia_terrain_meshlibrary.tres" id="1_8ejk8"]
 
@@ -6,94 +6,177 @@
 albedo_color = Color(0.55, 0.53, 0.5, 1)
 roughness = 0.9
 
-[sub_resource type="BoxMesh" id="BoxMesh_0u7oi"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_0u7oi"]
+_surfaces = [{
+"aabb": AABB(-0.41311175, -0.5917924, -0.43087694, 0.900074, 1.1983283, 1.042881),
+"attribute_data": PackedByteArray("AAAAAAAAAACrqio+AAAAAAAAAAAAAIA+q6oqPgAAgD6rqqo+AAAAAKuqqj4AAIA+AAAAPwAAAAAAAAA/AACAPquqKj8AAAAAq6oqPwAAgD5VVVU/AAAAAFVVVT8AAIA+AACAPwAAAAAAAIA/AACAPgAAAAAAAAA/q6oqPgAAAD+rqqo+AAAAPwAAAD8AAAA/q6oqPwAAAD9VVVU/AAAAPwAAgD8AAAA/AAAAAAAAQD+rqio+AABAP6uqqj4AAEA/AAAAPwAAQD+rqio/AABAP1VVVT8AAEA/AACAPwAAQD8AAAAAAACAP6uqKj4AAIA/q6qqPgAAgD8AAAA/AACAP6uqKj8AAIA/VVVVPwAAgD8AAIA/AACAPw=="),
+"format": 34359742487,
+"index_count": 144,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAQAEAAMABAAFAAMABAAGAAUABgAHAAUABgAIAAcACAAJAAcACAAKAAkACgALAAkACgAMAAsADAANAAsAAgADAA4AAwAPAA4AAwAFAA8ABQAQAA8ABQAHABAABwARABAABwAJABEACQASABEACQALABIACwATABIACwANABMADQAUABMADgAPABUADwAWABUADwAQABYAEAAXABYAEAARABcAEQAYABcAEQASABgAEgAZABgAEgATABkAEwAaABkAEwAUABoAFAAbABoAFQAWABwAFgAdABwAFgAXAB0AFwAeAB0AFwAYAB4AGAAfAB4AGAAZAB8AGQAgAB8AGQAaACAAGgAhACAAGgAbACEAGwAiACEA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 35,
+"vertex_data": PackedByteArray("AAAAAHJk9T6Cuak0AAAAAOhYAz/WOla0SmJjNjNZeD4zWXg+6P2QPipspz6Iayc+AAAAAOI74T7mIXY1fDJuPoeFiT7yhwm+AAAAAP09CT9k4BO1Bq1HJGIo2D4cKNi+AAAAgAgFtT6G9hU2SqSzvnduzz50bk++AAAAAO5FGz9GMNq19oVgvmSigT7ooQE+AAAAACMAzT5AAMw1rhOvtjlHBj85RwY/J2TltSdk5bVMrBw/HlP5PhNIrrWS8o8+GOyGPjIxDSRGzBu+MjGNJDIxDSTnm9y+RQaqvjIxDSRDVES+Cmuzvs5jBTZPLk8+/Xq0Nf16tDWb4dI+qVarNjuxPr6Wtj4+fIG7PruD2L5mg1g+YES5Ppfu1b787VW+Bq1HJEYSrL5YEqy+YoPTvsw89L4fP3S+amJxvnNdi75cXws+zuW7NLMlr77iJa8+AAAAAMSKDL8BrUi1AAAAAMRMr74YZyE2AAAAAN44z75NHcM1AAAAAHKxkb75nVw2AAAAgLSB6L4Y8zs1AAAAgMu6i75Ti2g2AAAAALV/F79k/ru1AAD/f////7+8Qt/O//+S6B1cgLH///+/6K3rxP//kuj71U22AACS6IXYJLYAAJLouI/juAAA/78VztrrAAD/v/s6NuUlUf+/giW/yiVR/79BoG2y2a7/vx1EKKfZrv+/W3Zxvv///784Pouj////v6Od05b///+/I+Jifv//kugL91G0AACS6Kv5SwAAAP+/XAhDsiVR/7+YLPeB2a7/v0ZTg2z///+/wnhrUP///7+nutlL//+S6IvRMDgAAJLoNi3BGwAA/79vPZUuJVH/v05jJFPZrv+/TD1FVv///7+Lp8kh////v5q56jj//5LopFvCSQAAkujVQbIKAAD/v8OsgE8lUf+/EF3YSNmu/78AAP9/////vw==")
+}]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1ycul"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4pqpa"]
-albedo_color = Color(0.45, 0.3, 0.18, 1)
-roughness = 0.7
+albedo_color = Color(0.55, 0.53, 0.5, 1)
+roughness = 0.9
 
-[sub_resource type="BoxMesh" id="BoxMesh_bc1ov"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_bc1ov"]
+_surfaces = [{
+"aabb": AABB(-0.43033338, -0.7275294, -0.6759974, 1.0526688, 1.4385797, 1.247134),
+"attribute_data": PackedByteArray("AAAAAAAAAACrqio+AAAAAAAAAAAAAIA+q6oqPgAAgD6rqqo+AAAAAKuqqj4AAIA+AAAAPwAAAAAAAAA/AACAPquqKj8AAAAAq6oqPwAAgD5VVVU/AAAAAFVVVT8AAIA+AACAPwAAAAAAAIA/AACAPgAAAAAAAAA/q6oqPgAAAD+rqqo+AAAAPwAAAD8AAAA/q6oqPwAAAD9VVVU/AAAAPwAAgD8AAAA/AAAAAAAAQD+rqio+AABAP6uqqj4AAEA/AAAAPwAAQD+rqio/AABAP1VVVT8AAEA/AACAPwAAQD8AAAAAAACAP6uqKj4AAIA/q6qqPgAAgD8AAAA/AACAP6uqKj8AAIA/VVVVPwAAgD8AAIA/AACAPw=="),
+"format": 34359742487,
+"index_count": 144,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAQAEAAMABAAFAAMABAAGAAUABgAHAAUABgAIAAcACAAJAAcACAAKAAkACgALAAkACgAMAAsADAANAAsAAgADAA4AAwAPAA4AAwAFAA8ABQAQAA8ABQAHABAABwARABAABwAJABEACQASABEACQALABIACwATABIACwANABMADQAUABMADgAPABUADwAWABUADwAQABYAEAAXABYAEAARABcAEQAYABcAEQASABgAEgAZABgAEgATABkAEwAaABkAEwAUABoAFAAbABoAFQAWABwAFgAdABwAFgAXAB0AFwAeAB0AFwAYAB4AGAAfAB4AGAAZAB8AGQAgAB8AGQAaACAAGgAhACAAGgAbACEAGwAiACEA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 35,
+"vertex_data": PackedByteArray("AAAAAFhDJT/3DRW2AAAAADYzBT92Z6a0RuC/teQAzT7kAM0+hiObPo0jsz52IzM+AAAAAGQHNj9oHli2Vwe4Psx/1D4OflS+AAAAAFEWAT8LKYuzBq1HJF7zsj5i87K+AAAAALLGBj8Z19i0fn3FvlkK5D5WCmS+AAAAAFzrJz8Orh+2qFTcvmBo/j4KaX4+AAAAACruvD4xJAY2I0k6Ntlyhj7ZcoY+L7GRtS+xkbUCNhI/RceAPmOTkjaCsxQ+YFEfPzIxDSR09re+MjGNJDIxDSQqDi2/2uOJvjIxDSSCOR++PIKcvtyoTTYnuzQ+bMubNWzLmzVzDdk+UF9Atlcd5b7WG+U+OuEmPliwQL7nscA9CIaAPvxmlL6XZxS+Bq1HJCg+lr5lPpa+O5CJvuzXnr4X1x6+Y+STvoPFqr75xSo+13GutnIfBr8VHgY/AAAAAN60ML851EK2AAAAAKbyhb6nG3Q2AAAAAF4/Or9h/mi2AAAAAPzRH7/bkP61AAAAgIa0375rLoE1AAAAgDkirL42vCc2AAAAAAQ7nL6/ikc2/v//f////z+7pdyn//+S6Oa7OKX///+/aLTNm///kuiVX3bIAACS6MTN8s0AAJLoTNRs6AAA/7+cyG3nAAD/v9zhuMolUf+/2iYn3SVR/78XubnR2a7/v0JUoZ7Zrv+/fqjCo////79edoip////v77IOYD///+/kcxgb///kug483tiAACS6EgZpxEAAP+//xMcTSVR/78RLIl+2a7/v/FJEY7///+/bM4SZf///78Zw6RR//+S6Py1ETQAAJLoFCkbHgAA/7/DINdKJVH/v5JMt1nZrv+/0IaUKv///79+7qFK////v427/VH//5Lo0HWeIQAAkuiIJjxhAAD/v2dv/FclUf+/WLwxVdmu/7/+//9/////Pw==")
+}]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4lu4q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knm1r"]
+albedo_color = Color(0.55, 0.53, 0.5, 1)
+roughness = 0.9
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ht8xk"]
+_surfaces = [{
+"aabb": AABB(-0.57192063, -0.5, -0.5416715, 1.1413566, 1, 1.104944),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAAA+AAAAAAAAAADNzMw9AAAAPs3MzD0AAIA+AAAAAAAAgD7NzMw9AADAPgAAAAAAAMA+zczMPQAAAD8AAAAAAAAAP83MzD0AACA/AAAAAAAAID/NzMw9AABAPwAAAAAAAEA/zczMPQAAYD8AAAAAAABgP83MzD0AAIA/AAAAAAAAgD/NzMw9AAAAAM3MTD4AAAA+zcxMPgAAgD7NzEw+AADAPs3MTD4AAAA/zcxMPgAAID/NzEw+AABAP83MTD4AAGA/zcxMPgAAgD/NzEw+AAAAAJqZmT4AAAA+mpmZPgAAgD6amZk+AADAPpqZmT4AAAA/mpmZPgAAID+amZk+AABAP5qZmT4AAGA/mpmZPgAAgD+amZk+AAAAAM3MzD4AAAA+zczMPgAAgD7NzMw+AADAPs3MzD4AAAA/zczMPgAAID/NzMw+AABAP83MzD4AAGA/zczMPgAAgD/NzMw+AAAAAAAAAD8AAAA+AAAAPwAAgD4AAAA/AADAPgAAAD8AAAA/AAAAPwAAID8AAAA/AABAPwAAAD8AAGA/AAAAPwAAgD8AAAA/AACAPgAAQD96gto+PUFtPwAAgD4AAIA/AAAAPwAAQD96gto+w74SPwAAgD4AAAA/GvaVPcO+Ej8AAAAAAABAPxr2lT09QW0/AACAPgAAgD8AAEA/AABAPwAAQD8AAAA/PUFtP8O+Ej8AAIA/AABAPz1BbT89QW0/AABAPwAAgD/DvhI/PUFtPwAAAD8AAEA/w74SP8O+Ej8AAEA/AAAAPw=="),
+"format": 34359742487,
+"index_count": 288,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAQAEAAMABAAFAAMABAAGAAUABgAHAAUABgAIAAcACAAJAAcACAAKAAkACgALAAkACgAMAAsADAANAAsADAAOAA0ADgAPAA0ADgAQAA8AEAARAA8AAgADABIAAwATABIAAwAFABMABQAUABMABQAHABQABwAVABQABwAJABUACQAWABUACQALABYACwAXABYACwANABcADQAYABcADQAPABgADwAZABgADwARABkAEQAaABkAEgATABsAEwAcABsAEwAUABwAFAAdABwAFAAVAB0AFQAeAB0AFQAWAB4AFgAfAB4AFgAXAB8AFwAgAB8AFwAYACAAGAAhACAAGAAZACEAGQAiACEAGQAaACIAGgAjACIAGwAcACQAHAAlACQAHAAdACUAHQAmACUAHQAeACYAHgAnACYAHgAfACcAHwAoACcAHwAgACgAIAApACgAIAAhACkAIQAqACkAIQAiACoAIgArACoAIgAjACsAIwAsACsAJAAlAC0AJQAuAC0AJQAmAC4AJgAvAC4AJgAnAC8AJwAwAC8AJwAoADAAKAAxADAAKAApADEAKQAyADEAKQAqADIAKgAzADIAKgArADMAKwA0ADMAKwAsADQALAA1ADQANgA3ADgANgA5ADcANgA6ADkANgA7ADoANgA8ADsANgA9ADwANgA+AD0ANgA/AD4AQABBAEIAQABCAEMAQABDAEQAQABEAEUAQABFAEYAQABGAEcAQABHAEgAQABIAEkA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 74,
+"vertex_data": PackedByteArray("J6zWNAAAAD9YlfI+kB7APgAAAD+QHsA+AZaBtZqZmT6gMhA/3JqhPpqZmT7cmqE+IDXfPgAAAD8FLIM1+KACP5qZmT6IPii0z0e/PgAAAD+6R7++PkLGPpqZmT4cQsa+MjGNJAAAAD/f7fK+MjGNJJqZmT40fe6+nT+qvgAAAD+zP6q+WWCgvpqZmT6CYKC+AEEGvwAAAD/UIMi0sxrrvpqZmT4RKyc158K1vgAAAD/hwrU+1GqavpqZmT6pa5o+rZb+swAAAD8p/QE/ZVt0tZqZmT6YRQ8/mWMvtczMzD0k9go/X8+1PszMzD1fz7U+XRwHP8zMzD2IjOO0dyW/PszMzD1jJb++MjGNJMzMzD2ePNq+JxK9vszMzD0XEr2+ZGkSv8zMzD2xS5O1eZqsvszMzD28mqw+61oTNczMzD3IlO0+VNw4NdDMzL2k5Og+FUidPtDMzL0VSJ0+g6nqPtDMzL2UtCo1oR+8PtDMzL2TH7y+MjGNJNDMzL3EKwK/fa/LvtDMzL1Qr8u+sVsDv9DMzL0v7Va0qsK7vtDMzL10wrs+bM/1stDMzL3negA/6B1EM5qZmb7Hd/4+vhKgPpqZmb6+EqA+jsYRP5qZmb4CNY618EHAPpqZmb7ZQcC+MjGNJJqZmb7/6OS+qGK1vpqZmb6oYrW+rE8Dv5qZmb7061O0movEvpqZmb4ei8Q+DYlOtZqZmb536Aw/S0iANAAAAL+L+/c+xdrBPgAAAL/F2sE+P9HfPgAAAL+Gu4A1LGSfPgAAAL9XZJ++MjGNJAAAAL/8qgq/agLLvgAAAL8+Asu+HSUNvwAAAL+iUlK1jjGuvgAAAL/FMa4+/Oz9MwAAAL9UCPw+AAAAAAAAAD/PvJ6z8wS1PgAAAD8DBbU+AAAAAAAAAD/6//8+AAAAPwAAAD+/w2a18wS1PgAAAD/WBLW+MjGNJAAAAD/9//++8wS1vgAAAD/vBLW+AAAAvwAAAD/nKYU18wS1vgAAAD/ZBLU+AAAAAAAAAD8GAAA/AAAAAAAAAL8lRT+1AAAAAAAAAL8GAAA/8wS1PgAAAL/SBLU+AAAAPwAAAL9AnBG18wS1PgAAAL/0BLW+MjGNJAAAAL8PAAC/8wS1vgAAAL/pBLW+AAAAvwAAAL9Cyzk08wS1vgAAAL8UBbU+AAAAAAAAAL/x//8+qJN8of///79JuoR1////37euuX3///+/WsWFgP///9/04dCL/////0XfipT/////3O/HvAAA/99a//7DAAD/3/T/Gv0AAP+/Cgw2DQAA/7/mCEky/z//vw8B6Dv/P/+/mRfhV/9//7+2CPiH/3//vwlISGb/v/+/GkECh/+//78hUZ55////v4hM5oD///+/V65Lev///7/kvCB6////38rqU2//////CfSMNAAA/9/wDN79AAD/vyYanNT/P/+/YxgBkf9//78rQ3OD/7//v5pdan7///+/uaXGcf///7+puz52////3w7toYX/////RfIbyAAA/9/m9577AAD/v1gLnzf/P/+/tBJGdP9//7/zRa+L/7//v0Jg147///+/uqsjhf///7/QsjyR////34bzE4f/////3uq5LwAA/98s99cDAAD/vxIHusX/P/+/mg7Jkf9//7/DQNWA/7//v/hbQHb///+/MqKPjv///7/GvtiI////3xHXoEX/////vfP2MgAA/9/2JMX/AAD/vyAUXsP/P/+/KxWzgv9//79/VI9p/7//vxVfkmr///+//3///////7//f///////v/9///////+//3///////7//f///////v/9///////+//3///////7//f///////v/9///////+//3///////7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fwAA////vw==")
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hnqgy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxjon"]
+albedo_color = Color(0.45, 0.3, 0.18, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_cohmk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3qmhr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7cb3"]
 albedo_color = Color(0.6, 0.4, 0.2, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ht8xk"]
+[sub_resource type="BoxMesh" id="BoxMesh_whdet"]
 size = Vector3(2, 1, 1)
 
-[node name="PhiliaMap3D" type="Node3D" unique_id=1753268871]
+[node name="PhiliaMap3D" type="Node3D" unique_id=528270321]
 metadata/philia_format_version = 4
 metadata/philia_seed = 42
 
-[node name="Tiles" type="Node3D" parent="." unique_id=325282306]
+[node name="Tiles" type="Node3D" parent="." unique_id=1719836088]
 
-[node name="Sol" type="Node3D" parent="Tiles" unique_id=431370229]
+[node name="Sol" type="Node3D" parent="Tiles" unique_id=583011261]
 
-[node name="Terrain" type="GridMap" parent="Tiles/Sol" unique_id=1788539074]
+[node name="Terrain" type="GridMap" parent="Tiles/Sol" unique_id=167404866]
 mesh_library = ExtResource("1_8ejk8")
 cell_size = Vector3(1, 1, 1)
 data = {
-"cells": PackedInt32Array(0, 0, 1, 0, 5, 1, 1, 0, 1, 1, 5, 1, 2, 0, 1, 2, 5, 1, 3, 0, 1, 3, 5, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 6, 5, 1, 7, 0, 1, 7, 5, 1, 0, 1, 1, 7, 1, 1, 0, 2, 1, 7, 2, 1, 0, 3, 1, 7, 3, 1, 0, 4, 1, 7, 4, 1, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0, 2, 1, 0, 2, 2, 0, 2, 3, 0, 2, 4, 0, 3, 1, 0, 3, 3, 0, 3, 4, 0, 4, 1, 0, 4, 2, 0, 4, 3, 0, 4, 4, 0, 5, 1, 0, 5, 2, 0, 5, 4, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 6, 4, 0)
+"cells": PackedInt32Array(0, 0, 1, 0, 5, 1, 1, 0, 1, 1, 5, 1, 2, 0, 1, 2, 5, 1, 3, 0, 1, 3, 5, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 6, 5, 1, 7, 0, 1, 7, 5, 1, 0, 1, 1, 7, 1, 1, 0, 2, 1, 7, 2, 1, 0, 3, 1, 7, 3, 1, 0, 4, 1, 7, 4, 1, 1, 2, 0, 1, 3, 0, 2, 1, 0, 2, 2, 0, 2, 3, 0, 2, 4, 0, 3, 1, 0, 3, 3, 0, 3, 4, 0, 4, 1, 0, 4, 2, 0, 4, 3, 0, 4, 4, 0, 5, 1, 0, 5, 2, 0, 5, 4, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 6, 4, 0)
 }
 
-[node name="Tile_3_2" type="Node3D" parent="Tiles/Sol" unique_id=318458016]
+[node name="Tile_1_1" type="Node3D" parent="Tiles/Sol" unique_id=688038903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1.5)
+metadata/philia_type = "Rocher"
+metadata/philia_solid = true
+metadata/philia_material = "res://addons/philia_engine/assets/materials/stone.tres"
+
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_1_1" unique_id=1692754507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_wjr3s")
+mesh = SubResource("ArrayMesh_0u7oi")
+
+[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_1_1" unique_id=582091575]
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Tiles/Sol/Tile_1_1/Collision" unique_id=1178412318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_1ycul")
+
+[node name="Tile_1_4" type="Node3D" parent="Tiles/Sol" unique_id=1924301000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 4.5)
+metadata/philia_type = "Rocher"
+metadata/philia_solid = true
+metadata/philia_material = "res://addons/philia_engine/assets/materials/stone.tres"
+
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_1_4" unique_id=1459817744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_4pqpa")
+mesh = SubResource("ArrayMesh_bc1ov")
+
+[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_1_4" unique_id=968788167]
+
+[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Tiles/Sol/Tile_1_4/Collision" unique_id=1753985781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_4lu4q")
+
+[node name="Tile_3_2" type="Node3D" parent="Tiles/Sol" unique_id=835337570]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 2.5)
 metadata/philia_type = "Pilier"
 metadata/philia_solid = true
 metadata/philia_material = "res://addons/philia_engine/assets/materials/stone.tres"
 
-[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_3_2" unique_id=385571305]
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_3_2" unique_id=1726849916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-material_override = SubResource("StandardMaterial3D_wjr3s")
-mesh = SubResource("BoxMesh_0u7oi")
+material_override = SubResource("StandardMaterial3D_knm1r")
+mesh = SubResource("ArrayMesh_ht8xk")
 
-[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_3_2" unique_id=837011604]
+[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_3_2" unique_id=407015877]
 
-[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Tiles/Sol/Tile_3_2/Collision" unique_id=1379922437]
+[node name="@CollisionShape3D@4" type="CollisionShape3D" parent="Tiles/Sol/Tile_3_2/Collision" unique_id=1741676428]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_1ycul")
+shape = SubResource("BoxShape3D_hnqgy")
 
-[node name="Tile_5_3" type="Node3D" parent="Tiles/Sol" unique_id=946865733]
+[node name="Tile_5_3" type="Node3D" parent="Tiles/Sol" unique_id=578373347]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 3.5)
 metadata/philia_type = "Caisse"
 metadata/philia_solid = true
 metadata/philia_material = "res://addons/philia_engine/assets/materials/wood.tres"
 
-[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_5_3" unique_id=1431221910]
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_5_3" unique_id=1588460370]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-material_override = SubResource("StandardMaterial3D_4pqpa")
-mesh = SubResource("BoxMesh_bc1ov")
+material_override = SubResource("StandardMaterial3D_nxjon")
+mesh = SubResource("BoxMesh_cohmk")
 
-[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_5_3" unique_id=1447135659]
+[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_5_3" unique_id=2099407811]
 
-[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Tiles/Sol/Tile_5_3/Collision" unique_id=494748835]
+[node name="@CollisionShape3D@5" type="CollisionShape3D" parent="Tiles/Sol/Tile_5_3/Collision" unique_id=1510376475]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_4lu4q")
+shape = SubResource("BoxShape3D_3qmhr")
 
-[node name="Tile_4_5" type="Node3D" parent="Tiles/Sol" unique_id=630804908]
+[node name="Tile_4_5" type="Node3D" parent="Tiles/Sol" unique_id=1000039235]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5.5)
 metadata/philia_type = "Porte"
 metadata/philia_solid = false
 metadata/philia_footprint = Vector2i(2, 1)
 
-[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_4_5" unique_id=1281673222]
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_4_5" unique_id=1809443735]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-material_override = SubResource("StandardMaterial3D_knm1r")
-mesh = SubResource("BoxMesh_ht8xk")
+material_override = SubResource("StandardMaterial3D_o7cb3")
+mesh = SubResource("BoxMesh_whdet")
 
-[node name="Entities" type="Node3D" parent="." unique_id=1505126836]
+[node name="Entities" type="Node3D" parent="." unique_id=931020918]
 
-[node name="wolf_01" type="Node3D" parent="Entities" unique_id=2097216121]
+[node name="wolf_01" type="Node3D" parent="Entities" unique_id=1246408110]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0.5, 3)
 metadata/philia_entity = "wolf_01"
 metadata/philia_entity_state = "idle"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2147137744]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1506813581]
 transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1637477261]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1723544957]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 4, 6, 9)
 current = true
