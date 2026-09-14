@@ -2,8 +2,10 @@
 extends EditorPlugin
 
 const PhiliaDock := preload("res://addons/philia_engine/editor/philia_dock.tscn")
+const PhiliaGameplayDock := preload("res://addons/philia_engine/editor/philia_gameplay_dock.tscn")
 
 var _dock: Control
+var _gameplay_dock: Control
 
 
 func _enter_tree() -> void:
@@ -11,12 +13,19 @@ func _enter_tree() -> void:
 	_dock.import_requested.connect(_on_import_requested)
 	add_control_to_bottom_panel(_dock, "Philia-Engine")
 
+	_gameplay_dock = PhiliaGameplayDock.instantiate()
+	add_control_to_bottom_panel(_gameplay_dock, "Philia Gameplay")
+
 
 func _exit_tree() -> void:
 	if _dock:
 		remove_control_from_bottom_panel(_dock)
 		_dock.queue_free()
 		_dock = null
+	if _gameplay_dock:
+		remove_control_from_bottom_panel(_gameplay_dock)
+		_gameplay_dock.queue_free()
+		_gameplay_dock = null
 
 
 func _on_import_requested(map: PhiliaMap) -> void:

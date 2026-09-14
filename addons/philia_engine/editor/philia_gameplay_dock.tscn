@@ -1,0 +1,355 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/philia_engine/editor/philia_gameplay_dock.gd" id="1"]
+
+[node name="PhiliaGameplayDock" type="VBoxContainer"]
+custom_minimum_size = Vector2(0, 480)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1")
+
+[node name="Toolbar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NewButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouveau"
+
+[node name="SaveButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sauvegarder"
+
+[node name="LoadButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Charger"
+
+[node name="PathEdit" type="LineEdit" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://gameplay/example.philiagameplay"
+
+[node name="StatusLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Aucun contenu ouvert"
+
+[node name="Tabs" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Gabarits" type="HBoxContainer" parent="Tabs"]
+layout_mode = 2
+
+[node name="TemplateList" type="ItemList" parent="Tabs/Gabarits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TemplateScroll" type="ScrollContainer" parent="Tabs/Gabarits"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TemplateForm" type="VBoxContainer" parent="Tabs/Gabarits/TemplateScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TemplateIdRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/TemplateIdRow"]
+layout_mode = 2
+text = "Id :"
+
+[node name="TemplateIdEdit" type="LineEdit" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/TemplateIdRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HpRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/HpRow"]
+layout_mode = 2
+text = "PV :"
+
+[node name="HpSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/HpRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 9999.0
+value = 10.0
+
+[node name="MaxHpRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/MaxHpRow"]
+layout_mode = 2
+text = "PV max :"
+
+[node name="MaxHpSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/MaxHpRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 9999.0
+value = 10.0
+
+[node name="ForceRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/ForceRow"]
+layout_mode = 2
+text = "Force :"
+
+[node name="ForceSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/ForceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 9999.0
+value = 1.0
+
+[node name="SpeedRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/SpeedRow"]
+layout_mode = 2
+text = "Vitesse :"
+
+[node name="SpeedSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/SpeedRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 9999.0
+value = 1.0
+
+[node name="PerceptionRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/PerceptionRow"]
+layout_mode = 2
+text = "Perception :"
+
+[node name="PerceptionSpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/PerceptionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 9999.0
+value = 1.0
+
+[node name="InventoryLabel" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+text = "Inventaire de départ"
+
+[node name="InventoryList" type="ItemList" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="InventoryAddRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="ItemNameEdit" type="LineEdit" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/InventoryAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "objet"
+
+[node name="ItemQtySpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/InventoryAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+
+[node name="AddItemButton" type="Button" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/InventoryAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+"
+
+[node name="RemoveItemButton" type="Button" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retirer l'objet sélectionné"
+
+[node name="CapacityRow" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/CapacityRow"]
+layout_mode = 2
+text = "Capacité inventaire (0 = illimité) :"
+
+[node name="CapacitySpin" type="SpinBox" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/CapacityRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 999.0
+
+[node name="TemplateButtons" type="HBoxContainer" parent="Tabs/Gabarits/TemplateScroll/TemplateForm"]
+layout_mode = 2
+
+[node name="NewTemplateButton" type="Button" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/TemplateButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouveau gabarit"
+
+[node name="DeleteTemplateButton" type="Button" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/TemplateButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Supprimer"
+
+[node name="ApplyTemplateButton" type="Button" parent="Tabs/Gabarits/TemplateScroll/TemplateForm/TemplateButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Appliquer"
+
+[node name="Quêtes" type="HBoxContainer" parent="Tabs"]
+visible = false
+layout_mode = 2
+
+[node name="QuestList" type="ItemList" parent="Tabs/Quêtes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuestScroll" type="ScrollContainer" parent="Tabs/Quêtes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="QuestForm" type="VBoxContainer" parent="Tabs/Quêtes/QuestScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuestIdRow" type="HBoxContainer" parent="Tabs/Quêtes/QuestScroll/QuestForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Quêtes/QuestScroll/QuestForm/QuestIdRow"]
+layout_mode = 2
+text = "Id :"
+
+[node name="QuestIdEdit" type="LineEdit" parent="Tabs/Quêtes/QuestScroll/QuestForm/QuestIdRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ObjectivesLabel" type="Label" parent="Tabs/Quêtes/QuestScroll/QuestForm"]
+layout_mode = 2
+text = "Objectifs"
+
+[node name="ObjectivesList" type="ItemList" parent="Tabs/Quêtes/QuestScroll/QuestForm"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="ObjectiveAddRow" type="HBoxContainer" parent="Tabs/Quêtes/QuestScroll/QuestForm"]
+layout_mode = 2
+
+[node name="ObjectiveIdEdit" type="LineEdit" parent="Tabs/Quêtes/QuestScroll/QuestForm/ObjectiveAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "id de l'objectif"
+
+[node name="ObjectiveRequiredSpin" type="SpinBox" parent="Tabs/Quêtes/QuestScroll/QuestForm/ObjectiveAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+
+[node name="AddObjectiveButton" type="Button" parent="Tabs/Quêtes/QuestScroll/QuestForm/ObjectiveAddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+"
+
+[node name="RemoveObjectiveButton" type="Button" parent="Tabs/Quêtes/QuestScroll/QuestForm"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retirer l'objectif sélectionné"
+
+[node name="QuestButtons" type="HBoxContainer" parent="Tabs/Quêtes/QuestScroll/QuestForm"]
+layout_mode = 2
+
+[node name="NewQuestButton" type="Button" parent="Tabs/Quêtes/QuestScroll/QuestForm/QuestButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouvelle quête"
+
+[node name="DeleteQuestButton" type="Button" parent="Tabs/Quêtes/QuestScroll/QuestForm/QuestButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Supprimer"
+
+[node name="ApplyQuestButton" type="Button" parent="Tabs/Quêtes/QuestScroll/QuestForm/QuestButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Appliquer"
+
+[node name="Dialogues" type="HBoxContainer" parent="Tabs"]
+visible = false
+layout_mode = 2
+
+[node name="DialogueList" type="ItemList" parent="Tabs/Dialogues"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DialogueBody" type="VBoxContainer" parent="Tabs/Dialogues"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DialogueIdRow" type="HBoxContainer" parent="Tabs/Dialogues/DialogueBody"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Dialogues/DialogueBody/DialogueIdRow"]
+layout_mode = 2
+text = "Id :"
+
+[node name="DialogueIdEdit" type="LineEdit" parent="Tabs/Dialogues/DialogueBody/DialogueIdRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartNodeRow" type="HBoxContainer" parent="Tabs/Dialogues/DialogueBody"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Tabs/Dialogues/DialogueBody/StartNodeRow"]
+layout_mode = 2
+text = "Nœud de départ :"
+
+[node name="StartNodeEdit" type="LineEdit" parent="Tabs/Dialogues/DialogueBody/StartNodeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "ex: node_1"
+
+[node name="DialogueToolbar" type="HBoxContainer" parent="Tabs/Dialogues/DialogueBody"]
+layout_mode = 2
+
+[node name="AddNodeButton" type="Button" parent="Tabs/Dialogues/DialogueBody/DialogueToolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+ Nœud"
+
+[node name="NewDialogueButton" type="Button" parent="Tabs/Dialogues/DialogueBody/DialogueToolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouveau dialogue"
+
+[node name="DeleteDialogueButton" type="Button" parent="Tabs/Dialogues/DialogueBody/DialogueToolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Supprimer"
+
+[node name="ApplyDialogueButton" type="Button" parent="Tabs/Dialogues/DialogueBody/DialogueToolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Appliquer"
+
+[node name="DialogueGraph" type="GraphEdit" parent="Tabs/Dialogues/DialogueBody"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
