@@ -17,9 +17,17 @@ const GRAVITY := 12.0
 
 @onready var _character: Node3D = $CharacterInstance
 @onready var animator: PhiliaCharacterAnimator = $CharacterInstance/Animator
+@onready var _weapon_visual: Node3D = $CharacterInstance/WeaponAttachment/Sword
 
 var stats := PhiliaStats.new({"hp": 20.0, "max_hp": 20.0, "force": 4.0})
 var inventory := PhiliaInventory.new()
+
+
+## Affiche/masque le maillage d'arme en main (voir tools/generate_demo_playable_scene.gd
+## pour son montage) — ce script ne sait pas ce que "visible" représente
+## côté gameplay, le contrôleur décide quand l'appeler (§20).
+func set_weapon_visible(value: bool) -> void:
+	_weapon_visual.visible = value
 
 
 func _physics_process(delta: float) -> void:

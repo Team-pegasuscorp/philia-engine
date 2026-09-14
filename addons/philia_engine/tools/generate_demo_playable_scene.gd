@@ -19,6 +19,7 @@ const OUTPUT_PATH := "res://scenes/demo_playable.tscn"
 const GROUND_SIZE := 40.0
 const GROUND_MATERIAL_PATH := "res://addons/philia_engine/assets/materials/grass_field.tres"
 const GROUND_UV_TILES := 16.0  ## nombre de répétitions de la texture sur toute la largeur du sol
+const WEAPON_BONE := "hand_r"  ## os de la main droite du rig Quaternius (Skeleton3D.get_bone_name())
 
 
 func _initialize() -> void:
@@ -116,7 +117,8 @@ func _add_player(root: Node3D) -> void:
 	player.add_child(shape)
 	shape.owner = root
 
-	_instantiate_character(root, player)
+	var character := _instantiate_character(root, player)
+	_add_weapon_attachment(root, character)
 
 	var camera := Camera3D.new()
 	camera.name = "Camera3D"
@@ -125,6 +127,81 @@ func _add_player(root: Node3D) -> void:
 	camera.current = true
 	player.add_child(camera)
 	camera.owner = root
+
+
+## Épée placeholder (primitives, pas de vrai art — même logique que
+## generate_materials.gd) attachée à la main droite via BoneAttachment3D,
+## cachée par défaut. scenes/demo_playable/player.gd bascule sa visibilité
+## (set_weapon_visible) quand le joueur équipe/déséquipe (touche E).
+##
+## L'attachement est un enfant DIRECT de `character` (la racine de
+## l'instance), avec un squelette externe (use_external_skeleton) qui
+## pointe vers Armature/Skeleton3D — pas un enfant du Skeleton3D
+## lui-même : un nœud ajouté plus profondément qu'un enfant direct d'une
+## sous-scène instanciée ne se sauvegarde PAS avec PackedScene.pack(),
+## même avec owner correct (vérifié en isolant le cas : pack()/save()
+## rapportent un succès mais le .tscn ne contient jamais le nœud).
+func _add_weapon_attachment(root: Node3D, character: Node3D) -> void:
+	var skeleton := character.get_node("Armature/Skeleton3D") as Skeleton3D
+	var attachment := BoneAttachment3D.new()
+	attachment.name = "WeaponAttachment"
+	character.add_child(attachment)
+	attachment.owner = root
+	attachment.use_external_skeleton = true
+	attachment.external_skeleton = attachment.get_path_to(skeleton)
+	attachment.bone_name = WEAPON_BONE
+
+	var sword := _build_sword_mesh()
+	sword.visible = false
+	attachment.add_child(sword)
+	_set_owner_recursive(sword, root)
+
+
+func _build_sword_mesh() -> Node3D:
+	var sword := Node3D.new()
+	sword.name = "Sword"
+
+	var hilt_material := StandardMaterial3D.new()
+	hilt_material.albedo_color = Color(0.35, 0.22, 0.12)
+	var metal_material := StandardMaterial3D.new()
+	metal_material.albedo_color = Color(0.75, 0.76, 0.78)
+	metal_material.metallic = 0.8
+	metal_material.roughness = 0.3
+
+	var hilt := MeshInstance3D.new()
+	hilt.name = "Hilt"
+	var hilt_mesh := BoxMesh.new()
+	hilt_mesh.size = Vector3(0.03, 0.15, 0.03)
+	hilt_mesh.material = hilt_material
+	hilt.mesh = hilt_mesh
+	hilt.position = Vector3(0, 0.075, 0)
+	sword.add_child(hilt)
+
+	var guard := MeshInstance3D.new()
+	guard.name = "Guard"
+	var guard_mesh := BoxMesh.new()
+	guard_mesh.size = Vector3(0.14, 0.02, 0.03)
+	guard_mesh.material = metal_material
+	guard.mesh = guard_mesh
+	guard.position = Vector3(0, 0.15, 0)
+	sword.add_child(guard)
+
+	var blade := MeshInstance3D.new()
+	blade.name = "Blade"
+	var blade_mesh := BoxMesh.new()
+	blade_mesh.size = Vector3(0.03, 0.5, 0.08)
+	blade_mesh.material = metal_material
+	blade.mesh = blade_mesh
+	blade.position = Vector3(0, 0.41, 0)
+	sword.add_child(blade)
+
+	return sword
+
+
+func _set_owner_recursive(node: Node, owner: Node) -> void:
+	node.owner = owner
+	for child in node.get_children():
+		_set_owner_recursive(child, owner)
 
 
 func _add_wolf(root: Node3D) -> void:

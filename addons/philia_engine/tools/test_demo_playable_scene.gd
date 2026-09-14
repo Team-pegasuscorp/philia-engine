@@ -114,6 +114,12 @@ func _test_equip_weapon_increases_damage() -> void:
 	_check(player.inventory.has_item("epee"), "le joueur démarre avec une épée dans l'inventaire")
 	_check(not player.inventory.is_equipped("epee"), "l'épée n'est pas équipée par défaut")
 
+	## Objet 3D (placeholder, voir _build_sword_mesh()) attaché à la main
+	## droite, caché tant que l'épée n'est pas équipée.
+	var sword := player.get_node("CharacterInstance/WeaponAttachment") as BoneAttachment3D
+	_check(sword != null and sword.bone_name == "hand_r", "épée 3D attachée à la main droite du personnage")
+	_check(not player._weapon_visual.visible, "maillage de l'épée caché tant qu'elle n'est pas équipée")
+
 	var force_before: float = player.stats.get_stat("force")
 	var max_hp: float = wolf.stats.get_stat("max_hp")
 	controller._on_player_attack_requested()
@@ -123,6 +129,7 @@ func _test_equip_weapon_increases_damage() -> void:
 	player.equip_toggle_requested.emit()
 	_check(player.inventory.is_equipped("epee"), "equip_toggle_requested (touche E) équipe l'épée")
 	_check(player.stats.get_stat("force") > force_before, "la force du joueur augmente une fois équipé")
+	_check(player._weapon_visual.visible, "maillage de l'épée visible une fois équipée")
 
 	controller._on_player_attack_requested()
 	var armed_damage: float = max_hp - wolf.stats.get_stat("hp")
@@ -131,6 +138,7 @@ func _test_equip_weapon_increases_damage() -> void:
 	player.equip_toggle_requested.emit()
 	_check(not player.inventory.is_equipped("epee"), "equip_toggle_requested à nouveau déséquipe l'épée")
 	_check(player.stats.get_stat("force") == force_before, "la force revient à sa valeur d'origine")
+	_check(not player._weapon_visual.visible, "maillage de l'épée caché à nouveau une fois déséquipée")
 
 	controller.free()
 

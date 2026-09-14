@@ -101,6 +101,7 @@ func _on_equip_toggle_requested() -> void:
 		PhiliaEquipment.unequip(_player.inventory, _player.stats, STARTING_WEAPON, bonuses)
 	else:
 		PhiliaEquipment.equip(_player.inventory, _player.stats, STARTING_WEAPON, bonuses)
+	_player.set_weapon_visible(_player.inventory.is_equipped(STARTING_WEAPON))
 	_hud.set_weapon_text(_weapon_status_text())
 
 
