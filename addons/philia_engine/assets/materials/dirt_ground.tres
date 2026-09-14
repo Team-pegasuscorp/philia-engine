@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PhiliaMaterial" format=3]
+
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/dirt_ground/dirt_ground_albedo.png" id="1_8fpsr"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/dirt_ground/dirt_ground_height.png" id="2_3oifi"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/dirt_ground/dirt_ground_normal.png" id="3_lis3u"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/dirt_ground/dirt_ground_orm.png" id="4_7i08s"]
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_material.gd" id="5_uq5ur"]
+
+[resource]
+script = ExtResource("5_uq5ur")
+albedo_texture = ExtResource("1_8fpsr")
+normal_texture = ExtResource("3_lis3u")
+orm_texture = ExtResource("4_7i08s")
+height_texture = ExtResource("2_3oifi")

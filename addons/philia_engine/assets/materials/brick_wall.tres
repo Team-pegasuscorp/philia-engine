@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PhiliaMaterial" format=3]
+
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/brick_wall/brick_wall_albedo.png" id="1_oryyd"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/brick_wall/brick_wall_height.png" id="2_le54g"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/brick_wall/brick_wall_normal.png" id="3_g2wow"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/brick_wall/brick_wall_orm.png" id="4_slm1c"]
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_material.gd" id="5_pss5i"]
+
+[resource]
+script = ExtResource("5_pss5i")
+albedo_texture = ExtResource("1_oryyd")
+normal_texture = ExtResource("3_g2wow")
+orm_texture = ExtResource("4_slm1c")
+height_texture = ExtResource("2_le54g")

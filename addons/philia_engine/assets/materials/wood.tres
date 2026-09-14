@@ -1,8 +1,14 @@
 [gd_resource type="Resource" script_class="PhiliaMaterial" format=3]
 
-[ext_resource type="Script" path="res://addons/philia_engine/core/philia_material.gd" id="1_rmp8x"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/wood_planks/wood_planks_albedo.png" id="1_ww44u"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/wood_planks/wood_planks_height.png" id="2_hmp5p"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/wood_planks/wood_planks_normal.png" id="3_86tbs"]
+[ext_resource type="Texture2D" path="res://addons/philia_engine/assets/materials/textures/wood_planks/wood_planks_orm.png" id="4_4gdba"]
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_material.gd" id="5_la6oq"]
 
 [resource]
-script = ExtResource("1_rmp8x")
-albedo_color = Color(0.45, 0.3, 0.18, 1)
-roughness = 0.7
+script = ExtResource("5_la6oq")
+albedo_texture = ExtResource("1_ww44u")
+normal_texture = ExtResource("3_86tbs")
+orm_texture = ExtResource("4_4gdba")
+height_texture = ExtResource("2_hmp5p")

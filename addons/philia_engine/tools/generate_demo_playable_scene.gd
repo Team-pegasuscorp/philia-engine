@@ -62,7 +62,7 @@ func _add_ground(root: Node3D) -> void:
 	var box := BoxMesh.new()
 	box.size = Vector3(GROUND_SIZE, 0.2, GROUND_SIZE)
 	## Texture seamless (albedo/normal/ORM/relief) générée par tile-gen,
-	## voir tools/generate_grass_field_material.gd. uv1_scale répète la
+	## voir tools/generate_material_library.gd. uv1_scale répète la
 	## tuile sur toute la surface plutôt que de l'étirer une seule fois.
 	var philia_material: PhiliaMaterial = load(GROUND_MATERIAL_PATH)
 	var material := PhiliaImporter3D.build_standard_material(philia_material)
@@ -129,8 +129,8 @@ func _add_player(root: Node3D) -> void:
 	camera.owner = root
 
 
-## Épée placeholder (primitives, pas de vrai art — même logique que
-## generate_materials.gd) attachée à la main droite via BoneAttachment3D,
+## Épée placeholder (primitives, pas de vrai art) attachée à la main
+## droite via BoneAttachment3D,
 ## cachée par défaut. scenes/demo_playable/player.gd bascule sa visibilité
 ## (set_weapon_visible) quand le joueur équipe/déséquipe (touche E).
 ##
