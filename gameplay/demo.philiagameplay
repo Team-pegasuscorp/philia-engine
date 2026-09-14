@@ -1,0 +1,63 @@
+{
+	"dialogues": {
+		"guard_talk": {
+			"id": "guard_talk",
+			"nodes": {
+				"accept": {
+					"choices": [],
+					"speaker": "Garde",
+					"text": "Merci, sois prudent."
+				},
+				"decline": {
+					"choices": [],
+					"speaker": "Garde",
+					"text": "Dommage."
+				},
+				"greet": {
+					"choices": [
+						{
+							"action": "quest_start:hunt_wolves",
+							"next": "accept",
+							"text": "Je m'en occupe"
+						},
+						{
+							"action": "",
+							"next": "decline",
+							"text": "Pas le temps"
+						}
+					],
+					"speaker": "Garde",
+					"text": "Un loup rôde près du village. Tu veux bien t'en occuper ?"
+				}
+			},
+			"start": "greet"
+		}
+	},
+	"entity_templates": {
+		"wolf": {
+			"inventory": [],
+			"inventory_capacity": 0,
+			"stats": {
+				"force": 1.0,
+				"hp": 6.0,
+				"max_hp": 6.0,
+				"perception": 1.0,
+				"speed": 1.0
+			}
+		}
+	},
+	"format_version": 1,
+	"quests": {
+		"hunt_wolves": {
+			"id": "hunt_wolves",
+			"objectives": [
+				{
+					"count": 0,
+					"id": "kill_wolf",
+					"required": 1
+				}
+			],
+			"state": 0
+		}
+	}
+}
