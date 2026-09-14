@@ -123,7 +123,7 @@ func _add_player(root: Node3D) -> void:
 func _add_wolf(root: Node3D) -> void:
 	var wolf := Node3D.new()
 	wolf.name = "Wolf"
-	wolf.position = Vector3(0, 0, -6)
+	wolf.position = Vector3(0, 0, -1)  ## juste après le trigger (z=3) pour être visible tout de suite après le dialogue
 	wolf.set_script(load(ENEMY_SCRIPT_PATH))
 	root.add_child(wolf)
 	wolf.owner = root
