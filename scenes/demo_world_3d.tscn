@@ -2,299 +2,989 @@
 
 [ext_resource type="MeshLibrary" path="res://addons/philia_engine/assets/philia_terrain_meshlibrary.tres" id="1_wekl0"]
 
-[node name="PhiliaMap3D" type="Node3D" unique_id=150126391]
+[node name="PhiliaMap3D" type="Node3D" unique_id=1878321965]
 metadata/philia_format_version = 4
 metadata/philia_seed = 20260914
 
-[node name="Tiles" type="Node3D" parent="." unique_id=43866936]
+[node name="Tiles" type="Node3D" parent="." unique_id=376795410]
 
-[node name="Terrain" type="Node3D" parent="Tiles" unique_id=2093557004]
+[node name="Terrain" type="Node3D" parent="Tiles" unique_id=1845697412]
 
-[node name="Terrain" type="GridMap" parent="Tiles/Terrain" unique_id=372638738]
+[node name="Terrain" type="GridMap" parent="Tiles/Terrain" unique_id=682542913]
 mesh_library = ExtResource("1_wekl0")
 cell_size = Vector3(1, 1, 1)
 data = {
 "cells": PackedInt32Array(0, 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 8, 6, 0, 9, 6, 0, 10, 6, 0, 11, 6, 0, 12, 6, 0, 13, 6, 0, 14, 6, 0, 15, 3, 0, 16, 3, 0, 17, 6, 0, 18, 6, 0, 19, 3, 0, 20, 4, 0, 21, 4, 0, 22, 4, 0, 23, 4, 0, 24, 4, 0, 25, 8, 0, 26, 10, 0, 27, 6, 0, 28, 6, 0, 29, 4, 0, 30, 4, 0, 31, 4, 1, 0, 6, 1, 1, 3, 1, 2, 6, 1, 3, 6, 1, 4, 4, 1, 5, 4, 1, 6, 7, 1, 7, 7, 1, 8, 3, 1, 9, 3, 1, 10, 6, 1, 11, 8, 1, 12, 8, 1, 13, 3, 1, 14, 3, 1, 15, 3, 1, 16, 3, 1, 17, 3, 1, 18, 6, 1, 19, 3, 1, 20, 3, 1, 21, 4, 1, 22, 4, 1, 23, 4, 1, 24, 4, 1, 25, 6, 1, 26, 4, 1, 27, 4, 1, 28, 4, 1, 29, 4, 1, 30, 4, 1, 31, 4, 2, 0, 6, 2, 1, 3, 2, 2, 6, 2, 3, 6, 2, 4, 7, 2, 5, 7, 2, 6, 7, 2, 7, 4, 2, 8, 3, 2, 9, 3, 2, 10, 3, 2, 11, 3, 2, 12, 3, 2, 13, 3, 2, 14, 3, 2, 15, 3, 2, 16, 4, 2, 17, 4, 2, 18, 3, 2, 19, 3, 2, 20, 4, 2, 21, 4, 2, 22, 4, 2, 23, 4, 2, 24, 3, 2, 25, 6, 2, 26, 4, 2, 27, 4, 2, 28, 4, 2, 29, 4, 2, 30, 4, 2, 31, 4, 3, 0, 8, 3, 1, 6, 3, 2, 3, 3, 3, 7, 3, 4, 7, 3, 5, 7, 3, 6, 4, 3, 7, 4, 3, 8, 3, 3, 9, 3, 3, 10, 3, 3, 11, 3, 3, 12, 3, 3, 13, 3, 3, 14, 3, 3, 15, 3, 3, 16, 4, 3, 17, 4, 3, 18, 4, 3, 19, 4, 3, 20, 4, 3, 21, 4, 3, 22, 4, 3, 23, 4, 3, 24, 6, 3, 25, 3, 3, 26, 4, 3, 27, 4, 3, 28, 4, 3, 29, 4, 3, 30, 4, 3, 31, 4, 4, 0, 8, 4, 1, 8, 4, 2, 6, 4, 3, 3, 4, 4, 7, 4, 5, 7, 4, 6, 4, 4, 7, 3, 4, 8, 4, 4, 9, 3, 4, 10, 3, 4, 11, 3, 4, 12, 3, 4, 13, 3, 4, 14, 3, 4, 15, 3, 4, 16, 4, 4, 17, 4, 4, 18, 4, 4, 19, 4, 4, 20, 4, 4, 21, 4, 4, 22, 4, 4, 23, 3, 4, 24, 3, 4, 25, 3, 4, 26, 3, 4, 27, 3, 4, 28, 3, 4, 29, 9, 4, 30, 4, 4, 31, 4, 5, 0, 6, 5, 1, 6, 5, 2, 3, 5, 3, 3, 5, 4, 3, 5, 5, 4, 5, 6, 4, 5, 7, 4, 5, 8, 4, 5, 9, 3, 5, 10, 3, 5, 11, 3, 5, 12, 3, 5, 13, 3, 5, 14, 3, 5, 15, 3, 5, 16, 4, 5, 17, 4, 5, 18, 4, 5, 19, 4, 5, 20, 4, 5, 21, 8, 5, 22, 6, 5, 23, 3, 5, 24, 3, 5, 25, 3, 5, 26, 9, 5, 27, 3, 5, 28, 3, 5, 29, 9, 5, 30, 4, 5, 31, 4, 6, 0, 3, 6, 1, 3, 6, 2, 6, 6, 3, 3, 6, 4, 3, 6, 5, 3, 6, 6, 4, 6, 7, 4, 6, 8, 3, 6, 9, 3, 6, 10, 3, 6, 11, 3, 6, 12, 3, 6, 13, 3, 6, 14, 3, 6, 15, 4, 6, 16, 4, 6, 17, 4, 6, 18, 4, 6, 19, 6, 6, 20, 8, 6, 21, 6, 6, 22, 8, 6, 23, 3, 6, 24, 3, 6, 25, 3, 6, 26, 3, 6, 27, 3, 6, 28, 3, 6, 29, 3, 6, 30, 4, 6, 31, 4, 7, 0, 3, 7, 1, 3, 7, 2, 3, 7, 3, 3, 7, 4, 3, 7, 5, 6, 7, 6, 4, 7, 7, 3, 7, 8, 6, 7, 9, 6, 7, 10, 3, 7, 11, 3, 7, 12, 3, 7, 13, 3, 7, 14, 3, 7, 15, 6, 7, 16, 6, 7, 17, 4, 7, 18, 4, 7, 19, 6, 7, 20, 8, 7, 21, 10, 7, 22, 8, 7, 23, 6, 7, 24, 3, 7, 25, 3, 7, 26, 6, 7, 27, 3, 7, 28, 3, 7, 29, 3, 7, 30, 3, 7, 31, 3, 8, 0, 3, 8, 1, 3, 8, 2, 3, 8, 3, 3, 8, 4, 3, 8, 5, 3, 8, 6, 3, 8, 7, 3, 8, 8, 6, 8, 9, 8, 8, 10, 6, 8, 11, 6, 8, 12, 6, 8, 13, 5, 8, 14, 6, 8, 15, 6, 8, 16, 6, 8, 17, 8, 8, 18, 6, 8, 19, 6, 8, 20, 6, 8, 21, 10, 8, 22, 10, 8, 23, 10, 8, 24, 6, 8, 25, 6, 8, 26, 6, 8, 27, 6, 8, 28, 3, 8, 29, 3, 8, 30, 3, 8, 31, 4, 9, 0, 3, 9, 1, 3, 9, 2, 3, 9, 3, 3, 9, 4, 3, 9, 5, 3, 9, 6, 3, 9, 7, 6, 9, 8, 3, 9, 9, 8, 9, 10, 10, 9, 11, 8, 9, 12, 6, 9, 13, 6, 9, 14, 5, 9, 15, 6, 9, 16, 6, 9, 17, 6, 9, 18, 6, 9, 19, 6, 9, 20, 3, 9, 21, 8, 9, 22, 10, 9, 23, 10, 9, 24, 10, 9, 25, 8, 9, 26, 7, 9, 27, 6, 9, 28, 3, 9, 29, 3, 9, 30, 9, 9, 31, 3, 10, 0, 3, 10, 1, 3, 10, 2, 3, 10, 3, 6, 10, 4, 6, 10, 5, 6, 10, 6, 8, 10, 7, 8, 10, 8, 6, 10, 9, 8, 10, 10, 10, 10, 11, 10, 10, 12, 6, 10, 13, 5, 10, 14, 5, 10, 15, 6, 10, 16, 6, 10, 17, 6, 10, 18, 6, 10, 19, 6, 10, 20, 6, 10, 21, 8, 10, 22, 8, 10, 23, 10, 10, 24, 10, 10, 25, 7, 10, 26, 6, 10, 27, 6, 10, 28, 3, 10, 29, 3, 10, 30, 3, 10, 31, 3, 11, 0, 5, 11, 1, 3, 11, 2, 5, 11, 3, 5, 11, 4, 5, 11, 5, 8, 11, 6, 10, 11, 7, 10, 11, 8, 8, 11, 9, 6, 11, 10, 10, 11, 11, 6, 11, 12, 6, 11, 13, 6, 11, 14, 6, 11, 15, 6, 11, 16, 3, 11, 17, 3, 11, 18, 6, 11, 19, 6, 11, 20, 6, 11, 21, 8, 11, 22, 8, 11, 23, 10, 11, 24, 10, 11, 25, 7, 11, 26, 6, 11, 27, 3, 11, 28, 3, 11, 29, 3, 11, 30, 3, 11, 31, 3, 12, 0, 5, 12, 1, 5, 12, 2, 5, 12, 3, 5, 12, 4, 5, 12, 5, 5, 12, 6, 5, 12, 7, 5, 12, 8, 5, 12, 9, 5, 12, 10, 6, 12, 11, 3, 12, 12, 6, 12, 13, 8, 12, 14, 6, 12, 15, 3, 12, 16, 3, 12, 17, 3, 12, 18, 4, 12, 19, 3, 12, 20, 3, 12, 21, 6, 12, 22, 7, 12, 23, 7, 12, 24, 3, 12, 25, 4, 12, 26, 4, 12, 27, 4, 12, 28, 4, 12, 29, 3, 12, 30, 3, 12, 31, 3, 13, 0, 5, 13, 1, 5, 13, 2, 5, 13, 3, 6, 13, 4, 6, 13, 5, 5, 13, 6, 5, 13, 7, 5, 13, 8, 5, 13, 9, 6, 13, 10, 6, 13, 11, 6, 13, 12, 6, 13, 13, 3, 13, 14, 3, 13, 15, 3, 13, 16, 3, 13, 17, 4, 13, 18, 4, 13, 19, 4, 13, 20, 4, 13, 21, 4, 13, 22, 3, 13, 23, 3, 13, 24, 3, 13, 25, 9, 13, 26, 4, 13, 27, 4, 13, 28, 4, 13, 29, 4, 13, 30, 3, 13, 31, 3, 14, 0, 5, 14, 1, 5, 14, 2, 5, 14, 3, 6, 14, 4, 6, 14, 5, 3, 14, 6, 5, 14, 7, 5, 14, 8, 5, 14, 9, 6, 14, 10, 10, 14, 11, 8, 14, 12, 8, 14, 13, 6, 14, 14, 3, 14, 15, 3, 14, 16, 3, 14, 17, 4, 14, 18, 4, 14, 19, 4, 14, 20, 4, 14, 21, 4, 14, 22, 4, 14, 23, 3, 14, 24, 3, 14, 25, 3, 14, 26, 4, 14, 27, 4, 14, 28, 4, 14, 29, 4, 14, 30, 6, 14, 31, 3, 15, 0, 3, 15, 1, 5, 15, 2, 6, 15, 3, 6, 15, 4, 6, 15, 5, 6, 15, 6, 3, 15, 7, 5, 15, 8, 5, 15, 9, 6, 15, 10, 8, 15, 11, 8, 15, 12, 6, 15, 13, 6, 15, 14, 6, 15, 15, 3, 15, 16, 3, 15, 17, 3, 15, 18, 4, 15, 19, 4, 15, 20, 4, 15, 21, 4, 15, 22, 4, 15, 23, 3, 15, 24, 3, 15, 25, 4, 15, 26, 4, 15, 27, 4, 15, 28, 4, 15, 29, 4, 15, 30, 8, 15, 31, 3, 16, 0, 5, 16, 1, 3, 16, 2, 6, 16, 3, 3, 16, 4, 3, 16, 5, 3, 16, 6, 3, 16, 7, 3, 16, 8, 3, 16, 9, 3, 16, 10, 3, 16, 11, 6, 16, 12, 6, 16, 13, 6, 16, 14, 6, 16, 15, 3, 16, 16, 3, 16, 17, 3, 16, 18, 9, 16, 19, 4, 16, 20, 4, 16, 21, 4, 16, 22, 4, 16, 23, 4, 16, 24, 4, 16, 25, 4, 16, 26, 4, 16, 27, 4, 16, 28, 4, 16, 29, 8, 16, 30, 8, 16, 31, 6, 17, 0, 3, 17, 1, 6, 17, 2, 4, 17, 3, 4, 17, 4, 4, 17, 5, 4, 17, 6, 3, 17, 7, 3, 17, 8, 3, 17, 9, 3, 17, 10, 3, 17, 11, 3, 17, 12, 3, 17, 13, 3, 17, 14, 3, 17, 15, 3, 17, 16, 3, 17, 17, 3, 17, 18, 3, 17, 19, 3, 17, 20, 3, 17, 21, 4, 17, 22, 4, 17, 23, 4, 17, 24, 4, 17, 25, 4, 17, 26, 4, 17, 27, 4, 17, 28, 8, 17, 29, 10, 17, 30, 6, 17, 31, 6, 18, 0, 4, 18, 1, 4, 18, 2, 4, 18, 3, 4, 18, 4, 4, 18, 5, 4, 18, 6, 4, 18, 7, 3, 18, 8, 3, 18, 9, 3, 18, 10, 3, 18, 11, 3, 18, 12, 3, 18, 13, 3, 18, 14, 3, 18, 15, 3, 18, 16, 3, 18, 17, 3, 18, 18, 3, 18, 19, 9, 18, 20, 3, 18, 21, 4, 18, 22, 4, 18, 23, 4, 18, 24, 4, 18, 25, 4, 18, 26, 4, 18, 27, 4, 18, 28, 6, 18, 29, 6, 18, 30, 3, 18, 31, 3, 19, 0, 4, 19, 1, 4, 19, 2, 4, 19, 3, 4, 19, 4, 4, 19, 5, 4, 19, 6, 3, 19, 7, 3, 19, 8, 3, 19, 9, 3, 19, 10, 3, 19, 11, 3, 19, 12, 3, 19, 13, 3, 19, 14, 3, 19, 15, 3, 19, 16, 3, 19, 17, 3, 19, 18, 3, 19, 19, 9, 19, 20, 3, 19, 21, 4, 19, 22, 4, 19, 23, 4, 19, 24, 4, 19, 25, 4, 19, 26, 6, 19, 27, 8, 19, 28, 6, 19, 29, 6, 19, 30, 3, 19, 31, 3, 20, 0, 4, 20, 1, 4, 20, 2, 4, 20, 3, 4, 20, 4, 4, 20, 5, 4, 20, 6, 3, 20, 7, 3, 20, 8, 3, 20, 9, 3, 20, 10, 3, 20, 11, 3, 20, 12, 3, 20, 13, 3, 20, 14, 3, 20, 15, 3, 20, 16, 3, 20, 17, 3, 20, 18, 3, 20, 19, 9, 20, 20, 3, 20, 21, 3, 20, 22, 4, 20, 23, 4, 20, 24, 4, 20, 25, 10, 20, 26, 7, 20, 27, 6, 20, 28, 6, 20, 29, 3, 20, 30, 3, 20, 31, 6, 21, 0, 4, 21, 1, 4, 21, 2, 4, 21, 3, 4, 21, 4, 4, 21, 5, 3, 21, 6, 3, 21, 7, 7, 21, 8, 7, 21, 9, 7, 21, 10, 7, 21, 11, 3, 21, 12, 3, 21, 13, 3, 21, 14, 3, 21, 15, 3, 21, 16, 3, 21, 17, 3, 21, 18, 3, 21, 19, 3, 21, 20, 3, 21, 21, 3, 21, 22, 3, 21, 23, 4, 21, 24, 4, 21, 25, 10, 21, 26, 8, 21, 27, 6, 21, 28, 3, 21, 29, 6, 21, 30, 3, 21, 31, 3, 22, 0, 4, 22, 1, 4, 22, 2, 4, 22, 3, 4, 22, 4, 4, 22, 5, 3, 22, 6, 3, 22, 7, 7, 22, 8, 7, 22, 9, 7, 22, 10, 7, 22, 11, 7, 22, 12, 3, 22, 13, 3, 22, 14, 3, 22, 15, 3, 22, 16, 3, 22, 17, 3, 22, 18, 3, 22, 19, 3, 22, 20, 3, 22, 21, 6, 22, 22, 3, 22, 23, 4, 22, 24, 8, 22, 25, 8, 22, 26, 8, 22, 27, 8, 22, 28, 6, 22, 29, 6, 22, 30, 3, 22, 31, 3, 23, 0, 4, 23, 1, 4, 23, 2, 4, 23, 3, 4, 23, 4, 4, 23, 5, 3, 23, 6, 3, 23, 7, 7, 23, 8, 7, 23, 9, 7, 23, 10, 7, 23, 11, 7, 23, 12, 3, 23, 13, 3, 23, 14, 3, 23, 15, 3, 23, 16, 5, 23, 17, 3, 23, 18, 3, 23, 19, 3, 23, 20, 3, 23, 21, 3, 23, 22, 6, 23, 23, 4, 23, 24, 4, 23, 25, 4, 23, 26, 8, 23, 27, 8, 23, 28, 6, 23, 29, 6, 23, 30, 3, 23, 31, 3, 24, 0, 3, 24, 1, 4, 24, 2, 4, 24, 3, 4, 24, 4, 3, 24, 5, 3, 24, 6, 3, 24, 7, 7, 24, 8, 7, 24, 9, 6, 24, 10, 3, 24, 11, 7, 24, 12, 7, 24, 13, 3, 24, 14, 3, 24, 15, 3, 24, 16, 5, 24, 17, 5, 24, 18, 3, 24, 19, 3, 24, 20, 5, 24, 21, 6, 24, 22, 8, 24, 23, 10, 24, 24, 10, 24, 25, 8, 24, 26, 8, 24, 27, 7, 24, 28, 7, 24, 29, 7, 24, 30, 3, 24, 31, 3, 25, 0, 3, 25, 1, 4, 25, 2, 3, 25, 3, 3, 25, 4, 3, 25, 5, 3, 25, 6, 3, 25, 7, 3, 25, 8, 3, 25, 9, 6, 25, 10, 6, 25, 11, 3, 25, 12, 7, 25, 13, 7, 25, 14, 3, 25, 15, 3, 25, 16, 5, 25, 17, 5, 25, 18, 3, 25, 19, 6, 25, 20, 6, 25, 21, 6, 25, 22, 6, 25, 23, 8, 25, 24, 10, 25, 25, 10, 25, 26, 6, 25, 27, 7, 25, 28, 7, 25, 29, 3, 25, 30, 3, 25, 31, 3, 26, 0, 3, 26, 1, 3, 26, 2, 3, 26, 3, 3, 26, 4, 3, 26, 5, 3, 26, 6, 6, 26, 7, 3, 26, 8, 3, 26, 9, 6, 26, 10, 6, 26, 11, 6, 26, 12, 7, 26, 13, 7, 26, 14, 3, 26, 15, 3, 26, 16, 3, 26, 17, 5, 26, 18, 8, 26, 19, 6, 26, 20, 6, 26, 21, 3, 26, 22, 4, 26, 23, 4, 26, 24, 8, 26, 25, 8, 26, 26, 6, 26, 27, 6, 26, 28, 3, 26, 29, 3, 26, 30, 3, 26, 31, 3, 27, 0, 8, 27, 1, 6, 27, 2, 3, 27, 3, 3, 27, 4, 3, 27, 5, 3, 27, 6, 4, 27, 7, 3, 27, 8, 6, 27, 9, 6, 27, 10, 8, 27, 11, 8, 27, 12, 3, 27, 13, 7, 27, 14, 3, 27, 15, 3, 27, 16, 5, 27, 17, 5, 27, 18, 10, 27, 19, 10, 27, 20, 8, 27, 21, 4, 27, 22, 4, 27, 23, 6, 27, 24, 8, 27, 25, 10, 27, 26, 10, 27, 27, 8, 27, 28, 6, 27, 29, 6, 27, 30, 3, 27, 31, 3, 28, 0, 6, 28, 1, 6, 28, 2, 3, 28, 3, 3, 28, 4, 3, 28, 5, 3, 28, 6, 4, 28, 7, 4, 28, 8, 6, 28, 9, 5, 28, 10, 6, 28, 11, 3, 28, 12, 3, 28, 13, 3, 28, 14, 6, 28, 15, 6, 28, 16, 6, 28, 17, 6, 28, 18, 6, 28, 19, 8, 28, 20, 8, 28, 21, 4, 28, 22, 4, 28, 23, 8, 28, 24, 4, 28, 25, 8, 28, 26, 10, 28, 27, 10, 28, 28, 6, 28, 29, 3, 28, 30, 3, 28, 31, 5, 29, 0, 8, 29, 1, 6, 29, 2, 3, 29, 3, 3, 29, 4, 4, 29, 5, 4, 29, 6, 4, 29, 7, 4, 29, 8, 3, 29, 9, 8, 29, 10, 5, 29, 11, 5, 29, 12, 3, 29, 13, 6, 29, 14, 6, 29, 15, 8, 29, 16, 10, 29, 17, 10, 29, 18, 6, 29, 19, 4, 29, 20, 6, 29, 21, 6, 29, 22, 6, 29, 23, 6, 29, 24, 8, 29, 25, 8, 29, 26, 10, 29, 27, 8, 29, 28, 6, 29, 29, 3, 29, 30, 3, 29, 31, 9, 30, 0, 8, 30, 1, 10, 30, 2, 6, 30, 3, 3, 30, 4, 4, 30, 5, 4, 30, 6, 4, 30, 7, 4, 30, 8, 3, 30, 9, 8, 30, 10, 10, 30, 11, 6, 30, 12, 3, 30, 13, 6, 30, 14, 6, 30, 15, 8, 30, 16, 10, 30, 17, 8, 30, 18, 3, 30, 19, 4, 30, 20, 8, 30, 21, 8, 30, 22, 8, 30, 23, 6, 30, 24, 6, 30, 25, 8, 30, 26, 6, 30, 27, 6, 30, 28, 3, 30, 29, 3, 30, 30, 3, 30, 31, 3, 31, 0, 6, 31, 1, 6, 31, 2, 3, 31, 3, 3, 31, 4, 3, 31, 5, 4, 31, 6, 4, 31, 7, 4, 31, 8, 4, 31, 9, 6, 31, 10, 5, 31, 11, 6, 31, 12, 6, 31, 13, 3, 31, 14, 6, 31, 15, 6, 31, 16, 6, 31, 17, 3, 31, 18, 3, 31, 19, 3, 31, 20, 4, 31, 21, 6, 31, 22, 3, 31, 23, 3, 31, 24, 3, 31, 25, 3, 31, 26, 3, 31, 27, 3, 31, 28, 3, 31, 29, 3, 31, 30, 3, 31, 31, 3)
 }
 
-[node name="Décor" type="Node3D" parent="Tiles" unique_id=1614435084]
+[node name="Décor" type="Node3D" parent="Tiles" unique_id=591659421]
 
-[node name="Entities" type="Node3D" parent="." unique_id=658070647]
+[node name="Entities" type="Node3D" parent="." unique_id=1775095689]
 
-[node name="arbre_0_21" type="Node3D" parent="Entities" unique_id=929476455]
+[node name="arbre_0_21" type="Node3D" parent="Entities" unique_id=706267133]
 transform = Transform3D(-0.13917308, 0, 0.99026805, 0, 1, 0, -0.99026805, 0, -0.13917308, 0, 0, 21)
 metadata/philia_entity = "arbre_0_21"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_0_23" type="Node3D" parent="Entities" unique_id=1897227090]
+[node name="arbre_0_23" type="Node3D" parent="Entities" unique_id=1617775464]
 transform = Transform3D(0.99619466, 0, -0.08715603, 0, 1, 0, 0.08715603, 0, 0.99619466, 0, 0, 23)
 metadata/philia_entity = "arbre_0_23"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_0_29" type="Node3D" parent="Entities" unique_id=1066911361]
+[node name="arbre_0_29" type="Node3D" parent="Entities" unique_id=2117029583]
 transform = Transform3D(0.65605885, 0, -0.7547097, 0, 1, 0, 0.7547097, 0, 0.65605885, 0, 0, 29)
 metadata/philia_entity = "arbre_0_29"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_0_31" type="Node3D" parent="Entities" unique_id=1249518416]
+[node name="arbre_0_31" type="Node3D" parent="Entities" unique_id=1316214651]
 transform = Transform3D(0.6293204, 0, -0.777146, 0, 1, 0, 0.777146, 0, 0.6293204, 0, 0, 31)
 metadata/philia_entity = "arbre_0_31"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_1_5" type="Node3D" parent="Entities" unique_id=1749375923]
+[node name="arbre_1_5" type="Node3D" parent="Entities" unique_id=292169207]
 transform = Transform3D(0.52991927, 0, 0.8480481, 0, 1, 0, -0.8480481, 0, 0.52991927, 1, 0, 5)
 metadata/philia_entity = "arbre_1_5"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_1_24" type="Node3D" parent="Entities" unique_id=1383180099]
+[node name="arbre_1_24" type="Node3D" parent="Entities" unique_id=845309995]
 transform = Transform3D(0.06975657, 0, -0.997564, 0, 1, 0, 0.997564, 0, 0.06975657, 1, 0, 24)
 metadata/philia_entity = "arbre_1_24"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_1_29" type="Node3D" parent="Entities" unique_id=1703883172]
+[node name="arbre_1_29" type="Node3D" parent="Entities" unique_id=1600272279]
 transform = Transform3D(0.32556814, 0, 0.94551855, 0, 1, 0, -0.94551855, 0, 0.32556814, 1, 0, 29)
 metadata/philia_entity = "arbre_1_29"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_1_30" type="Node3D" parent="Entities" unique_id=1623011718]
+[node name="arbre_1_30" type="Node3D" parent="Entities" unique_id=640007107]
 transform = Transform3D(0.9986295, 0, 0.05233596, 0, 1, 0, -0.05233596, 0, 0.9986295, 1, 0, 30)
 metadata/philia_entity = "arbre_1_30"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_1_31" type="Node3D" parent="Entities" unique_id=2116025155]
+[node name="arbre_1_31" type="Node3D" parent="Entities" unique_id=483484381]
 transform = Transform3D(-0.9135455, 0, 0.40673658, 0, 1, 0, -0.40673658, 0, -0.9135455, 1, 0, 31)
 metadata/philia_entity = "arbre_1_31"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_2_21" type="Node3D" parent="Entities" unique_id=1217234076]
+[node name="arbre_2_21" type="Node3D" parent="Entities" unique_id=499824634]
 transform = Transform3D(-0.30901694, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, -0.30901694, 2, 0, 21)
 metadata/philia_entity = "arbre_2_21"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_2_22" type="Node3D" parent="Entities" unique_id=1561343151]
+[node name="arbre_2_22" type="Node3D" parent="Entities" unique_id=1441745262]
 transform = Transform3D(0.9848077, 0, -0.17364845, 0, 1, 0, 0.17364845, 0, 0.9848077, 2, 0, 22)
 metadata/philia_entity = "arbre_2_22"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_2_23" type="Node3D" parent="Entities" unique_id=2124297365]
+[node name="arbre_2_23" type="Node3D" parent="Entities" unique_id=2125707961]
 transform = Transform3D(0.7313537, 0, 0.6819984, 0, 1, 0, -0.6819984, 0, 0.7313537, 2, 0, 23)
 metadata/philia_entity = "arbre_2_23"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_3_7" type="Node3D" parent="Entities" unique_id=1334573519]
+[node name="arbre_3_7" type="Node3D" parent="Entities" unique_id=1816526694]
 transform = Transform3D(-0.7431448, 0, -0.6691306, 0, 1, 0, 0.6691306, 0, -0.7431448, 3, 0, 7)
 metadata/philia_entity = "arbre_3_7"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_3_20" type="Node3D" parent="Entities" unique_id=514623359]
+[node name="arbre_3_20" type="Node3D" parent="Entities" unique_id=1630360878]
 transform = Transform3D(0.95105654, 0, -0.30901694, 0, 1, 0, 0.30901694, 0, 0.95105654, 3, 0, 20)
 metadata/philia_entity = "arbre_3_20"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_3_22" type="Node3D" parent="Entities" unique_id=1201767272]
+[node name="arbre_3_22" type="Node3D" parent="Entities" unique_id=658705592]
 transform = Transform3D(0.121869326, 0, 0.99254614, 0, 1, 0, -0.99254614, 0, 0.121869326, 3, 0, 22)
 metadata/philia_entity = "arbre_3_22"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_3_30" type="Node3D" parent="Entities" unique_id=1854360158]
+[node name="arbre_3_30" type="Node3D" parent="Entities" unique_id=2040530881]
 transform = Transform3D(-0.39073116, 0, 0.92050487, 0, 1, 0, -0.92050487, 0, -0.39073116, 3, 0, 30)
 metadata/philia_entity = "arbre_3_30"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_4_16" type="Node3D" parent="Entities" unique_id=1967388672]
+[node name="arbre_4_16" type="Node3D" parent="Entities" unique_id=457060658]
 transform = Transform3D(0.85716724, 0, -0.51503813, 0, 1, 0, 0.51503813, 0, 0.85716724, 4, 0, 16)
 metadata/philia_entity = "arbre_4_16"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_4_18" type="Node3D" parent="Entities" unique_id=1693622274]
+[node name="arbre_4_18" type="Node3D" parent="Entities" unique_id=1702879103]
 transform = Transform3D(-0.76604444, 0, 0.64278764, 0, 1, 0, -0.64278764, 0, -0.76604444, 4, 0, 18)
 metadata/philia_entity = "arbre_4_18"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_4_19" type="Node3D" parent="Entities" unique_id=1606895711]
+[node name="arbre_4_19" type="Node3D" parent="Entities" unique_id=156313855]
 transform = Transform3D(0.70710665, 0, -0.7071069, 0, 1, 0, 0.7071069, 0, 0.70710665, 4, 0, 19)
 metadata/philia_entity = "arbre_4_19"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_4_20" type="Node3D" parent="Entities" unique_id=284528182]
+[node name="arbre_4_20" type="Node3D" parent="Entities" unique_id=2028582642]
 transform = Transform3D(-0.80901706, 0, 0.5877852, 0, 1, 0, -0.5877852, 0, -0.80901706, 4, 0, 20)
 metadata/philia_entity = "arbre_4_20"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_5_7" type="Node3D" parent="Entities" unique_id=737440203]
+[node name="arbre_5_7" type="Node3D" parent="Entities" unique_id=1693927746]
 transform = Transform3D(0.19080888, 0, -0.9816272, 0, 1, 0, 0.9816272, 0, 0.19080888, 5, 0, 7)
 metadata/philia_entity = "arbre_5_7"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_5_17" type="Node3D" parent="Entities" unique_id=1897398953]
+[node name="arbre_5_17" type="Node3D" parent="Entities" unique_id=173450838]
 transform = Transform3D(-0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, -0.64278764, 5, 0, 17)
 metadata/philia_entity = "arbre_5_17"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_5_19" type="Node3D" parent="Entities" unique_id=1940304109]
+[node name="arbre_5_19" type="Node3D" parent="Entities" unique_id=290067485]
 transform = Transform3D(0.06975651, 0, 0.9975641, 0, 1, 0, -0.9975641, 0, 0.06975651, 5, 0, 19)
 metadata/philia_entity = "arbre_5_19"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_5_20" type="Node3D" parent="Entities" unique_id=1134706623]
+[node name="arbre_5_20" type="Node3D" parent="Entities" unique_id=1268300819]
 transform = Transform3D(0.95105654, 0, -0.30901694, 0, 1, 0, 0.30901694, 0, 0.95105654, 5, 0, 20)
 metadata/philia_entity = "arbre_5_20"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_6_18" type="Node3D" parent="Entities" unique_id=1173770266]
+[node name="arbre_6_18" type="Node3D" parent="Entities" unique_id=916227302]
 transform = Transform3D(-0.7431448, 0, 0.6691306, 0, 1, 0, -0.6691306, 0, -0.7431448, 6, 0, 18)
 metadata/philia_entity = "arbre_6_18"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_7_18" type="Node3D" parent="Entities" unique_id=763213186]
+[node name="arbre_7_18" type="Node3D" parent="Entities" unique_id=1838511659]
 transform = Transform3D(-0.99254614, 0, -0.121869214, 0, 1, 0, 0.121869214, 0, -0.99254614, 7, 0, 18)
 metadata/philia_entity = "arbre_7_18"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_8_31" type="Node3D" parent="Entities" unique_id=600666522]
+[node name="arbre_8_31" type="Node3D" parent="Entities" unique_id=1068868201]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 8, 0, 31)
 metadata/philia_entity = "arbre_8_31"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_13_18" type="Node3D" parent="Entities" unique_id=1277293153]
+[node name="arbre_13_18" type="Node3D" parent="Entities" unique_id=1639691187]
 transform = Transform3D(-0.7986355, 0, 0.6018151, 0, 1, 0, -0.6018151, 0, -0.7986355, 13, 0, 18)
 metadata/philia_entity = "arbre_13_18"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_13_19" type="Node3D" parent="Entities" unique_id=839935886]
+[node name="arbre_13_19" type="Node3D" parent="Entities" unique_id=1920202037]
 transform = Transform3D(-0.8746198, 0, 0.48480955, 0, 1, 0, -0.48480955, 0, -0.8746198, 13, 0, 19)
 metadata/philia_entity = "arbre_13_19"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_14_20" type="Node3D" parent="Entities" unique_id=360836925]
+[node name="arbre_14_20" type="Node3D" parent="Entities" unique_id=1777193411]
 transform = Transform3D(-0.99939084, 0, 0.03489945, 0, 1, 0, -0.03489945, 0, -0.99939084, 14, 0, 20)
 metadata/philia_entity = "arbre_14_20"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_14_22" type="Node3D" parent="Entities" unique_id=109839092]
+[node name="arbre_14_22" type="Node3D" parent="Entities" unique_id=1812830541]
 transform = Transform3D(-0.9396926, 0, 0.3420202, 0, 1, 0, -0.3420202, 0, -0.9396926, 14, 0, 22)
 metadata/philia_entity = "arbre_14_22"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_15_20" type="Node3D" parent="Entities" unique_id=2048210036]
+[node name="arbre_15_20" type="Node3D" parent="Entities" unique_id=577279095]
 transform = Transform3D(0.45399052, 0, 0.8910065, 0, 1, 0, -0.8910065, 0, 0.45399052, 15, 0, 20)
 metadata/philia_entity = "arbre_15_20"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_15_26" type="Node3D" parent="Entities" unique_id=1719259542]
+[node name="arbre_15_26" type="Node3D" parent="Entities" unique_id=1634852955]
 transform = Transform3D(-0.40673658, 0, 0.9135455, 0, 1, 0, -0.9135455, 0, -0.40673658, 15, 0, 26)
 metadata/philia_entity = "arbre_15_26"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_15_28" type="Node3D" parent="Entities" unique_id=1555081918]
+[node name="arbre_15_28" type="Node3D" parent="Entities" unique_id=1180738206]
 transform = Transform3D(-0.19080885, 0, -0.9816272, 0, 1, 0, 0.9816272, 0, -0.19080885, 15, 0, 28)
 metadata/philia_entity = "arbre_15_28"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_16_26" type="Node3D" parent="Entities" unique_id=1479666558]
+[node name="arbre_16_26" type="Node3D" parent="Entities" unique_id=670500940]
 transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, 16, 0, 26)
 metadata/philia_entity = "arbre_16_26"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_18_2" type="Node3D" parent="Entities" unique_id=1491725204]
+[node name="arbre_18_2" type="Node3D" parent="Entities" unique_id=1428513970]
 transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 18, 0, 2)
 metadata/philia_entity = "arbre_18_2"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_18_21" type="Node3D" parent="Entities" unique_id=1648240849]
+[node name="arbre_18_21" type="Node3D" parent="Entities" unique_id=1290210829]
 transform = Transform3D(-0.40673664, 0, -0.9135454, 0, 1, 0, 0.9135454, 0, -0.40673664, 18, 0, 21)
 metadata/philia_entity = "arbre_18_21"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_18_25" type="Node3D" parent="Entities" unique_id=1269323723]
+[node name="arbre_18_25" type="Node3D" parent="Entities" unique_id=1381644195]
 transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 18, 0, 25)
 metadata/philia_entity = "arbre_18_25"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_19_3" type="Node3D" parent="Entities" unique_id=103738033]
+[node name="arbre_19_3" type="Node3D" parent="Entities" unique_id=1033479306]
 transform = Transform3D(0.3255682, 0, -0.94551855, 0, 1, 0, 0.94551855, 0, 0.3255682, 19, 0, 3)
 metadata/philia_entity = "arbre_19_3"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_20_4" type="Node3D" parent="Entities" unique_id=1382551968]
+[node name="arbre_20_4" type="Node3D" parent="Entities" unique_id=1735218324]
 transform = Transform3D(-0.57357633, 0, -0.8191521, 0, 1, 0, 0.8191521, 0, -0.57357633, 20, 0, 4)
 metadata/philia_entity = "arbre_20_4"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_21_2" type="Node3D" parent="Entities" unique_id=438360847]
+[node name="arbre_21_2" type="Node3D" parent="Entities" unique_id=1834284733]
 transform = Transform3D(-0.9945219, 0, 0.104528494, 0, 1, 0, -0.104528494, 0, -0.9945219, 21, 0, 2)
 metadata/philia_entity = "arbre_21_2"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_21_4" type="Node3D" parent="Entities" unique_id=960965537]
+[node name="arbre_21_4" type="Node3D" parent="Entities" unique_id=468608386]
 transform = Transform3D(0.60181504, 0, 0.79863554, 0, 1, 0, -0.79863554, 0, 0.60181504, 21, 0, 4)
 metadata/philia_entity = "arbre_21_4"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_22_0" type="Node3D" parent="Entities" unique_id=1019275386]
+[node name="arbre_22_0" type="Node3D" parent="Entities" unique_id=542429107]
 transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 22, 0, 0)
 metadata/philia_entity = "arbre_22_0"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_22_3" type="Node3D" parent="Entities" unique_id=880035600]
+[node name="arbre_22_3" type="Node3D" parent="Entities" unique_id=1116253846]
 transform = Transform3D(0.05233615, 0, -0.9986295, 0, 1, 0, 0.9986295, 0, 0.05233615, 22, 0, 3)
 metadata/philia_entity = "arbre_22_3"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_23_0" type="Node3D" parent="Entities" unique_id=1790893923]
+[node name="arbre_23_0" type="Node3D" parent="Entities" unique_id=1004250147]
 transform = Transform3D(-0.75470954, 0, -0.6560591, 0, 1, 0, 0.6560591, 0, -0.75470954, 23, 0, 0)
 metadata/philia_entity = "arbre_23_0"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_23_4" type="Node3D" parent="Entities" unique_id=9953460]
+[node name="arbre_23_4" type="Node3D" parent="Entities" unique_id=1422383316]
 transform = Transform3D(-0.6156615, 0, -0.7880107, 0, 1, 0, 0.7880107, 0, -0.6156615, 23, 0, 4)
 metadata/philia_entity = "arbre_23_4"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_24_1" type="Node3D" parent="Entities" unique_id=1946298534]
+[node name="arbre_24_1" type="Node3D" parent="Entities" unique_id=619112907]
 transform = Transform3D(-0.1736482, 0, 0.9848077, 0, 1, 0, -0.9848077, 0, -0.1736482, 24, 0, 1)
 metadata/philia_entity = "arbre_24_1"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_24_2" type="Node3D" parent="Entities" unique_id=2012932580]
+[node name="arbre_24_2" type="Node3D" parent="Entities" unique_id=987842548]
 transform = Transform3D(-0.8829476, 0, -0.4694715, 0, 1, 0, 0.4694715, 0, -0.8829476, 24, 0, 2)
 metadata/philia_entity = "arbre_24_2"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_25_1" type="Node3D" parent="Entities" unique_id=114347555]
+[node name="arbre_25_1" type="Node3D" parent="Entities" unique_id=2116852828]
 transform = Transform3D(0.42261824, 0, 0.9063078, 0, 1, 0, -0.9063078, 0, 0.42261824, 25, 0, 1)
 metadata/philia_entity = "arbre_25_1"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_28_6" type="Node3D" parent="Entities" unique_id=1147605255]
+[node name="arbre_28_6" type="Node3D" parent="Entities" unique_id=854813315]
 transform = Transform3D(0.17364815, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, 0.17364815, 28, 0, 6)
 metadata/philia_entity = "arbre_28_6"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_28_22" type="Node3D" parent="Entities" unique_id=1652291963]
+[node name="arbre_28_22" type="Node3D" parent="Entities" unique_id=1338275648]
 transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 28, 0, 22)
 metadata/philia_entity = "arbre_28_22"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_29_19" type="Node3D" parent="Entities" unique_id=913385825]
+[node name="arbre_29_19" type="Node3D" parent="Entities" unique_id=1405920773]
 transform = Transform3D(-0.9781476, 0, 0.20791161, 0, 1, 0, -0.20791161, 0, -0.9781476, 29, 0, 19)
 metadata/philia_entity = "arbre_29_19"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_31_7" type="Node3D" parent="Entities" unique_id=1565451645]
+[node name="arbre_31_7" type="Node3D" parent="Entities" unique_id=1570463570]
 transform = Transform3D(0.8910065, 0, -0.45399052, 0, 1, 0, 0.45399052, 0, 0.8910065, 31, 0, 7)
 metadata/philia_entity = "arbre_31_7"
 metadata/philia_entity_state = "idle"
 
-[node name="arbre_31_8" type="Node3D" parent="Entities" unique_id=1034095629]
+[node name="arbre_31_8" type="Node3D" parent="Entities" unique_id=1237758908]
 transform = Transform3D(-0.06975648, 0, 0.9975641, 0, 1, 0, -0.9975641, 0, -0.06975648, 31, 0, 8)
 metadata/philia_entity = "arbre_31_8"
 metadata/philia_entity_state = "idle"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1860425434]
+[node name="Rabbit_0_0" type="Node3D" parent="Entities" unique_id=803897034]
+transform = Transform3D(-0.6946583, 0, 0.7193399, 0, 1, 0, -0.7193399, 0, -0.6946583, 0, 0, 0)
+metadata/philia_entity = "Rabbit_0_0"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_0_4" type="Node3D" parent="Entities" unique_id=1689242380]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 0, 0, 4)
+metadata/philia_entity = "Wolf_0_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_0_20" type="Node3D" parent="Entities" unique_id=306954409]
+transform = Transform3D(0.46947166, 0, -0.88294756, 0, 1, 0, 0.88294756, 0, 0.46947166, 0, 0, 20)
+metadata/philia_entity = "Deer_0_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_0_24" type="Node3D" parent="Entities" unique_id=2013785279]
+transform = Transform3D(-0.88294756, 0, 0.46947157, 0, 1, 0, -0.46947157, 0, -0.88294756, 0, 0, 24)
+metadata/philia_entity = "Rabbit_0_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_1_17" type="Node3D" parent="Entities" unique_id=2082610426]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 1, 0, 17)
+metadata/philia_entity = "Rabbit_1_17"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_1_24" type="Node3D" parent="Entities" unique_id=1504139095]
+transform = Transform3D(-0.6293203, 0, -0.777146, 0, 1, 0, 0.777146, 0, -0.6293203, 1, 0, 24)
+metadata/philia_entity = "Wolf_1_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_2_7" type="Node3D" parent="Entities" unique_id=203271179]
+transform = Transform3D(0.9612617, 0, 0.27563736, 0, 1, 0, -0.27563736, 0, 0.9612617, 2, 0, 7)
+metadata/philia_entity = "Deer_2_7"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_2_20" type="Node3D" parent="Entities" unique_id=1673879252]
+transform = Transform3D(0.898794, 0, -0.43837124, 0, 1, 0, 0.43837124, 0, 0.898794, 2, 0, 20)
+metadata/philia_entity = "Deer_2_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_2_20" type="Node3D" parent="Entities" unique_id=754732154]
+transform = Transform3D(0.1391731, 0, 0.99026805, 0, 1, 0, -0.99026805, 0, 0.1391731, 2, 0, 20)
+metadata/philia_entity = "Rabbit_2_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_2_21" type="Node3D" parent="Entities" unique_id=1497205456]
+transform = Transform3D(0.8746198, 0, -0.48480946, 0, 1, 0, 0.48480946, 0, 0.8746198, 2, 0, 21)
+metadata/philia_entity = "Deer_2_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_2_21" type="Node3D" parent="Entities" unique_id=498787633]
+transform = Transform3D(0.52991945, 0, -0.848048, 0, 1, 0, 0.848048, 0, 0.52991945, 2, 0, 21)
+metadata/philia_entity = "Rabbit_2_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_2_23" type="Node3D" parent="Entities" unique_id=954237967]
+transform = Transform3D(-0.6691307, 0, 0.7431448, 0, 1, 0, -0.7431448, 0, -0.6691307, 2, 0, 23)
+metadata/philia_entity = "Deer_2_23"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_2_29" type="Node3D" parent="Entities" unique_id=554202959]
+transform = Transform3D(0.91354555, 0, -0.4067365, 0, 1, 0, 0.4067365, 0, 0.91354555, 2, 0, 29)
+metadata/philia_entity = "Deer_2_29"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_2_30" type="Node3D" parent="Entities" unique_id=1194660731]
+transform = Transform3D(0.20791148, 0, -0.9781476, 0, 1, 0, 0.9781476, 0, 0.20791148, 2, 0, 30)
+metadata/philia_entity = "Rabbit_2_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_3_14" type="Node3D" parent="Entities" unique_id=101338252]
+transform = Transform3D(-0.12186929, 0, 0.99254614, 0, 1, 0, -0.99254614, 0, -0.12186929, 3, 0, 14)
+metadata/philia_entity = "Rabbit_3_14"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_3_18" type="Node3D" parent="Entities" unique_id=22978689]
+transform = Transform3D(0.5591929, 0, -0.8290376, 0, 1, 0, 0.8290376, 0, 0.5591929, 3, 0, 18)
+metadata/philia_entity = "Deer_3_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_3_18" type="Node3D" parent="Entities" unique_id=1430881512]
+transform = Transform3D(-0.515038, 0, 0.8571673, 0, 1, 0, -0.8571673, 0, -0.515038, 3, 0, 18)
+metadata/philia_entity = "Rabbit_3_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_3_20" type="Node3D" parent="Entities" unique_id=306563083]
+transform = Transform3D(0.1391731, 0, 0.99026805, 0, 1, 0, -0.99026805, 0, 0.1391731, 3, 0, 20)
+metadata/philia_entity = "Rabbit_3_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_3_22" type="Node3D" parent="Entities" unique_id=1659848776]
+transform = Transform3D(0.45399025, 0, -0.89100665, 0, 1, 0, 0.89100665, 0, 0.45399025, 3, 0, 22)
+metadata/philia_entity = "Deer_3_22"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_3_28" type="Node3D" parent="Entities" unique_id=1796490206]
+transform = Transform3D(0.9702958, 0, -0.24192177, 0, 1, 0, 0.24192177, 0, 0.9702958, 3, 0, 28)
+metadata/philia_entity = "Deer_3_28"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_3_30" type="Node3D" parent="Entities" unique_id=226678615]
+transform = Transform3D(0.05233615, 0, -0.9986295, 0, 1, 0, 0.9986295, 0, 0.05233615, 3, 0, 30)
+metadata/philia_entity = "Deer_3_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_3_31" type="Node3D" parent="Entities" unique_id=979456860]
+transform = Transform3D(-0.7431448, 0, -0.6691306, 0, 1, 0, 0.6691306, 0, -0.7431448, 3, 0, 31)
+metadata/philia_entity = "Wolf_3_31"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_4_6" type="Node3D" parent="Entities" unique_id=351462910]
+transform = Transform3D(-0.87461966, 0, -0.4848097, 0, 1, 0, 0.4848097, 0, -0.87461966, 4, 0, 6)
+metadata/philia_entity = "Rabbit_4_6"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_4_9" type="Node3D" parent="Entities" unique_id=1804847241]
+transform = Transform3D(-0.9563047, 0, 0.29237184, 0, 1, 0, -0.29237184, 0, -0.9563047, 4, 0, 9)
+metadata/philia_entity = "Rabbit_4_9"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_4_15" type="Node3D" parent="Entities" unique_id=610188587]
+transform = Transform3D(-0.5591929, 0, -0.8290376, 0, 1, 0, 0.8290376, 0, -0.5591929, 4, 0, 15)
+metadata/philia_entity = "Rabbit_4_15"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_4_16" type="Node3D" parent="Entities" unique_id=235901601]
+transform = Transform3D(0.898794, 0, -0.43837124, 0, 1, 0, 0.43837124, 0, 0.898794, 4, 0, 16)
+metadata/philia_entity = "Deer_4_16"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_4_21" type="Node3D" parent="Entities" unique_id=678471506]
+transform = Transform3D(-0.12186929, 0, 0.99254614, 0, 1, 0, -0.99254614, 0, -0.12186929, 4, 0, 21)
+metadata/philia_entity = "Deer_4_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_4_30" type="Node3D" parent="Entities" unique_id=2007724316]
+transform = Transform3D(0.99026805, 0, 0.1391731, 0, 1, 0, -0.1391731, 0, 0.99026805, 4, 0, 30)
+metadata/philia_entity = "Rabbit_4_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_4_31" type="Node3D" parent="Entities" unique_id=1001737889]
+transform = Transform3D(-0.5299193, 0, 0.84804803, 0, 1, 0, -0.84804803, 0, -0.5299193, 4, 0, 31)
+metadata/philia_entity = "Deer_4_31"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_4_31" type="Node3D" parent="Entities" unique_id=1222328359]
+transform = Transform3D(-0.7431448, 0, 0.6691306, 0, 1, 0, -0.6691306, 0, -0.7431448, 4, 0, 31)
+metadata/philia_entity = "Rabbit_4_31"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_5_3" type="Node3D" parent="Entities" unique_id=437572030]
+transform = Transform3D(0.95105654, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.95105654, 5, 0, 3)
+metadata/philia_entity = "Rabbit_5_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_5_8" type="Node3D" parent="Entities" unique_id=1514983828]
+transform = Transform3D(0.8910065, 0, 0.4539905, 0, 1, 0, -0.4539905, 0, 0.8910065, 5, 0, 8)
+metadata/philia_entity = "Wolf_5_8"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_5_13" type="Node3D" parent="Entities" unique_id=1522706939]
+transform = Transform3D(-0.88294756, 0, 0.46947157, 0, 1, 0, -0.46947157, 0, -0.88294756, 5, 0, 13)
+metadata/philia_entity = "Rabbit_5_13"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_5_18" type="Node3D" parent="Entities" unique_id=1801855467]
+transform = Transform3D(0.9986295, 0, 0.05233596, 0, 1, 0, -0.05233596, 0, 0.9986295, 5, 0, 18)
+metadata/philia_entity = "Deer_5_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_5_23" type="Node3D" parent="Entities" unique_id=868992671]
+transform = Transform3D(0.92050487, 0, 0.39073113, 0, 1, 0, -0.39073113, 0, 0.92050487, 5, 0, 23)
+metadata/philia_entity = "Rabbit_5_23"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_5_24" type="Node3D" parent="Entities" unique_id=732565035]
+transform = Transform3D(0.4067366, 0, 0.9135455, 0, 1, 0, -0.9135455, 0, 0.4067366, 5, 0, 24)
+metadata/philia_entity = "Rabbit_5_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_5_31" type="Node3D" parent="Entities" unique_id=802515950]
+transform = Transform3D(-0.9961947, 0, -0.08715581, 0, 1, 0, 0.08715581, 0, -0.9961947, 5, 0, 31)
+metadata/philia_entity = "Deer_5_31"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_6_6" type="Node3D" parent="Entities" unique_id=416642433]
+transform = Transform3D(-0.46947157, 0, 0.88294756, 0, 1, 0, -0.88294756, 0, -0.46947157, 6, 0, 6)
+metadata/philia_entity = "Deer_6_6"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_6_6" type="Node3D" parent="Entities" unique_id=1642301198]
+transform = Transform3D(-0.2756372, 0, -0.96126175, 0, 1, 0, 0.96126175, 0, -0.2756372, 6, 0, 6)
+metadata/philia_entity = "Rabbit_6_6"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_6_25" type="Node3D" parent="Entities" unique_id=596105767]
+transform = Transform3D(0.9998477, 0, 0.017452406, 0, 1, 0, -0.017452406, 0, 0.9998477, 6, 0, 25)
+metadata/philia_entity = "Rabbit_6_25"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_6_30" type="Node3D" parent="Entities" unique_id=1142709860]
+transform = Transform3D(0.94551855, 0, 0.32556817, 0, 1, 0, -0.32556817, 0, 0.94551855, 6, 0, 30)
+metadata/philia_entity = "Rabbit_6_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_6_31" type="Node3D" parent="Entities" unique_id=1937615061]
+transform = Transform3D(0.79863554, 0, 0.601815, 0, 1, 0, -0.601815, 0, 0.79863554, 6, 0, 31)
+metadata/philia_entity = "Rabbit_6_31"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_7_18" type="Node3D" parent="Entities" unique_id=800972574]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 0, 18)
+metadata/philia_entity = "Rabbit_7_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_8_0" type="Node3D" parent="Entities" unique_id=48716306]
+transform = Transform3D(0.06975651, 0, 0.9975641, 0, 1, 0, -0.9975641, 0, 0.06975651, 8, 0, 0)
+metadata/philia_entity = "Rabbit_8_0"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_9_5" type="Node3D" parent="Entities" unique_id=1307368843]
+transform = Transform3D(-0.99939084, 0, 0.03489945, 0, 1, 0, -0.03489945, 0, -0.99939084, 9, 0, 5)
+metadata/philia_entity = "Rabbit_9_5"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_10_30" type="Node3D" parent="Entities" unique_id=762199332]
+transform = Transform3D(0.92050487, 0, 0.39073113, 0, 1, 0, -0.39073113, 0, 0.92050487, 10, 0, 30)
+metadata/philia_entity = "Rabbit_10_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_11_17" type="Node3D" parent="Entities" unique_id=532590513]
+transform = Transform3D(-0.88294756, 0, 0.46947157, 0, 1, 0, -0.46947157, 0, -0.88294756, 11, 0, 17)
+metadata/philia_entity = "Rabbit_11_17"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_11_31" type="Node3D" parent="Entities" unique_id=1137908906]
+transform = Transform3D(0.3907312, 0, 0.9205048, 0, 1, 0, -0.9205048, 0, 0.3907312, 11, 0, 31)
+metadata/philia_entity = "Rabbit_11_31"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_12_26" type="Node3D" parent="Entities" unique_id=929326249]
+transform = Transform3D(0.01745232, 0, -0.9998477, 0, 1, 0, 0.9998477, 0, 0.01745232, 12, 0, 26)
+metadata/philia_entity = "Wolf_12_26"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_12_27" type="Node3D" parent="Entities" unique_id=726685324]
+transform = Transform3D(0.087155804, 0, 0.9961947, 0, 1, 0, -0.9961947, 0, 0.087155804, 12, 0, 27)
+metadata/philia_entity = "Rabbit_12_27"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_12_28" type="Node3D" parent="Entities" unique_id=604641014]
+transform = Transform3D(-0.97814757, 0, -0.20791179, 0, 1, 0, 0.20791179, 0, -0.97814757, 12, 0, 28)
+metadata/philia_entity = "Wolf_12_28"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_13_18" type="Node3D" parent="Entities" unique_id=1669002535]
+transform = Transform3D(0.05233615, 0, -0.9986295, 0, 1, 0, 0.9986295, 0, 0.05233615, 13, 0, 18)
+metadata/philia_entity = "Deer_13_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_13_18" type="Node3D" parent="Entities" unique_id=978026530]
+transform = Transform3D(-0.9612617, 0, -0.2756373, 0, 1, 0, 0.2756373, 0, -0.9612617, 13, 0, 18)
+metadata/philia_entity = "Rabbit_13_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_13_27" type="Node3D" parent="Entities" unique_id=1343253085]
+transform = Transform3D(0.45399025, 0, -0.89100665, 0, 1, 0, 0.89100665, 0, 0.45399025, 13, 0, 27)
+metadata/philia_entity = "Deer_13_27"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_13_29" type="Node3D" parent="Entities" unique_id=1659176315]
+transform = Transform3D(-0.40673664, 0, -0.9135454, 0, 1, 0, 0.9135454, 0, -0.40673664, 13, 0, 29)
+metadata/philia_entity = "Rabbit_13_29"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_13_30" type="Node3D" parent="Entities" unique_id=561273872]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 13, 0, 30)
+metadata/philia_entity = "Rabbit_13_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_14_19" type="Node3D" parent="Entities" unique_id=1810838777]
+transform = Transform3D(-0.82903755, 0, -0.55919296, 0, 1, 0, 0.55919296, 0, -0.82903755, 14, 0, 19)
+metadata/philia_entity = "Deer_14_19"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_14_20" type="Node3D" parent="Entities" unique_id=670208705]
+transform = Transform3D(0.34202015, 0, 0.9396926, 0, 1, 0, -0.9396926, 0, 0.34202015, 14, 0, 20)
+metadata/philia_entity = "Deer_14_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_14_20" type="Node3D" parent="Entities" unique_id=419357531]
+transform = Transform3D(-0.034899462, 0, 0.99939084, 0, 1, 0, -0.99939084, 0, -0.034899462, 14, 0, 20)
+metadata/philia_entity = "Wolf_14_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_14_20" type="Node3D" parent="Entities" unique_id=1814078232]
+transform = Transform3D(0.22495104, 0, 0.97437006, 0, 1, 0, -0.97437006, 0, 0.22495104, 14, 0, 20)
+metadata/philia_entity = "Rabbit_14_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_14_24" type="Node3D" parent="Entities" unique_id=1715112351]
+transform = Transform3D(0.8910065, 0, 0.4539905, 0, 1, 0, -0.4539905, 0, 0.8910065, 14, 0, 24)
+metadata/philia_entity = "Rabbit_14_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_14_28" type="Node3D" parent="Entities" unique_id=1398229195]
+transform = Transform3D(-0.10452834, 0, -0.9945219, 0, 1, 0, 0.9945219, 0, -0.10452834, 14, 0, 28)
+metadata/philia_entity = "Rabbit_14_28"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_15_0" type="Node3D" parent="Entities" unique_id=2097481227]
+transform = Transform3D(0.80901694, 0, -0.5877853, 0, 1, 0, 0.5877853, 0, 0.80901694, 15, 0, 0)
+metadata/philia_entity = "Rabbit_15_0"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_15_18" type="Node3D" parent="Entities" unique_id=1462189257]
+transform = Transform3D(0.91354555, 0, -0.4067365, 0, 1, 0, 0.4067365, 0, 0.91354555, 15, 0, 18)
+metadata/philia_entity = "Deer_15_18"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_15_21" type="Node3D" parent="Entities" unique_id=122845078]
+transform = Transform3D(0.6156615, 0, 0.7880107, 0, 1, 0, -0.7880107, 0, 0.6156615, 15, 0, 21)
+metadata/philia_entity = "Deer_15_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_16_4" type="Node3D" parent="Entities" unique_id=2045308411]
+transform = Transform3D(0.6819984, 0, 0.7313537, 0, 1, 0, -0.7313537, 0, 0.6819984, 16, 0, 4)
+metadata/philia_entity = "Rabbit_16_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_16_20" type="Node3D" parent="Entities" unique_id=2145457995]
+transform = Transform3D(0.2756372, 0, -0.96126175, 0, 1, 0, 0.96126175, 0, 0.2756372, 16, 0, 20)
+metadata/philia_entity = "Wolf_16_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_16_20" type="Node3D" parent="Entities" unique_id=775602323]
+transform = Transform3D(-0.6691307, 0, 0.7431448, 0, 1, 0, -0.7431448, 0, -0.6691307, 16, 0, 20)
+metadata/philia_entity = "Rabbit_16_20"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_16_23" type="Node3D" parent="Entities" unique_id=369678176]
+transform = Transform3D(0.79863554, 0, 0.601815, 0, 1, 0, -0.601815, 0, 0.79863554, 16, 0, 23)
+metadata/philia_entity = "Deer_16_23"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_16_23" type="Node3D" parent="Entities" unique_id=745175685]
+transform = Transform3D(0.4694716, 0, 0.88294756, 0, 1, 0, -0.88294756, 0, 0.4694716, 16, 0, 23)
+metadata/philia_entity = "Rabbit_16_23"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_16_26" type="Node3D" parent="Entities" unique_id=792079323]
+transform = Transform3D(0.12186914, 0, -0.9925462, 0, 1, 0, 0.9925462, 0, 0.12186914, 16, 0, 26)
+metadata/philia_entity = "Rabbit_16_26"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_2" type="Node3D" parent="Entities" unique_id=424612285]
+transform = Transform3D(-0.76604444, 0, 0.64278764, 0, 1, 0, -0.64278764, 0, -0.76604444, 17, 0, 2)
+metadata/philia_entity = "Rabbit_17_2"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_17_4" type="Node3D" parent="Entities" unique_id=118568574]
+transform = Transform3D(-0.8571673, 0, 0.515038, 0, 1, 0, -0.515038, 0, -0.8571673, 17, 0, 4)
+metadata/philia_entity = "Deer_17_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_4" type="Node3D" parent="Entities" unique_id=1686959635]
+transform = Transform3D(0.5877853, 0, 0.809017, 0, 1, 0, -0.809017, 0, 0.5877853, 17, 0, 4)
+metadata/philia_entity = "Rabbit_17_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_10" type="Node3D" parent="Entities" unique_id=8896974]
+transform = Transform3D(0.92718387, 0, 0.3746066, 0, 1, 0, -0.3746066, 0, 0.92718387, 17, 0, 10)
+metadata/philia_entity = "Rabbit_17_10"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_11" type="Node3D" parent="Entities" unique_id=1086103982]
+transform = Transform3D(-0.77714586, 0, 0.6293205, 0, 1, 0, -0.6293205, 0, -0.77714586, 17, 0, 11)
+metadata/philia_entity = "Rabbit_17_11"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_12" type="Node3D" parent="Entities" unique_id=356844290]
+transform = Transform3D(-0.65605897, 0, 0.7547096, 0, 1, 0, -0.7547096, 0, -0.65605897, 17, 0, 12)
+metadata/philia_entity = "Rabbit_17_12"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_13" type="Node3D" parent="Entities" unique_id=1875666000]
+transform = Transform3D(0.76604444, 0, 0.6427876, 0, 1, 0, -0.6427876, 0, 0.76604444, 17, 0, 13)
+metadata/philia_entity = "Rabbit_17_13"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_19" type="Node3D" parent="Entities" unique_id=1097284742]
+transform = Transform3D(-0.99254614, 0, 0.12186928, 0, 1, 0, -0.12186928, 0, -0.99254614, 17, 0, 19)
+metadata/philia_entity = "Rabbit_17_19"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_17_21" type="Node3D" parent="Entities" unique_id=958450126]
+transform = Transform3D(0.92718387, 0, 0.3746066, 0, 1, 0, -0.3746066, 0, 0.92718387, 17, 0, 21)
+metadata/philia_entity = "Rabbit_17_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_17_27" type="Node3D" parent="Entities" unique_id=1600563680]
+transform = Transform3D(-0.06975648, 0, 0.9975641, 0, 1, 0, -0.9975641, 0, -0.06975648, 17, 0, 27)
+metadata/philia_entity = "Deer_17_27"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_1" type="Node3D" parent="Entities" unique_id=1752167098]
+transform = Transform3D(0.97814757, 0, -0.20791176, 0, 1, 0, 0.20791176, 0, 0.97814757, 18, 0, 1)
+metadata/philia_entity = "Rabbit_18_1"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_2" type="Node3D" parent="Entities" unique_id=1498987740]
+transform = Transform3D(0.99452186, 0, -0.10452865, 0, 1, 0, 0.10452865, 0, 0.99452186, 18, 0, 2)
+metadata/philia_entity = "Rabbit_18_2"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_3" type="Node3D" parent="Entities" unique_id=977376088]
+transform = Transform3D(0.3420201, 0, -0.9396926, 0, 1, 0, 0.9396926, 0, 0.3420201, 18, 0, 3)
+metadata/philia_entity = "Rabbit_18_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_12" type="Node3D" parent="Entities" unique_id=2022983801]
+transform = Transform3D(-0.42261833, 0, 0.90630776, 0, 1, 0, -0.90630776, 0, -0.42261833, 18, 0, 12)
+metadata/philia_entity = "Rabbit_18_12"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_13" type="Node3D" parent="Entities" unique_id=393097064]
+transform = Transform3D(-0.46947157, 0, 0.88294756, 0, 1, 0, -0.88294756, 0, -0.46947157, 18, 0, 13)
+metadata/philia_entity = "Rabbit_18_13"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_24" type="Node3D" parent="Entities" unique_id=1527421151]
+transform = Transform3D(-0.9135455, 0, -0.40673652, 0, 1, 0, 0.40673652, 0, -0.9135455, 18, 0, 24)
+metadata/philia_entity = "Rabbit_18_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_18_26" type="Node3D" parent="Entities" unique_id=8401062]
+transform = Transform3D(0.8910065, 0, -0.45399052, 0, 1, 0, 0.45399052, 0, 0.8910065, 18, 0, 26)
+metadata/philia_entity = "Rabbit_18_26"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_19_2" type="Node3D" parent="Entities" unique_id=276039099]
+transform = Transform3D(0.7771459, 0, 0.6293204, 0, 1, 0, -0.6293204, 0, 0.7771459, 19, 0, 2)
+metadata/philia_entity = "Rabbit_19_2"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_19_3" type="Node3D" parent="Entities" unique_id=59286999]
+transform = Transform3D(-0.25881904, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881904, 19, 0, 3)
+metadata/philia_entity = "Deer_19_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_19_3" type="Node3D" parent="Entities" unique_id=1277657877]
+transform = Transform3D(0.45399052, 0, 0.8910065, 0, 1, 0, -0.8910065, 0, 0.45399052, 19, 0, 3)
+metadata/philia_entity = "Rabbit_19_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_19_5" type="Node3D" parent="Entities" unique_id=272010715]
+transform = Transform3D(0.01745232, 0, -0.9998477, 0, 1, 0, 0.9998477, 0, 0.01745232, 19, 0, 5)
+metadata/philia_entity = "Rabbit_19_5"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_19_23" type="Node3D" parent="Entities" unique_id=1223600146]
+transform = Transform3D(0.97437006, 0, -0.22495103, 0, 1, 0, 0.22495103, 0, 0.97437006, 19, 0, 23)
+metadata/philia_entity = "Wolf_19_23"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_20_0" type="Node3D" parent="Entities" unique_id=231889840]
+transform = Transform3D(-0.17364813, 0, -0.9848078, 0, 1, 0, 0.9848078, 0, -0.17364813, 20, 0, 0)
+metadata/philia_entity = "Rabbit_20_0"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_20_4" type="Node3D" parent="Entities" unique_id=174887765]
+transform = Transform3D(-0.43837112, 0, 0.89879405, 0, 1, 0, -0.89879405, 0, -0.43837112, 20, 0, 4)
+metadata/philia_entity = "Wolf_20_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_20_14" type="Node3D" parent="Entities" unique_id=1252402505]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 20, 0, 14)
+metadata/philia_entity = "Rabbit_20_14"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_20_21" type="Node3D" parent="Entities" unique_id=98892798]
+transform = Transform3D(-0.98162717, 0, -0.19080895, 0, 1, 0, 0.19080895, 0, -0.98162717, 20, 0, 21)
+metadata/philia_entity = "Rabbit_20_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_20_24" type="Node3D" parent="Entities" unique_id=1174893097]
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, 20, 0, 24)
+metadata/philia_entity = "Deer_20_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_20_24" type="Node3D" parent="Entities" unique_id=2096744421]
+transform = Transform3D(-0.80901706, 0, -0.5877851, 0, 1, 0, 0.5877851, 0, -0.80901706, 20, 0, 24)
+metadata/philia_entity = "Rabbit_20_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_21_1" type="Node3D" parent="Entities" unique_id=1211907953]
+transform = Transform3D(0.46947166, 0, -0.88294756, 0, 1, 0, 0.88294756, 0, 0.46947166, 21, 0, 1)
+metadata/philia_entity = "Deer_21_1"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_21_2" type="Node3D" parent="Entities" unique_id=236858567]
+transform = Transform3D(0.05233615, 0, -0.9986295, 0, 1, 0, 0.9986295, 0, 0.05233615, 21, 0, 2)
+metadata/philia_entity = "Deer_21_2"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_21_17" type="Node3D" parent="Entities" unique_id=1160568464]
+transform = Transform3D(-0.6156615, 0, -0.7880107, 0, 1, 0, 0.7880107, 0, -0.6156615, 21, 0, 17)
+metadata/philia_entity = "Rabbit_21_17"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_22_1" type="Node3D" parent="Entities" unique_id=1808036675]
+transform = Transform3D(-0.13917308, 0, 0.99026805, 0, 1, 0, -0.99026805, 0, -0.13917308, 22, 0, 1)
+metadata/philia_entity = "Deer_22_1"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_22_12" type="Node3D" parent="Entities" unique_id=1311437244]
+transform = Transform3D(-0.2756372, 0, -0.96126175, 0, 1, 0, 0.96126175, 0, -0.2756372, 22, 0, 12)
+metadata/philia_entity = "Rabbit_22_12"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_22_30" type="Node3D" parent="Entities" unique_id=2080085440]
+transform = Transform3D(-0.9945219, 0, -0.104528435, 0, 1, 0, 0.104528435, 0, -0.9945219, 22, 0, 30)
+metadata/philia_entity = "Rabbit_22_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_23_3" type="Node3D" parent="Entities" unique_id=1382699401]
+transform = Transform3D(-0.9702957, 0, -0.2419218, 0, 1, 0, 0.2419218, 0, -0.9702957, 23, 0, 3)
+metadata/philia_entity = "Rabbit_23_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_23_4" type="Node3D" parent="Entities" unique_id=2049302778]
+transform = Transform3D(0.96592575, 0, -0.25881928, 0, 1, 0, 0.25881928, 0, 0.96592575, 23, 0, 4)
+metadata/philia_entity = "Wolf_23_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_23_4" type="Node3D" parent="Entities" unique_id=773422053]
+transform = Transform3D(-0.8290375, 0, 0.559193, 0, 1, 0, -0.559193, 0, -0.8290375, 23, 0, 4)
+metadata/philia_entity = "Rabbit_23_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_23_23" type="Node3D" parent="Entities" unique_id=1539927368]
+transform = Transform3D(-0.2923719, 0, -0.95630467, 0, 1, 0, 0.95630467, 0, -0.2923719, 23, 0, 23)
+metadata/philia_entity = "Rabbit_23_23"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_24_3" type="Node3D" parent="Entities" unique_id=1533351298]
+transform = Transform3D(-0.6691307, 0, -0.74314475, 0, 1, 0, 0.74314475, 0, -0.6691307, 24, 0, 3)
+metadata/philia_entity = "Deer_24_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_24_6" type="Node3D" parent="Entities" unique_id=1617488958]
+transform = Transform3D(0.81915194, 0, -0.57357657, 0, 1, 0, 0.57357657, 0, 0.81915194, 24, 0, 6)
+metadata/philia_entity = "Rabbit_24_6"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_24_10" type="Node3D" parent="Entities" unique_id=2127416587]
+transform = Transform3D(0.92718387, 0, -0.37460664, 0, 1, 0, 0.37460664, 0, 0.92718387, 24, 0, 10)
+metadata/philia_entity = "Rabbit_24_10"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_24_30" type="Node3D" parent="Entities" unique_id=820328108]
+transform = Transform3D(-0.6427875, 0, -0.76604456, 0, 1, 0, 0.76604456, 0, -0.6427875, 24, 0, 30)
+metadata/philia_entity = "Rabbit_24_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_25_11" type="Node3D" parent="Entities" unique_id=485008597]
+transform = Transform3D(-0.4999999, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, -0.4999999, 25, 0, 11)
+metadata/philia_entity = "Rabbit_25_11"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_27_12" type="Node3D" parent="Entities" unique_id=1057443612]
+transform = Transform3D(0.98768836, 0, -0.15643436, 0, 1, 0, 0.15643436, 0, 0.98768836, 27, 0, 12)
+metadata/philia_entity = "Rabbit_27_12"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_27_21" type="Node3D" parent="Entities" unique_id=1738977676]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 27, 0, 21)
+metadata/philia_entity = "Rabbit_27_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_27_22" type="Node3D" parent="Entities" unique_id=499877221]
+transform = Transform3D(-0.9945219, 0, 0.104528494, 0, 1, 0, -0.104528494, 0, -0.9945219, 27, 0, 22)
+metadata/philia_entity = "Rabbit_27_22"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_28_3" type="Node3D" parent="Entities" unique_id=1520620877]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 28, 0, 3)
+metadata/philia_entity = "Rabbit_28_3"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_28_7" type="Node3D" parent="Entities" unique_id=1949730923]
+transform = Transform3D(-0.8910065, 0, -0.45399055, 0, 1, 0, 0.45399055, 0, -0.8910065, 28, 0, 7)
+metadata/philia_entity = "Deer_28_7"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_28_7" type="Node3D" parent="Entities" unique_id=185870749]
+transform = Transform3D(0.34202015, 0, 0.9396926, 0, 1, 0, -0.9396926, 0, 0.34202015, 28, 0, 7)
+metadata/philia_entity = "Wolf_28_7"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_28_21" type="Node3D" parent="Entities" unique_id=1506625251]
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, 28, 0, 21)
+metadata/philia_entity = "Deer_28_21"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_28_22" type="Node3D" parent="Entities" unique_id=1570825694]
+transform = Transform3D(-0.97437006, 0, -0.22495104, 0, 1, 0, 0.22495104, 0, -0.97437006, 28, 0, 22)
+metadata/philia_entity = "Deer_28_22"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_28_24" type="Node3D" parent="Entities" unique_id=250476981]
+transform = Transform3D(0.92050487, 0, 0.39073113, 0, 1, 0, -0.39073113, 0, 0.92050487, 28, 0, 24)
+metadata/philia_entity = "Deer_28_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_28_24" type="Node3D" parent="Entities" unique_id=94270040]
+transform = Transform3D(-0.99939084, 0, -0.034899388, 0, 1, 0, 0.034899388, 0, -0.99939084, 28, 0, 24)
+metadata/philia_entity = "Rabbit_28_24"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_28_30" type="Node3D" parent="Entities" unique_id=1939868069]
+transform = Transform3D(0.6946584, 0, 0.7193398, 0, 1, 0, -0.7193398, 0, 0.6946584, 28, 0, 30)
+metadata/philia_entity = "Rabbit_28_30"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_29_5" type="Node3D" parent="Entities" unique_id=9539838]
+transform = Transform3D(0.4999999, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.4999999, 29, 0, 5)
+metadata/philia_entity = "Wolf_29_5"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_30_4" type="Node3D" parent="Entities" unique_id=817407851]
+transform = Transform3D(0.19080888, 0, -0.9816272, 0, 1, 0, 0.9816272, 0, 0.19080888, 30, 0, 4)
+metadata/philia_entity = "Deer_30_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Deer_30_5" type="Node3D" parent="Entities" unique_id=281556934]
+transform = Transform3D(-0.6691307, 0, 0.7431448, 0, 1, 0, -0.7431448, 0, -0.6691307, 30, 0, 5)
+metadata/philia_entity = "Deer_30_5"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_30_5" type="Node3D" parent="Entities" unique_id=1986926453]
+transform = Transform3D(0.8910065, 0, -0.45399052, 0, 1, 0, 0.45399052, 0, 0.8910065, 30, 0, 5)
+metadata/philia_entity = "Rabbit_30_5"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_30_6" type="Node3D" parent="Entities" unique_id=390150567]
+transform = Transform3D(0.98768836, 0, -0.15643436, 0, 1, 0, 0.15643436, 0, 0.98768836, 30, 0, 6)
+metadata/philia_entity = "Rabbit_30_6"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_30_7" type="Node3D" parent="Entities" unique_id=1453069415]
+transform = Transform3D(-0.656059, 0, -0.7547096, 0, 1, 0, 0.7547096, 0, -0.656059, 30, 0, 7)
+metadata/philia_entity = "Rabbit_30_7"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_30_19" type="Node3D" parent="Entities" unique_id=1994567112]
+transform = Transform3D(-0.88294756, 0, 0.46947157, 0, 1, 0, -0.46947157, 0, -0.88294756, 30, 0, 19)
+metadata/philia_entity = "Rabbit_30_19"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_31_2" type="Node3D" parent="Entities" unique_id=118261508]
+transform = Transform3D(0.60181504, 0, 0.79863554, 0, 1, 0, -0.79863554, 0, 0.60181504, 31, 0, 2)
+metadata/philia_entity = "Rabbit_31_2"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_31_4" type="Node3D" parent="Entities" unique_id=819280220]
+transform = Transform3D(-0.92050487, 0, -0.3907311, 0, 1, 0, 0.3907311, 0, -0.92050487, 31, 0, 4)
+metadata/philia_entity = "Rabbit_31_4"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_31_6" type="Node3D" parent="Entities" unique_id=2001722702]
+transform = Transform3D(-0.9848077, 0, -0.17364822, 0, 1, 0, 0.17364822, 0, -0.9848077, 31, 0, 6)
+metadata/philia_entity = "Wolf_31_6"
+metadata/philia_entity_state = "idle"
+
+[node name="Wolf_31_8" type="Node3D" parent="Entities" unique_id=217510324]
+transform = Transform3D(-0.40673664, 0, -0.9135454, 0, 1, 0, 0.9135454, 0, -0.40673664, 31, 0, 8)
+metadata/philia_entity = "Wolf_31_8"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_31_13" type="Node3D" parent="Entities" unique_id=1389942785]
+transform = Transform3D(-0.40673658, 0, 0.9135455, 0, 1, 0, -0.9135455, 0, -0.40673658, 31, 0, 13)
+metadata/philia_entity = "Rabbit_31_13"
+metadata/philia_entity_state = "idle"
+
+[node name="Rabbit_31_26" type="Node3D" parent="Entities" unique_id=902600700]
+transform = Transform3D(-0.39073122, 0, -0.9205048, 0, 1, 0, 0.9205048, 0, -0.39073122, 31, 0, 26)
+metadata/philia_entity = "Rabbit_31_26"
+metadata/philia_entity_state = "idle"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=5234406]
 transform = Transform3D(0.81915206, 0.43938506, -0.36868784, 0, 0.64278764, 0.76604444, 0.57357645, -0.62750685, 0.5265408, 0, 0, 0)
 light_energy = 1.1
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1169148899]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1437205547]
 transform = Transform3D(1, 0, 0, 0, 0.62469506, 0.78086877, 0, -0.78086877, 0.62469506, 16, 24, 35.2)
 current = true

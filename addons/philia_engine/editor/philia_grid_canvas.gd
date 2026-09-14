@@ -36,6 +36,8 @@ const TILE_COLORS := {
 	"Marais": Color(0.35, 0.38, 0.22),
 	"Montagne": Color(0.45, 0.42, 0.4),
 	"Eau": Color(0.2, 0.4, 0.65),
+	"Spawn": Color(0.2, 0.9, 0.9),
+	"Trigger": Color(0.9, 0.2, 0.8),
 }
 
 var map: PhiliaMap = PhiliaMap.new()

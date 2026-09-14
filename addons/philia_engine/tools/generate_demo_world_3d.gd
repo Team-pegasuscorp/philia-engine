@@ -15,6 +15,10 @@ const SEED := 20260914
 
 func _initialize() -> void:
 	var map := PhiliaWorldGenerator.generate(SIZE, SIZE, SEED, {"vegetation_density": 0.12})
+	PhiliaPopulationSpawner.spawn(map, {
+		"Forêt": {"Deer": 0.15, "Wolf": 0.04, "Rabbit": 0.2},
+		"Plaine": {"Rabbit": 0.08},
+	}, SEED)
 
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(MAP_PATH.get_base_dir()))
 	var save_err := map.save(MAP_PATH)
