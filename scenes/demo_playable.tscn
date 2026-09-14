@@ -1,99 +1,107 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scenes/demo_playable/controller.gd" id="1_g2sg3"]
-[ext_resource type="Script" path="res://scenes/demo_playable/player.gd" id="2_f8gmj"]
-[ext_resource type="PackedScene" path="res://characters/quaternius/demo_character.tscn" id="3_ec3rx"]
-[ext_resource type="Script" path="res://scenes/demo_playable/enemy.gd" id="4_ujhyr"]
-[ext_resource type="Script" path="res://addons/philia_engine/core/philia_trigger_area_3d.gd" id="5_idenb"]
-[ext_resource type="Script" path="res://scenes/demo_playable/hud.gd" id="6_sdn8o"]
+[ext_resource type="Script" path="res://scenes/demo_playable/controller.gd" id="1_f8gmj"]
+[ext_resource type="Script" path="res://scenes/demo_playable/player.gd" id="2_ec3rx"]
+[ext_resource type="PackedScene" path="res://characters/quaternius/demo_character.tscn" id="3_ujhyr"]
+[ext_resource type="Script" path="res://scenes/demo_playable/enemy.gd" id="4_idenb"]
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_behavior.gd" id="5_sdn8o"]
+[ext_resource type="Script" path="res://addons/philia_engine/core/philia_trigger_area_3d.gd" id="6_14nfw"]
+[ext_resource type="Script" path="res://scenes/demo_playable/hud.gd" id="7_0lp3b"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14nfw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xvoil"]
 albedo_color = Color(0.35, 0.55, 0.35, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_0lp3b"]
-material = SubResource("StandardMaterial3D_14nfw")
+[sub_resource type="BoxMesh" id="BoxMesh_0acos"]
+material = SubResource("StandardMaterial3D_xvoil")
 size = Vector3(40, 0.2, 40)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xvoil"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5iyfy"]
 size = Vector3(40, 0.2, 40)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0acos"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_talg0"]
 radius = 0.4
 height = 1.8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5iyfy"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5utaq"]
 size = Vector3(2, 2, 2)
 
-[node name="PhiliaPlayableDemo" type="Node3D" unique_id=1761172039]
-script = ExtResource("1_g2sg3")
+[node name="PhiliaPlayableDemo" type="Node3D" unique_id=1549259736]
+script = ExtResource("1_f8gmj")
 
-[node name="Ground" type="StaticBody3D" parent="." unique_id=1721625482]
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1980090974]
 
-[node name="Mesh" type="MeshInstance3D" parent="Ground" unique_id=435522148]
+[node name="Mesh" type="MeshInstance3D" parent="Ground" unique_id=1795924244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource("BoxMesh_0lp3b")
+mesh = SubResource("BoxMesh_0acos")
 
-[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Ground" unique_id=1469461605]
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Ground" unique_id=2024877066]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-shape = SubResource("BoxShape3D_xvoil")
+shape = SubResource("BoxShape3D_5iyfy")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1251687392]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=630209605]
 transform = Transform3D(0.8660254, 0.38302222, -0.32139382, 0, 0.64278764, 0.76604444, 0.5, -0.66341394, 0.5566704, 0, 0, 0)
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=643548697]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=2114513270]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-script = ExtResource("2_f8gmj")
+script = ExtResource("2_ec3rx")
 
-[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Player" unique_id=499871247]
+[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Player" unique_id=1633254541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_0acos")
+shape = SubResource("CapsuleShape3D_talg0")
 
-[node name="CharacterInstance" type="Node3D" parent="Player" unique_id=84295138 instance=ExtResource("3_ec3rx")]
+[node name="CharacterInstance" type="Node3D" parent="Player" unique_id=84295138 instance=ExtResource("3_ujhyr")]
 
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=2123212205]
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=455857417]
 transform = Transform3D(1, 0, 0, 0, 0.9135454, 0.40673664, 0, -0.40673664, 0.9135454, 0, 2.6, 4.5)
 current = true
 
-[node name="Wolf" type="Node3D" parent="." unique_id=1779086387]
+[node name="Wolf" type="Node3D" parent="." unique_id=2000698601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-script = ExtResource("4_ujhyr")
+script = ExtResource("4_idenb")
 
-[node name="CharacterInstance" type="Node3D" parent="Wolf" unique_id=481163551 instance=ExtResource("3_ec3rx")]
+[node name="CharacterInstance" type="Node3D" parent="Wolf" unique_id=555813504 instance=ExtResource("3_ujhyr")]
 
-[node name="GuardTrigger" type="Area3D" parent="." unique_id=1931593090]
+[node name="Behavior" type="Node" parent="Wolf" unique_id=1648907814]
+script = ExtResource("5_sdn8o")
+preset = 2
+move_speed = 1.2
+action_cooldown = 1.2
+flee_hp_ratio = 0.25
+
+[node name="GuardTrigger" type="Area3D" parent="." unique_id=892669103]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
-script = ExtResource("5_idenb")
+script = ExtResource("6_14nfw")
 
-[node name="@CollisionShape3D@4" type="CollisionShape3D" parent="GuardTrigger" unique_id=2037678114]
-shape = SubResource("BoxShape3D_5iyfy")
+[node name="@CollisionShape3D@4" type="CollisionShape3D" parent="GuardTrigger" unique_id=1819462865]
+shape = SubResource("BoxShape3D_5utaq")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=889138660]
-script = ExtResource("6_sdn8o")
+[node name="HUD" type="CanvasLayer" parent="." unique_id=749772879]
+script = ExtResource("7_0lp3b")
 
-[node name="Margin" type="MarginContainer" parent="HUD" unique_id=489145867]
+[node name="Margin" type="MarginContainer" parent="HUD" unique_id=41268952]
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 
-[node name="VBox" type="VBoxContainer" parent="HUD/Margin" unique_id=865432154]
+[node name="VBox" type="VBoxContainer" parent="HUD/Margin" unique_id=524559359]
 layout_mode = 2
 
-[node name="PlayerHpLabel" type="Label" parent="HUD/Margin/VBox" unique_id=133612734]
+[node name="PlayerHpLabel" type="Label" parent="HUD/Margin/VBox" unique_id=592221098]
 layout_mode = 2
 text = "Joueur PV : --"
 
-[node name="EnemyHpLabel" type="Label" parent="HUD/Margin/VBox" unique_id=74051387]
+[node name="EnemyHpLabel" type="Label" parent="HUD/Margin/VBox" unique_id=1257252215]
 layout_mode = 2
 text = "Loup PV : --"
 
-[node name="QuestLabel" type="Label" parent="HUD/Margin/VBox" unique_id=1968989968]
+[node name="QuestLabel" type="Label" parent="HUD/Margin/VBox" unique_id=641468020]
 layout_mode = 2
 text = "Quête non commencée"
 
-[node name="InstructionsLabel" type="Label" parent="HUD/Margin/VBox" unique_id=99730447]
+[node name="InstructionsLabel" type="Label" parent="HUD/Margin/VBox" unique_id=1542446609]
 layout_mode = 2
 text = "Flèches : déplacer — F : attaquer — 1/2/3 : choix de dialogue"
 
-[node name="DialoguePanel" type="PanelContainer" parent="HUD" unique_id=1562546225]
+[node name="DialoguePanel" type="PanelContainer" parent="HUD" unique_id=645912669]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -103,15 +111,15 @@ offset_top = -140.0
 offset_right = -16.0
 offset_bottom = -16.0
 
-[node name="VBox" type="VBoxContainer" parent="HUD/DialoguePanel" unique_id=603627480]
+[node name="VBox" type="VBoxContainer" parent="HUD/DialoguePanel" unique_id=1863870013]
 layout_mode = 2
 
-[node name="SpeakerLabel" type="Label" parent="HUD/DialoguePanel/VBox" unique_id=1342075240]
+[node name="SpeakerLabel" type="Label" parent="HUD/DialoguePanel/VBox" unique_id=763563274]
 layout_mode = 2
 
-[node name="TextLabel" type="Label" parent="HUD/DialoguePanel/VBox" unique_id=55251576]
+[node name="TextLabel" type="Label" parent="HUD/DialoguePanel/VBox" unique_id=1114581859]
 layout_mode = 2
 autowrap_mode = 2
 
-[node name="ChoicesLabel" type="Label" parent="HUD/DialoguePanel/VBox" unique_id=1070551675]
+[node name="ChoicesLabel" type="Label" parent="HUD/DialoguePanel/VBox" unique_id=57600130]
 layout_mode = 2

@@ -129,6 +129,18 @@ func _add_wolf(root: Node3D) -> void:
 	wolf.owner = root
 	_instantiate_character(root, wolf)
 
+	var behavior := PhiliaBehavior.new()
+	behavior.name = "Behavior"
+	behavior.preset = PhiliaBehavior.Preset.AGGRESSIVE
+	behavior.move_speed = 1.2
+	behavior.detection_radius = 6.0
+	behavior.action_radius = 1.5
+	behavior.action_name = "attack"
+	behavior.action_cooldown = 1.2
+	behavior.flee_hp_ratio = 0.25
+	wolf.add_child(behavior)
+	behavior.owner = root
+
 
 func _add_trigger(root: Node3D) -> void:
 	var trigger := PhiliaTriggerArea3D.new()

@@ -49,6 +49,13 @@ func _initialize() -> void:
 		_controller._on_player_attack_requested()
 	_check(_controller._wolf.stats.is_dead(), "le loup meurt après suffisamment d'attaques")
 	_check(quest_completed[0], "la mort du loup complète la quête hunt_wolves")
+	_check(_controller._wolf.behavior.preset == PhiliaBehavior.Preset.PASSIVE, "comportement du loup mort forcé sur PASSIVE")
+
+	## Libère la première scène avant d'en instancier une seconde à la même
+	## position : sinon les deux joueurs (capsules superposées) se
+	## repoussent violemment au premier tick de physique et faussent tout.
+	_controller.free()
+	await _test_wolf_chases_and_attacks()
 
 	if _failures == 0:
 		print("OK: scène jouable (0 échec).")
@@ -56,6 +63,37 @@ func _initialize() -> void:
 	else:
 		push_error("ÉCHEC: %d assertion(s) invalide(s)." % _failures)
 		quit(1)
+
+
+## Instance séparée : vérifie que le loup (PhiliaBehavior AGGRESSIVE)
+## poursuit le joueur puis l'attaque réellement, sans intervention du
+## joueur (pas de touche F, juste le temps qui passe).
+func _test_wolf_chases_and_attacks() -> void:
+	print("Comportement du loup (PhiliaBehavior AGGRESSIVE)")
+	var packed: PackedScene = load(SCENE_PATH)
+	var controller: Node3D = packed.instantiate()
+	root.add_child(controller)
+	await process_frame
+
+	var wolf: Node3D = controller._wolf
+	var player: CharacterBody3D = controller._player
+	wolf.position = player.position + Vector3(4, 0, 0)  ## à portée de détection, hors portée d'action
+
+	var start_dist := wolf.global_position.distance_to(player.global_position)
+	var player_hp_before: float = player.stats.get_stat("hp")
+	for i in 200:
+		await physics_frame
+		if wolf.global_position.distance_to(player.global_position) < start_dist:
+			break
+	_check(wolf.global_position.distance_to(player.global_position) < start_dist, "le loup se rapproche du joueur sans intervention")
+
+	for i in 200:
+		await physics_frame
+		if player.stats.get_stat("hp") < player_hp_before:
+			break
+	_check(player.stats.get_stat("hp") < player_hp_before, "le loup finit par attaquer et blesser le joueur")
+
+	controller.free()
 
 
 func _check(condition: bool, label: String) -> void:

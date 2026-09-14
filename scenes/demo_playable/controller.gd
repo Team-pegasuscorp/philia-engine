@@ -11,8 +11,9 @@ extends Node3D
 ## à l'exécution.
 ##
 ## Contrôles : flèches pour se déplacer, F pour attaquer le loup à portée,
-## touches 1/2/3 pour choisir une réplique de dialogue. Le loup
-## n'attaque jamais en retour (démo volontairement à sens unique).
+## touches 1/2/3 pour choisir une réplique de dialogue. Le loup poursuit
+## et attaque via PhiliaBehavior (préréglage AGGRESSIVE, configuré dans
+## tools/generate_demo_playable_scene.gd) dès qu'il détecte le joueur.
 
 const GAMEPLAY_DATA_PATH := "res://gameplay/demo.philiagameplay"
 const ATTACK_RANGE := 2.5
@@ -38,6 +39,8 @@ func _ready() -> void:
 
 	_wolf.setup(gameplay_data.instantiate_stats("wolf"))
 	_wolf.stats.died.connect(_on_wolf_died)
+	_wolf.behavior.target = _player
+	_wolf.behavior.action_triggered.connect(_on_wolf_action_triggered)
 
 	_trigger.triggered.connect(_on_trigger_entered)
 	_player.attack_requested.connect(_on_player_attack_requested)
@@ -86,9 +89,17 @@ func _on_player_attack_requested() -> void:
 	_hud.set_enemy_hp(_wolf.stats.get_stat("hp"), _wolf.stats.get_stat("max_hp"))
 
 
+func _on_wolf_action_triggered(action: String) -> void:
+	if action != "attack" or _player.stats.is_dead():
+		return
+	PhiliaCombat.attack(_wolf.stats, _player.stats, -1.0, _wolf.animator, _player.animator)
+	_hud.set_player_hp(_player.stats.get_stat("hp"), _player.stats.get_stat("max_hp"))
+
+
 func _on_wolf_died() -> void:
 	quest_log.progress("hunt_wolves", "kill_wolf", 1)
 	_hud.set_quest_text(_quest_status_text())
+	_wolf.behavior.preset = PhiliaBehavior.Preset.PASSIVE  ## un mort ne poursuit/attaque plus
 
 
 func _on_quest_completed(quest_id: String) -> void:
