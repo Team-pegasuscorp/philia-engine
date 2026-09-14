@@ -63,6 +63,8 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	node.position = Vector2(x, y) * cell_size
 	node.rotation_degrees = rotation_deg
 	node.set_meta("philia_type", type)
+	if PhiliaMap.AUTOTILE_TYPES.has(type):
+		node.set_meta("philia_variant", tile.get("variant", 0))
 
 	var preview := ColorRect.new()
 	preview.name = "Preview"

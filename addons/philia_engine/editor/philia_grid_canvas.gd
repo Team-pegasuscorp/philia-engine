@@ -72,14 +72,32 @@ func _draw_tile(tile: Dictionary, alpha: float) -> void:
 	var x: int = tile.get("x", 0)
 	var y: int = tile.get("y", 0)
 	var type: String = tile.get("type", "Sol")
-	var rotation_deg: int = tile.get("rotation", 0)
 	var rect := Rect2(x * CELL_SIZE + 1, y * CELL_SIZE + 1, CELL_SIZE - 2, CELL_SIZE - 2)
 	var color: Color = TILE_COLORS.get(type, Color.GRAY)
 	color.a = alpha
 	draw_rect(rect, color, true)
 	var center := rect.get_center()
-	var dir := Vector2.UP.rotated(deg_to_rad(rotation_deg))
-	draw_line(center, center + dir * (CELL_SIZE * 0.3), Color(1, 1, 1, alpha), 2.0)
+
+	if PhiliaMap.AUTOTILE_TYPES.has(type):
+		_draw_autotile_connectors(center, int(tile.get("variant", 0)), alpha)
+	else:
+		var rotation_deg: int = tile.get("rotation", 0)
+		var dir := Vector2.UP.rotated(deg_to_rad(rotation_deg))
+		draw_line(center, center + dir * (CELL_SIZE * 0.3), Color(1, 1, 1, alpha), 2.0)
+
+
+## Trace un trait de centre vers chaque voisin connecté (N/E/S/W selon le
+## bitmask de variante) — retour visuel de l'autotiling, pas un vrai tileset.
+func _draw_autotile_connectors(center: Vector2, variant: int, alpha: float) -> void:
+	var line_color := Color(1, 1, 1, alpha)
+	for bit in PhiliaMap.NEIGHBOR_OFFSETS:
+		if variant & bit == 0:
+			continue
+		var offset: Vector2i = PhiliaMap.NEIGHBOR_OFFSETS[bit]
+		var dir := Vector2(offset.x, offset.y)
+		draw_line(center, center + dir * (CELL_SIZE * 0.5), line_color, 2.0)
+	if variant == 0:
+		draw_circle(center, 2.5, line_color)
 
 
 func _is_in_bounds(cell: Vector2i) -> bool:
