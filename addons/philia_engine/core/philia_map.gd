@@ -22,6 +22,13 @@ const NEIGHBOR_OFFSETS := {
 	8: Vector2i(-1, 0),
 }
 
+## Types solides par défaut (bloquent le déplacement/donnent une collision
+## plein-case), remplaçable au cas par cas via le champ optionnel "solid"
+## (bool) d'une tuile. Le jeu qui importe la carte reste libre d'ignorer
+## cette info générique (ex: une Porte peut devenir non-solide une fois
+## ouverte) — voir docs/concept.md §11.
+const DEFAULT_SOLID_TYPES: Array[String] = ["Mur", "Coin", "Bord", "Pilier", "Caisse", "Machine"]
+
 var format_version: int = FORMAT_VERSION
 var seed: int = 0
 var layers: Array[String] = [DEFAULT_LAYER]
@@ -125,6 +132,12 @@ func _recompute_variant_at(x: int, y: int, layer: String) -> void:
 		if not neighbor.is_empty() and neighbor.get("type") == type:
 			mask |= bit
 	tile["variant"] = mask
+
+
+static func is_solid(tile: Dictionary) -> bool:
+	if tile.has("solid"):
+		return bool(tile["solid"])
+	return DEFAULT_SOLID_TYPES.has(tile.get("type", ""))
 
 
 func save(path: String) -> Error:

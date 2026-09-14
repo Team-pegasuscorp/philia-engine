@@ -52,12 +52,20 @@ func _initialize() -> void:
 		tileset.set_terrain_name(terrain_set, terrain_index, terrain_names[terrain_index])
 		tileset.set_terrain_color(terrain_set, terrain_index, terrain_colors.get(terrain_names[terrain_index], Color.GRAY))
 
+	tileset.add_physics_layer()
+	var physics_layer := tileset.get_physics_layers_count() - 1
+	var half := TILE_SIZE / 2.0
+	var full_tile_polygon := PackedVector2Array([
+		Vector2(-half, -half), Vector2(half, -half), Vector2(half, half), Vector2(-half, half),
+	])
+
 	var source := TileSetAtlasSource.new()
 	source.texture = atlas_texture
 	source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
 	tileset.add_source(source)
 
 	for row in range(terrain_names.size()):
+		var solid: bool = PhiliaMap.DEFAULT_SOLID_TYPES.has(terrain_names[row])
 		for bitmask in range(16):
 			var coords := Vector2i(bitmask, row)
 			source.create_tile(coords)
@@ -67,6 +75,9 @@ func _initialize() -> void:
 			for bit in SIDE_BITS:
 				if bitmask & bit != 0:
 					tile_data.set_terrain_peering_bit(SIDE_BITS[bit], row)
+			if solid:
+				tile_data.add_collision_polygon(physics_layer)
+				tile_data.set_collision_polygon_points(physics_layer, 0, full_tile_polygon)
 
 	var err := ResourceSaver.save(tileset, TILESET_PATH)
 	if err != OK:

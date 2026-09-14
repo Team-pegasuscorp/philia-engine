@@ -88,11 +88,14 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	var type: String = tile.get("type", "Sol")
 	var rotation_deg: int = tile.get("rotation", 0)
 
+	var solid := PhiliaMap.is_solid(tile)
+
 	var node := Node2D.new()
 	node.name = "Tile_%d_%d" % [x, y]
 	node.position = Vector2(x, y) * cell_size
 	node.rotation_degrees = rotation_deg
 	node.set_meta("philia_type", type)
+	node.set_meta("philia_solid", solid)
 
 	var preview := ColorRect.new()
 	preview.name = "Preview"
@@ -103,7 +106,21 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	node.add_child(preview)
 	preview.owner = node
 
+	if solid:
+		node.add_child(_build_collision_body(cell_size))
+
 	return node
+
+
+static func _build_collision_body(cell_size: int) -> StaticBody2D:
+	var body := StaticBody2D.new()
+	body.name = "Collision"
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(cell_size, cell_size)
+	shape.shape = rect
+	body.add_child(shape)
+	return body
 
 
 static func _build_entity_node(entity: Dictionary) -> Node2D:
