@@ -88,14 +88,20 @@ static func _build_tile_node(tile: Dictionary, cell_size: float, map_seed: int) 
 	var type: String = tile.get("type", "Sol")
 	var rotation_deg: int = tile.get("rotation", 0)
 	var footprint_size := Vector3(w, 1, h) * cell_size
+	## Centre de l'empreinte au sol (Y=0), même repère XZ que le GridMap
+	## des terrains (case (0,0) -> origine monde).
+	var position := Vector3(x, 0, y) * cell_size + Vector3(footprint_size.x, 0, footprint_size.z) * 0.5
+
+	if type == "Spawn":
+		return _build_spawn_node(tile, position, rotation_deg)
+	if type == "Trigger":
+		return _build_trigger_node(tile, position, rotation_deg, footprint_size)
 
 	var solid := PhiliaMap.is_solid(tile)
 
 	var node := Node3D.new()
 	node.name = "Tile_%d_%d" % [x, y]
-	## Centre de l'empreinte au sol (Y=0), même repère XZ que le GridMap
-	## des terrains (case (0,0) -> origine monde).
-	node.position = Vector3(x, 0, y) * cell_size + Vector3(footprint_size.x, 0, footprint_size.z) * 0.5
+	node.position = position
 	node.rotation_degrees.y = rotation_deg
 	node.set_meta("philia_type", type)
 	node.set_meta("philia_solid", solid)
@@ -129,6 +135,44 @@ static func _build_tile_node(tile: Dictionary, cell_size: float, map_seed: int) 
 		node.add_child(_build_collision_body(footprint_size))
 
 	return node
+
+
+## Spawn (§7) : simple repère de position, sans géométrie ni collision — le
+## jeu qui importe la carte décide quoi instancier à cet endroit. Regroupé
+## dans "philia_spawns" pour être retrouvé via get_nodes_in_group().
+static func _build_spawn_node(tile: Dictionary, position: Vector3, rotation_deg: int) -> Marker3D:
+	var marker := Marker3D.new()
+	marker.name = "Spawn_%d_%d" % [tile.get("x", 0), tile.get("y", 0)]
+	marker.position = position
+	marker.rotation_degrees.y = rotation_deg
+	marker.set_meta("philia_type", "Spawn")
+	if tile.has("id"):
+		marker.set_meta("philia_spawn_id", tile["id"])
+	marker.add_to_group("philia_spawns")
+	return marker
+
+
+## Trigger (§7, V6) : zone de détection fonctionnelle (PhiliaTriggerArea3D),
+## sans comportement propre — le jeu se connecte à triggered/body_entered
+## (§20). Regroupé dans "philia_triggers".
+static func _build_trigger_node(tile: Dictionary, position: Vector3, rotation_deg: int, footprint_size: Vector3) -> PhiliaTriggerArea3D:
+	var area := PhiliaTriggerArea3D.new()
+	area.name = "Trigger_%d_%d" % [tile.get("x", 0), tile.get("y", 0)]
+	area.position = position
+	area.rotation_degrees.y = rotation_deg
+	area.set_meta("philia_type", "Trigger")
+	if tile.has("id"):
+		area.set_meta("philia_trigger_id", tile["id"])
+	area.add_to_group("philia_triggers")
+
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = footprint_size
+	shape.shape = box
+	shape.position = Vector3(0, footprint_size.y * 0.5, 0)
+	area.add_child(shape)
+
+	return area
 
 
 static func _build_procedural_mesh(kind: String, size: Vector3, gen_seed: int) -> ArrayMesh:

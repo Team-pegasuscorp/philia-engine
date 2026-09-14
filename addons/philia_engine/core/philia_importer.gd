@@ -90,6 +90,12 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	var type: String = tile.get("type", "Sol")
 	var rotation_deg: int = tile.get("rotation", 0)
 	var footprint_size := Vector2(w, h) * cell_size
+	var position := Vector2(x, y) * cell_size + footprint_size * 0.5
+
+	if type == "Spawn":
+		return _build_spawn_node(tile, position, rotation_deg)
+	if type == "Trigger":
+		return _build_trigger_node(tile, position, rotation_deg, footprint_size)
 
 	var solid := PhiliaMap.is_solid(tile)
 
@@ -98,7 +104,7 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	## Position = centre de l'empreinte, dans le même repère (coin haut-gauche
 	## de la case (0,0) = origine monde) que le TileMapLayer des terrains et
 	## que la grille de l'éditeur — pas le coin de la case.
-	node.position = Vector2(x, y) * cell_size + footprint_size * 0.5
+	node.position = position
 	node.rotation_degrees = rotation_deg
 	node.set_meta("philia_type", type)
 	node.set_meta("philia_solid", solid)
@@ -125,6 +131,43 @@ static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 		node.add_child(_build_collision_body(footprint_size))
 
 	return node
+
+
+## Spawn (§7) : simple repère de position, sans géométrie ni collision — le
+## jeu qui importe la carte décide quoi instancier à cet endroit. Regroupé
+## dans "philia_spawns" pour être retrouvé via get_nodes_in_group().
+static func _build_spawn_node(tile: Dictionary, position: Vector2, rotation_deg: int) -> Marker2D:
+	var marker := Marker2D.new()
+	marker.name = "Spawn_%d_%d" % [tile.get("x", 0), tile.get("y", 0)]
+	marker.position = position
+	marker.rotation_degrees = rotation_deg
+	marker.set_meta("philia_type", "Spawn")
+	if tile.has("id"):
+		marker.set_meta("philia_spawn_id", tile["id"])
+	marker.add_to_group("philia_spawns")
+	return marker
+
+
+## Trigger (§7, V6) : zone de détection fonctionnelle (PhiliaTriggerArea2D),
+## sans comportement propre — le jeu se connecte à triggered/body_entered
+## (§20). Regroupé dans "philia_triggers".
+static func _build_trigger_node(tile: Dictionary, position: Vector2, rotation_deg: int, footprint_size: Vector2) -> PhiliaTriggerArea2D:
+	var area := PhiliaTriggerArea2D.new()
+	area.name = "Trigger_%d_%d" % [tile.get("x", 0), tile.get("y", 0)]
+	area.position = position
+	area.rotation_degrees = rotation_deg
+	area.set_meta("philia_type", "Trigger")
+	if tile.has("id"):
+		area.set_meta("philia_trigger_id", tile["id"])
+	area.add_to_group("philia_triggers")
+
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = footprint_size
+	shape.shape = rect
+	area.add_child(shape)
+
+	return area
 
 
 static func _build_collision_body(size: Vector2) -> StaticBody2D:
