@@ -1,20 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqfj3n7c8v5xk"]
+[gd_scene load_steps=3 format=3 uid="uid://bqfj3n7c8v5xk"]
 
 [ext_resource type="Script" path="res://addons/philia_engine/editor/philia_dock.gd" id="1"]
+[ext_resource type="Script" path="res://addons/philia_engine/editor/philia_grid_canvas.gd" id="2"]
 
 [node name="PhiliaDock" type="VBoxContainer"]
-custom_minimum_size = Vector2(220, 0)
+custom_minimum_size = Vector2(0, 420)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1")
 
-[node name="Title" type="Label" parent="."]
-text = "Philia-Engine"
-theme_override_font_sizes/font_size = 16
+[node name="Toolbar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NewMapButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouvelle carte"
+
+[node name="SaveMapButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sauvegarder"
+
+[node name="LoadMapButton" type="Button" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Charger"
+
+[node name="PathEdit" type="LineEdit" parent="Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://maps/example.philiamap"
 
 [node name="StatusLabel" type="Label" parent="."]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Aucune carte ouverte"
-autowrap_mode = 2
 
-[node name="NewMapButton" type="Button" parent="."]
+[node name="Body" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaletteList" type="ItemList" parent="Body"]
 unique_name_in_owner = true
-text = "Nouvelle carte"
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridScroll" type="ScrollContainer" parent="Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridCanvas" type="Control" parent="Body/GridScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2")
