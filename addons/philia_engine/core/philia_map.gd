@@ -5,7 +5,7 @@ extends RefCounted
 ## Modèle de données d'une carte .philiamap : générique, indépendant du jeu qui l'importe.
 ## Sérialisé en JSON lisible (voir docs/concept.md §21.2) pour rester diffable/mergeable.
 
-const FORMAT_VERSION := 3
+const FORMAT_VERSION := 4
 const DEFAULT_LAYER := "Sol"
 
 ## Types "Tiles" (doc §7/§8) dont la variante de raccord (coin/bord/centre…)
@@ -28,6 +28,15 @@ const NEIGHBOR_OFFSETS := {
 ## cette info générique (ex: une Porte peut devenir non-solide une fois
 ## ouverte) — voir docs/concept.md §11.
 const DEFAULT_SOLID_TYPES: Array[String] = ["Mur", "Coin", "Bord", "Pilier", "Caisse", "Machine"]
+
+## Empreinte (largeur, hauteur en cases) des modules qui occupent plusieurs
+## cases (doc §7 : "Un module peut occuper plusieurs cases"). Absent de la
+## table -> 1x1. La case d'origine (x, y) est le coin haut-gauche.
+const MODULE_FOOTPRINTS: Dictionary = {
+	"Porte": Vector2i(2, 1),
+	"Escalier": Vector2i(1, 2),
+	"Machine": Vector2i(2, 2),
+}
 
 var format_version: int = FORMAT_VERSION
 var seed: int = 0
@@ -75,6 +84,12 @@ func remove_layer(layer_name: String) -> void:
 			tiles.remove_at(i)
 
 
+static func footprint_for(type: String) -> Vector2i:
+	return MODULE_FOOTPRINTS.get(type, Vector2i(1, 1))
+
+
+## Recherche exacte : ne trouve que la tuile dont la case d'origine est
+## (x, y). Utilisée par l'autotiling (toujours 1x1) et en interne.
 func get_tile(x: int, y: int, layer: String = DEFAULT_LAYER) -> Dictionary:
 	for tile in tiles:
 		if tile.get("x") == x and tile.get("y") == y and tile.get("layer", DEFAULT_LAYER) == layer:
@@ -82,27 +97,68 @@ func get_tile(x: int, y: int, layer: String = DEFAULT_LAYER) -> Dictionary:
 	return {}
 
 
+## Comme get_tile, mais trouve aussi un module multi-case dont l'empreinte
+## couvre (x, y) sans que ce soit sa case d'origine. À utiliser pour tout ce
+## qui doit réagir au clic/survol d'une case quelconque (suppression,
+## rotation, affichage).
+func get_tile_at(x: int, y: int, layer: String = DEFAULT_LAYER) -> Dictionary:
+	var exact := get_tile(x, y, layer)
+	if not exact.is_empty():
+		return exact
+	for tile in tiles:
+		if tile.get("layer", DEFAULT_LAYER) != layer:
+			continue
+		var w: int = tile.get("w", 1)
+		var h: int = tile.get("h", 1)
+		if w <= 1 and h <= 1:
+			continue
+		var ox: int = tile.get("x")
+		var oy: int = tile.get("y")
+		if x >= ox and x < ox + w and y >= oy and y < oy + h:
+			return tile
+	return {}
+
+
 func set_tile(x: int, y: int, type: String, rotation: int = 0, layer: String = DEFAULT_LAYER) -> void:
-	var tile := get_tile(x, y, layer)
-	if tile.is_empty():
-		tiles.append({"x": x, "y": y, "type": type, "rotation": rotation, "layer": layer, "variant": 0})
-	else:
-		tile["type"] = type
-		tile["rotation"] = rotation
-	_recompute_variants_around(x, y, layer)
+	var footprint := footprint_for(type)
+	if footprint == Vector2i(1, 1):
+		var tile := get_tile(x, y, layer)
+		if tile.is_empty():
+			tiles.append({"x": x, "y": y, "type": type, "rotation": rotation, "layer": layer, "variant": 0})
+		else:
+			tile["type"] = type
+			tile["rotation"] = rotation
+			tile.erase("w")
+			tile.erase("h")
+		_recompute_variants_around(x, y, layer)
+		return
+
+	## Module multi-case : nettoie toute tuile (simple ou multi-case) qui
+	## chevauche l'empreinte avant de poser la nouvelle.
+	for cy in range(y, y + footprint.y):
+		for cx in range(x, x + footprint.x):
+			remove_tile(cx, cy, layer)
+	tiles.append({
+		"x": x, "y": y, "type": type, "rotation": rotation, "layer": layer,
+		"w": footprint.x, "h": footprint.y,
+	})
 
 
 func remove_tile(x: int, y: int, layer: String = DEFAULT_LAYER) -> void:
-	for i in range(tiles.size() - 1, -1, -1):
-		var tile := tiles[i]
-		if tile.get("x") == x and tile.get("y") == y and tile.get("layer", DEFAULT_LAYER) == layer:
-			tiles.remove_at(i)
-			_recompute_variants_around(x, y, layer)
-			return
+	var tile := get_tile_at(x, y, layer)
+	if tile.is_empty():
+		return
+	var origin_x: int = tile.get("x")
+	var origin_y: int = tile.get("y")
+	var tile_layer: String = tile.get("layer", DEFAULT_LAYER)
+	var index := tiles.find(tile)
+	if index != -1:
+		tiles.remove_at(index)
+	_recompute_variants_around(origin_x, origin_y, tile_layer)
 
 
 func rotate_tile(x: int, y: int, layer: String = DEFAULT_LAYER) -> void:
-	var tile := get_tile(x, y, layer)
+	var tile := get_tile_at(x, y, layer)
 	if not tile.is_empty():
 		tile["rotation"] = int(tile.get("rotation", 0) + 90) % 360
 

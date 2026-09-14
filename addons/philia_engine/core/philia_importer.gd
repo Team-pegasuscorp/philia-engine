@@ -85,39 +85,47 @@ static func build_scene(map: PhiliaMap, cell_size: int = CELL_SIZE) -> Node2D:
 static func _build_tile_node(tile: Dictionary, cell_size: int) -> Node2D:
 	var x: int = tile.get("x", 0)
 	var y: int = tile.get("y", 0)
+	var w: int = tile.get("w", 1)
+	var h: int = tile.get("h", 1)
 	var type: String = tile.get("type", "Sol")
 	var rotation_deg: int = tile.get("rotation", 0)
+	var footprint_size := Vector2(w, h) * cell_size
 
 	var solid := PhiliaMap.is_solid(tile)
 
 	var node := Node2D.new()
 	node.name = "Tile_%d_%d" % [x, y]
-	node.position = Vector2(x, y) * cell_size
+	## Position = centre de l'empreinte, dans le même repère (coin haut-gauche
+	## de la case (0,0) = origine monde) que le TileMapLayer des terrains et
+	## que la grille de l'éditeur — pas le coin de la case.
+	node.position = Vector2(x, y) * cell_size + footprint_size * 0.5
 	node.rotation_degrees = rotation_deg
 	node.set_meta("philia_type", type)
 	node.set_meta("philia_solid", solid)
+	if w > 1 or h > 1:
+		node.set_meta("philia_footprint", Vector2i(w, h))
 
 	var preview := ColorRect.new()
 	preview.name = "Preview"
-	preview.size = Vector2(cell_size, cell_size)
-	preview.position = Vector2(cell_size, cell_size) * -0.5
+	preview.size = footprint_size
+	preview.position = footprint_size * -0.5
 	preview.color = TILE_COLORS.get(type, Color.GRAY)
 	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	node.add_child(preview)
 	preview.owner = node
 
 	if solid:
-		node.add_child(_build_collision_body(cell_size))
+		node.add_child(_build_collision_body(footprint_size))
 
 	return node
 
 
-static func _build_collision_body(cell_size: int) -> StaticBody2D:
+static func _build_collision_body(size: Vector2) -> StaticBody2D:
 	var body := StaticBody2D.new()
 	body.name = "Collision"
 	var shape := CollisionShape2D.new()
 	var rect := RectangleShape2D.new()
-	rect.size = Vector2(cell_size, cell_size)
+	rect.size = size
 	shape.shape = rect
 	body.add_child(shape)
 	return body

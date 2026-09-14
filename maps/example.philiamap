@@ -11,7 +11,7 @@
 			"state": "idle"
 		}
 	],
-	"format_version": 3,
+	"format_version": 4,
 	"layers": [
 		"Sol"
 	],
@@ -92,26 +92,10 @@
 		{
 			"layer": "Sol",
 			"rotation": 0,
-			"type": "Porte",
-			"variant": 10,
-			"x": 4,
-			"y": 5
-		},
-		{
-			"layer": "Sol",
-			"rotation": 0,
 			"type": "Mur",
 			"variant": 10,
 			"x": 5,
 			"y": 0
-		},
-		{
-			"layer": "Sol",
-			"rotation": 0,
-			"type": "Mur",
-			"variant": 2,
-			"x": 5,
-			"y": 5
 		},
 		{
 			"layer": "Sol",
@@ -125,7 +109,7 @@
 			"layer": "Sol",
 			"rotation": 0,
 			"type": "Mur",
-			"variant": 10,
+			"variant": 2,
 			"x": 6,
 			"y": 5
 		},
@@ -400,6 +384,15 @@
 			"variant": 9,
 			"x": 6,
 			"y": 4
+		},
+		{
+			"h": 1,
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Porte",
+			"w": 2,
+			"x": 4,
+			"y": 5
 		}
 	]
 }

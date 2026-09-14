@@ -71,8 +71,10 @@ func _draw() -> void:
 func _draw_tile(tile: Dictionary, alpha: float) -> void:
 	var x: int = tile.get("x", 0)
 	var y: int = tile.get("y", 0)
+	var w: int = tile.get("w", 1)
+	var h: int = tile.get("h", 1)
 	var type: String = tile.get("type", "Sol")
-	var rect := Rect2(x * CELL_SIZE + 1, y * CELL_SIZE + 1, CELL_SIZE - 2, CELL_SIZE - 2)
+	var rect := Rect2(x * CELL_SIZE + 1, y * CELL_SIZE + 1, w * CELL_SIZE - 2, h * CELL_SIZE - 2)
 	var color: Color = TILE_COLORS.get(type, Color.GRAY)
 	color.a = alpha
 	draw_rect(rect, color, true)
