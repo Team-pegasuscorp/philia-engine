@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://addons/philia_engine/editor/philia_main_screen.gd" id="1"]
 [ext_resource type="PackedScene" path="res://addons/philia_engine/editor/philia_dock.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://addons/philia_engine/editor/philia_gameplay_dock.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://addons/philia_engine/editor/philia_material_dock.tscn" id="4"]
 
 [node name="PhiliaMainScreen" type="Control"]
 anchor_right = 1.0
@@ -21,6 +22,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 0)
 
 [node name="Gameplay" parent="Tabs" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 0)
+
+[node name="Matériaux" parent="Tabs" instance=ExtResource("4")]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 0)

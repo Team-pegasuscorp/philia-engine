@@ -2,7 +2,7 @@
 extends SceneTree
 
 ## Vérifie la structure de l'écran principal "Philia" (editor/philia_main_screen.tscn)
-## sans éditeur : les deux onglets sont bien là, et le sous-éditeur de
+## sans éditeur : les trois onglets sont bien là, et le sous-éditeur de
 ## niveaux (Niveaux) reste bien relié à l'écran principal (import_requested
 ## relayé, set_level_editor_status atteint son label). L'intégration réelle
 ## de l'EditorPlugin (add_child sur le main screen de l'éditeur, bascule
@@ -23,9 +23,10 @@ func _initialize() -> void:
 
 	var tabs := main_screen.get_node("Tabs") as TabContainer
 	_check(tabs != null, "TabContainer présent")
-	_check(tabs.get_tab_count() == 2, "2 onglets (Niveaux, Gameplay)")
+	_check(tabs.get_tab_count() == 3, "3 onglets (Niveaux, Gameplay, Matériaux)")
 	_check(tabs.get_tab_title(0) == "Niveaux", "onglet 0 = Niveaux")
 	_check(tabs.get_tab_title(1) == "Gameplay", "onglet 1 = Gameplay")
+	_check(tabs.get_tab_title(2) == "Matériaux", "onglet 2 = Matériaux")
 
 	var forwarded := []
 	main_screen.import_requested.connect(func(m): forwarded.append(m))

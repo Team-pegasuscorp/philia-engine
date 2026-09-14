@@ -1,0 +1,150 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/philia_engine/editor/philia_material_dock.gd" id="1"]
+
+[node name="PhiliaMaterialDock" type="HBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1")
+
+[node name="MaterialList" type="ItemList" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MaterialScroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MaterialForm" type="VBoxContainer" parent="MaterialScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IdRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/IdRow"]
+layout_mode = 2
+text = "Id :"
+
+[node name="MaterialIdEdit" type="LineEdit" parent="MaterialScroll/MaterialForm/IdRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlbedoColorRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/AlbedoColorRow"]
+layout_mode = 2
+text = "Couleur albédo :"
+
+[node name="AlbedoColorPicker" type="ColorPickerButton" parent="MaterialScroll/MaterialForm/AlbedoColorRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+color = Color(1, 1, 1, 1)
+
+[node name="AlbedoTextureRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/AlbedoTextureRow"]
+layout_mode = 2
+text = "Albedo :"
+
+[node name="AlbedoTextureEdit" type="LineEdit" parent="MaterialScroll/MaterialForm/AlbedoTextureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://.../albedo.png"
+
+[node name="NormalTextureRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/NormalTextureRow"]
+layout_mode = 2
+text = "Normal :"
+
+[node name="NormalTextureEdit" type="LineEdit" parent="MaterialScroll/MaterialForm/NormalTextureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://.../normal.png"
+
+[node name="OrmTextureRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/OrmTextureRow"]
+layout_mode = 2
+text = "ORM (R=rough,G=metal,B=AO) :"
+
+[node name="OrmTextureEdit" type="LineEdit" parent="MaterialScroll/MaterialForm/OrmTextureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://.../orm.png"
+
+[node name="HeightTextureRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/HeightTextureRow"]
+layout_mode = 2
+text = "Relief (height) :"
+
+[node name="HeightTextureEdit" type="LineEdit" parent="MaterialScroll/MaterialForm/HeightTextureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://.../height.png"
+
+[node name="RoughnessRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/RoughnessRow"]
+layout_mode = 2
+text = "Roughness (si pas d'ORM) :"
+
+[node name="RoughnessSpin" type="SpinBox" parent="MaterialScroll/MaterialForm/RoughnessRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MetallicRow" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaterialScroll/MaterialForm/MetallicRow"]
+layout_mode = 2
+text = "Metallic (si pas d'ORM) :"
+
+[node name="MetallicSpin" type="SpinBox" parent="MaterialScroll/MaterialForm/MetallicRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="MaterialButtons" type="HBoxContainer" parent="MaterialScroll/MaterialForm"]
+layout_mode = 2
+
+[node name="NewMaterialButton" type="Button" parent="MaterialScroll/MaterialForm/MaterialButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nouveau matériau"
+
+[node name="DeleteMaterialButton" type="Button" parent="MaterialScroll/MaterialForm/MaterialButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Supprimer"
+
+[node name="ApplyMaterialButton" type="Button" parent="MaterialScroll/MaterialForm/MaterialButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Appliquer"
+
+[node name="MaterialStatusLabel" type="Label" parent="MaterialScroll/MaterialForm"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Aucun matériau sélectionné"
