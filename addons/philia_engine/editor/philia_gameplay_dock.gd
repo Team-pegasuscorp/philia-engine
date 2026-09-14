@@ -59,6 +59,15 @@ var _pending_inventory: Array[Dictionary] = []  ## édité pour le gabarit séle
 var _pending_objectives: Array[Dictionary] = []
 var _node_counter := 0
 
+## Id chargé dans le formulaire au moment de la sélection (ou de la
+## création) — sert à distinguer "renommer une entrée existante" de "créer
+## une nouvelle entrée" quand Appliquer est cliqué avec un id différent.
+## Vide = aucune entrée chargée (formulaire vidé après suppression/nouveau
+## fichier).
+var _selected_template_id := ""
+var _selected_quest_id := ""
+var _selected_dialogue_id := ""
+
 
 func _ready() -> void:
 	_path_edit.text = DEFAULT_PATH
@@ -168,6 +177,7 @@ func _on_delete_template_pressed() -> void:
 
 func _on_template_selected(index: int) -> void:
 	var template_id := _template_list.get_item_text(index)
+	_selected_template_id = template_id
 	var tmpl: Dictionary = data.entity_templates.get(template_id, {})
 	var stats: Dictionary = tmpl.get("stats", {})
 	_template_id_edit.text = template_id
@@ -185,6 +195,7 @@ func _on_template_selected(index: int) -> void:
 
 func _clear_template_form() -> void:
 	_template_id_edit.text = ""
+	_selected_template_id = ""
 	_pending_inventory.clear()
 	_refresh_inventory_list()
 
@@ -216,6 +227,10 @@ func _on_apply_template_pressed() -> void:
 	var template_id := _template_id_edit.text.strip_edges()
 	if template_id.is_empty():
 		return
+	## L'id a changé depuis le chargement -> renomme (retire l'ancienne
+	## entrée) plutôt que de laisser une entrée fantôme sous l'ancien id.
+	if _selected_template_id != "" and _selected_template_id != template_id:
+		data.entity_templates.erase(_selected_template_id)
 	data.entity_templates[template_id] = {
 		"stats": {
 			"hp": _hp_spin.value, "max_hp": _max_hp_spin.value, "force": _force_spin.value,
@@ -224,6 +239,7 @@ func _on_apply_template_pressed() -> void:
 		"inventory": _pending_inventory.duplicate(true),
 		"inventory_capacity": int(_capacity_spin.value),
 	}
+	_selected_template_id = template_id
 	_refresh_template_list()
 	_select_item_by_text(_template_list, template_id)
 	_update_status("Gabarit \"%s\" appliqué" % template_id)
@@ -256,6 +272,7 @@ func _on_delete_quest_pressed() -> void:
 
 func _on_quest_selected(index: int) -> void:
 	var quest_id := _quest_list.get_item_text(index)
+	_selected_quest_id = quest_id
 	var quest_dict: Dictionary = data.quests.get(quest_id, {})
 	_quest_id_edit.text = quest_id
 	_pending_objectives = []
@@ -266,6 +283,7 @@ func _on_quest_selected(index: int) -> void:
 
 func _clear_quest_form() -> void:
 	_quest_id_edit.text = ""
+	_selected_quest_id = ""
 	_pending_objectives.clear()
 	_refresh_objectives_list()
 
@@ -297,11 +315,14 @@ func _on_apply_quest_pressed() -> void:
 	var quest_id := _quest_id_edit.text.strip_edges()
 	if quest_id.is_empty():
 		return
+	if _selected_quest_id != "" and _selected_quest_id != quest_id:
+		data.quests.erase(_selected_quest_id)
 	data.quests[quest_id] = {
 		"id": quest_id,
 		"state": PhiliaQuest.State.INACTIVE,
 		"objectives": _pending_objectives.duplicate(true),
 	}
+	_selected_quest_id = quest_id
 	_refresh_quest_list()
 	_select_item_by_text(_quest_list, quest_id)
 	_update_status("Quête \"%s\" appliquée" % quest_id)
@@ -334,20 +355,25 @@ func _on_delete_dialogue_pressed() -> void:
 
 func _on_dialogue_selected(index: int) -> void:
 	var dialogue_id := _dialogue_list.get_item_text(index)
+	_selected_dialogue_id = dialogue_id
 	_dialogue_id_edit.text = dialogue_id
 	load_dialogue_into_graph(data.dialogues.get(dialogue_id, {}))
 
 
 func _clear_dialogue_form() -> void:
 	_dialogue_id_edit.text = ""
+	_selected_dialogue_id = ""
 	_start_node_edit.text = ""
 	_clear_dialogue_graph()
 
 
 func _clear_dialogue_graph() -> void:
+	## free() immédiat plutôt que queue_free() : évite que d'anciens
+	## GraphNode traînent jusqu'à la fin de la frame et soient
+	## confondus avec les nœuds du dialogue nouvellement chargé/créé.
 	for child in _dialogue_graph.get_children():
 		if child is GraphNode:
-			child.queue_free()
+			child.free()
 	_dialogue_graph.clear_connections()
 	_node_counter = 0
 
@@ -381,8 +407,36 @@ func _instantiate_dialogue_node(node_id: String) -> PhiliaDialogueGraphNode:
 	var graph_node: PhiliaDialogueGraphNode = DIALOGUE_NODE_SCENE.instantiate()
 	graph_node.name = node_id
 	graph_node.title = node_id
+	graph_node.choice_remove_requested.connect(_on_choice_remove_requested.bind(graph_node))
 	_dialogue_graph.add_child(graph_node)
 	return graph_node
+
+
+## Retire le choix `index` de graph_node : sauvegarde les connexions
+## sortantes existantes de ce nœud, les déconnecte, effectue le retrait
+## (qui décale les ports des choix suivants), puis reconnecte chaque
+## connexion conservée sur son nouveau port (celle du choix retiré est
+## perdue avec lui).
+func _on_choice_remove_requested(index: int, graph_node: PhiliaDialogueGraphNode) -> void:
+	var saved: Array[Dictionary] = []
+	for conn in _dialogue_graph.get_connection_list():
+		if conn["from_node"] != graph_node.name or int(conn["from_port"]) < PhiliaDialogueGraphNode.FIRST_CHOICE_ROW:
+			continue
+		saved.append({
+			"choice_index": int(conn["from_port"]) - PhiliaDialogueGraphNode.FIRST_CHOICE_ROW,
+			"to_node": conn["to_node"],
+			"to_port": conn["to_port"],
+		})
+		_dialogue_graph.disconnect_node(conn["from_node"], conn["from_port"], conn["to_node"], conn["to_port"])
+
+	graph_node.remove_choice_at(index)
+
+	for entry in saved:
+		var choice_index: int = entry["choice_index"]
+		if choice_index == index:
+			continue  ## le choix retiré emporte sa connexion avec lui
+		var new_index: int = choice_index if choice_index < index else choice_index - 1
+		_dialogue_graph.connect_node(graph_node.name, graph_node.choice_port(new_index), entry["to_node"], entry["to_port"])
 
 
 func _on_add_node_pressed() -> void:
@@ -447,7 +501,10 @@ func _on_apply_dialogue_pressed() -> void:
 	var dialogue_id := _dialogue_id_edit.text.strip_edges()
 	if dialogue_id.is_empty():
 		return
+	if _selected_dialogue_id != "" and _selected_dialogue_id != dialogue_id:
+		data.dialogues.erase(_selected_dialogue_id)
 	data.dialogues[dialogue_id] = serialize_dialogue_graph()
+	_selected_dialogue_id = dialogue_id
 	_refresh_dialogue_list()
 	_select_item_by_text(_dialogue_list, dialogue_id)
 	_update_status("Dialogue \"%s\" appliqué" % dialogue_id)

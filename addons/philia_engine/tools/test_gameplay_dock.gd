@@ -24,6 +24,8 @@ func _initialize() -> void:
 	_test_template_tab()
 	_test_quest_tab()
 	_test_dialogue_tab()
+	_test_rename_instead_of_duplicate()
+	_test_dialogue_choice_removal_from_middle()
 	_test_save_load_round_trip()
 
 	if _failures == 0:
@@ -120,6 +122,88 @@ func _test_dialogue_tab() -> void:
 	_check(found, "load_dialogue_into_graph() recrée la connexion visuelle")
 
 
+func _test_rename_instead_of_duplicate() -> void:
+	print("Renommage (id modifié + Appliquer) au lieu de dupliquer")
+
+	## Gabarit : "loup" créé par _test_template_tab -> renommé "grand_loup".
+	_dock._on_template_selected(_index_of(_dock._template_list, "loup"))
+	_dock._template_id_edit.text = "grand_loup"
+	_dock._on_apply_template_pressed()
+	_check(not _dock.data.entity_templates.has("loup"), "ancien id \"loup\" retiré après renommage")
+	_check(_dock.data.entity_templates.has("grand_loup"), "nouvel id \"grand_loup\" présent")
+
+	## Quête : "hunt_wolves" -> "hunt_wolf".
+	_dock._on_quest_selected(_index_of(_dock._quest_list, "hunt_wolves"))
+	_dock._quest_id_edit.text = "hunt_wolf"
+	_dock._on_apply_quest_pressed()
+	_check(not _dock.data.quests.has("hunt_wolves"), "ancien id \"hunt_wolves\" retiré après renommage")
+	_check(_dock.data.quests.has("hunt_wolf"), "nouvel id \"hunt_wolf\" présent")
+
+	## Dialogue : "guard_talk" -> "guard_talk_v2".
+	_dock._on_dialogue_selected(_index_of(_dock._dialogue_list, "guard_talk"))
+	_dock._dialogue_id_edit.text = "guard_talk_v2"
+	_dock._on_apply_dialogue_pressed()
+	_check(not _dock.data.dialogues.has("guard_talk"), "ancien id \"guard_talk\" retiré après renommage")
+	_check(_dock.data.dialogues.has("guard_talk_v2"), "nouvel id \"guard_talk_v2\" présent")
+
+	## Appliquer sans changer l'id ne doit rien casser (pas de faux renommage).
+	_dock._on_apply_template_pressed()
+	_check(_dock.data.entity_templates.has("grand_loup"), "réappliquer sans changer l'id garde l'entrée")
+
+
+func _test_dialogue_choice_removal_from_middle() -> void:
+	print("Dialogue : retrait d'un choix au milieu de la liste")
+	_dock._on_new_dialogue_pressed()
+	_dock._dialogue_id_edit.text = "three_way"
+
+	_dock._on_add_node_pressed()
+	var start_node: PhiliaDialogueGraphNode = null
+	for child in _dock._dialogue_graph.get_children():
+		if child is PhiliaDialogueGraphNode:
+			start_node = child
+	start_node.add_choice("Choix A")
+	start_node.add_choice("Choix B")
+	start_node.add_choice("Choix C")
+
+	_dock._on_add_node_pressed()
+	_dock._on_add_node_pressed()
+	_dock._on_add_node_pressed()
+	var targets: Array[PhiliaDialogueGraphNode] = []
+	for child in _dock._dialogue_graph.get_children():
+		if child is PhiliaDialogueGraphNode and child != start_node:
+			targets.append(child)
+	_check(targets.size() == 3, "3 nœuds cibles créés pour les 3 choix")
+
+	## Choix 0 -> targets[0], choix 1 -> targets[1], choix 2 -> targets[2].
+	_dock._on_connection_request(start_node.name, start_node.choice_port(0), targets[0].name, 0)
+	_dock._on_connection_request(start_node.name, start_node.choice_port(1), targets[1].name, 0)
+	_dock._on_connection_request(start_node.name, start_node.choice_port(2), targets[2].name, 0)
+
+	## Retire le choix du MILIEU (index 1, vers targets[1]).
+	_dock._on_choice_remove_requested(1, start_node)
+
+	_check(start_node.choice_count() == 2, "2 choix restants après retrait du milieu")
+	_check(start_node.get_choice_text(0) == "Choix A", "choix 0 inchangé")
+	_check(start_node.get_choice_text(1) == "Choix C", "choix 2 devient choix 1 (décalage)")
+
+	var connections: Array = _dock._dialogue_graph.get_connection_list()
+	var to_target0 := false
+	var to_target1 := false
+	var to_target2 := false
+	for conn in connections:
+		if conn["from_node"] != start_node.name:
+			continue
+		if conn["to_node"] == targets[0].name and conn["from_port"] == start_node.choice_port(0):
+			to_target0 = true
+		if conn["to_node"] == targets[1].name:
+			to_target1 = true  ## ne doit jamais être vrai : ce choix a été retiré
+		if conn["to_node"] == targets[2].name and conn["from_port"] == start_node.choice_port(1):
+			to_target2 = true
+	_check(to_target0, "connexion vers targets[0] toujours sur le port 0")
+	_check(not to_target1, "connexion vers le choix retiré (targets[1]) bien supprimée")
+	_check(to_target2, "connexion vers targets[2] réindexée sur le port du nouveau choix 1")
+
+
 func _test_save_load_round_trip() -> void:
 	print("Aller-retour disque via les boutons du dock")
 	_dock._path_edit.text = TEST_PATH
@@ -130,13 +214,18 @@ func _test_save_load_round_trip() -> void:
 	_check(_dock.data.entity_templates.is_empty(), "Nouveau vide bien le contenu en mémoire")
 
 	_dock._on_load_pressed()
-	_check(_dock.data.entity_templates.has("loup"), "gabarit rechargé depuis le disque")
-	_check(_dock.data.quests.has("hunt_wolves"), "quête rechargée depuis le disque")
-	_check(_dock.data.dialogues.has("guard_talk"), "dialogue rechargé depuis le disque")
-	## _on_new_template_pressed() crée "gabarit_1", puis Appliquer sous l'id
-	## "loup" crée une entrée séparée sans supprimer "gabarit_1" (éditer
-	## l'id + Appliquer = nouvelle entrée, pas un renommage — limitation
-	## assumée de cette première version) : la liste doit refléter les deux.
-	_check(_dock._template_list.item_count == 2, "liste de gabarits réaffichée après chargement (gabarit_1 + loup)")
+	_check(_dock.data.entity_templates.has("grand_loup"), "gabarit rechargé depuis le disque (id renommé)")
+	_check(_dock.data.quests.has("hunt_wolf"), "quête rechargée depuis le disque (id renommé)")
+	_check(_dock.data.dialogues.has("guard_talk_v2"), "dialogue rechargé depuis le disque (id renommé)")
+	## Le renommage (test précédent) a bien remplacé "gabarit_1" par
+	## "grand_loup" sans laisser d'entrée fantôme.
+	_check(_dock._template_list.item_count == 1, "un seul gabarit après renommage, pas d'entrée fantôme")
 
 	DirAccess.remove_absolute(TEST_PATH)
+
+
+func _index_of(list: ItemList, text: String) -> int:
+	for i in range(list.item_count):
+		if list.get_item_text(i) == text:
+			return i
+	return -1

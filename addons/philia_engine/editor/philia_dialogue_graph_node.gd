@@ -6,22 +6,20 @@ extends GraphNode
 ## (speaker/text) et une liste de choix, chacun avec son propre port de
 ## sortie (row du GraphNode). Le port d'entrée (row 0) reçoit les
 ## connexions des choix d'autres nœuds qui mènent ici. Cette classe ne
-## connaît rien de PhiliaDialogue — philia_gameplay_dock.gd traduit le
-## graphe (nœuds + connexions du GraphEdit) en dict au format
-## PhiliaDialogue.to_dict() (§20).
-##
-## Limite assumée pour rester simple : un choix ne peut être retiré que
-## par la fin (le dernier ajouté), jamais au milieu — Godot ne réindexe
-## pas les connexions existantes d'un GraphEdit quand une row change de
-## position, retirer un choix du milieu casserait silencieusement les
-## connexions des choix suivants.
+## connaît rien de PhiliaDialogue ni du GraphEdit qui la contient —
+## philia_gameplay_dock.gd traduit le graphe (nœuds + connexions) en dict
+## au format PhiliaDialogue.to_dict(), et c'est aussi lui qui réindexe les
+## connexions du GraphEdit quand choice_remove_requested est émis (retirer
+## une row du milieu décale les ports des rows suivantes — cette classe ne
+## connaît pas les connexions externes pour le faire elle-même) (§20).
+
+signal choice_remove_requested(index: int)
 
 const FIRST_CHOICE_ROW := 3  ## SpeakerRow(0), TextEdit(1), ChoiceControlsRow(2), choix à partir de 3
 
 @onready var _speaker_edit: LineEdit = %SpeakerEdit
 @onready var _text_edit: TextEdit = %TextEdit
 @onready var _add_choice_button: Button = %AddChoiceButton
-@onready var _remove_choice_button: Button = %RemoveChoiceButton
 
 var _choice_rows: Array[HBoxContainer] = []
 
@@ -29,7 +27,6 @@ var _choice_rows: Array[HBoxContainer] = []
 func _ready() -> void:
 	set_slot(0, true, 0, Color.WHITE, false, 0, Color.WHITE)
 	_add_choice_button.pressed.connect(add_choice)
-	_remove_choice_button.pressed.connect(remove_last_choice)
 
 
 func get_speaker() -> String:
@@ -76,17 +73,30 @@ func add_choice(text: String = "", action: String = "") -> void:
 	action_edit.placeholder_text = "action (optionnel)"
 	action_edit.text = action
 	action_edit.size_flags_horizontal = SIZE_EXPAND_FILL
+	var remove_button := Button.new()
+	remove_button.text = "×"
+	remove_button.tooltip_text = "Retirer ce choix"
+	remove_button.pressed.connect(func() -> void: choice_remove_requested.emit(_choice_rows.find(row)))
 	row.add_child(text_edit)
 	row.add_child(action_edit)
+	row.add_child(remove_button)
 	add_child(row)
 	_choice_rows.append(row)
 	set_slot(choice_port(_choice_rows.size() - 1), false, 0, Color.WHITE, true, 0, Color(0.3, 0.8, 0.4))
 
 
-## Retire uniquement le dernier choix (voir note de tête de fichier).
-func remove_last_choice() -> void:
-	if _choice_rows.is_empty():
+## Retire le choix à `index`, où qu'il soit dans la liste : les rows
+## suivantes se décalent d'un cran (remove_child() réindexe les children
+## immédiatement, contrairement à queue_free() seul) et leurs slots sont
+## réappliqués sur leur nouvelle position. Ne touche à aucune connexion du
+## GraphEdit — c'est à l'appelant (philia_gameplay_dock.gd) de sauvegarder
+## puis réindexer les connexions existantes avant/après cet appel.
+func remove_choice_at(index: int) -> void:
+	if index < 0 or index >= _choice_rows.size():
 		return
-	var row := _choice_rows.pop_back()
-	set_slot(FIRST_CHOICE_ROW + _choice_rows.size(), false, 0, Color.WHITE, false, 0, Color.WHITE)
+	var row := _choice_rows[index]
+	remove_child(row)
 	row.queue_free()
+	_choice_rows.remove_at(index)
+	for i in range(index, _choice_rows.size()):
+		set_slot(choice_port(i), false, 0, Color.WHITE, true, 0, Color(0.3, 0.8, 0.4))

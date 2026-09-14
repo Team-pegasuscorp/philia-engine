@@ -30,8 +30,3 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "+ Choix"
-
-[node name="RemoveChoiceButton" type="Button" parent="ChoiceControlsRow"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "- Dernier choix"
