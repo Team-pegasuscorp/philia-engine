@@ -2,9 +2,10 @@
 class_name PhiliaGridCanvas
 extends Control
 
-## Grille de placement V1 : clic gauche pose la tuile sélectionnée, clic droit
-## supprime, touche R fait pivoter la tuile survolée. Écrit directement dans
-## un PhiliaMap (voir core/philia_map.gd).
+## Grille de placement : clic gauche pose la tuile sélectionnée sur le calque
+## actif, clic droit supprime, touche R fait pivoter la tuile survolée.
+## Les autres calques restent visibles en transparence pour le contexte.
+## Écrit directement dans un PhiliaMap (voir core/philia_map.gd).
 
 signal tile_placed(x: int, y: int, type: String)
 signal tile_removed(x: int, y: int)
@@ -13,6 +14,7 @@ signal tile_rotated(x: int, y: int)
 const CELL_SIZE := 32
 const GRID_CELLS := 24
 const GRID_COLOR := Color(1, 1, 1, 0.15)
+const INACTIVE_LAYER_ALPHA := 0.35
 const TILE_COLORS := {
 	"Sol": Color(0.35, 0.55, 0.35),
 	"Mur": Color(0.5, 0.5, 0.55),
@@ -29,6 +31,7 @@ const TILE_COLORS := {
 
 var map: PhiliaMap = PhiliaMap.new()
 var selected_type: String = "Sol"
+var active_layer: String = PhiliaMap.DEFAULT_LAYER
 var hovered_cell: Vector2i = Vector2i(-1, -1)
 
 
@@ -40,6 +43,13 @@ func _ready() -> void:
 
 func set_map(new_map: PhiliaMap) -> void:
 	map = new_map
+	if not map.layers.has(active_layer):
+		active_layer = map.layers[0]
+	queue_redraw()
+
+
+func set_active_layer(layer: String) -> void:
+	active_layer = layer
 	queue_redraw()
 
 
@@ -50,23 +60,26 @@ func _draw() -> void:
 		draw_line(Vector2(0, y * CELL_SIZE), Vector2(GRID_CELLS * CELL_SIZE, y * CELL_SIZE), GRID_COLOR)
 
 	for tile in map.tiles:
-		_draw_tile(tile)
+		var is_active: bool = tile.get("layer", PhiliaMap.DEFAULT_LAYER) == active_layer
+		_draw_tile(tile, 1.0 if is_active else INACTIVE_LAYER_ALPHA)
 
 	if _is_in_bounds(hovered_cell):
 		var rect := Rect2(hovered_cell.x * CELL_SIZE, hovered_cell.y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
 		draw_rect(rect, Color(1, 1, 1, 0.25), true)
 
 
-func _draw_tile(tile: Dictionary) -> void:
+func _draw_tile(tile: Dictionary, alpha: float) -> void:
 	var x: int = tile.get("x", 0)
 	var y: int = tile.get("y", 0)
 	var type: String = tile.get("type", "Sol")
 	var rotation_deg: int = tile.get("rotation", 0)
 	var rect := Rect2(x * CELL_SIZE + 1, y * CELL_SIZE + 1, CELL_SIZE - 2, CELL_SIZE - 2)
-	draw_rect(rect, TILE_COLORS.get(type, Color.GRAY), true)
+	var color: Color = TILE_COLORS.get(type, Color.GRAY)
+	color.a = alpha
+	draw_rect(rect, color, true)
 	var center := rect.get_center()
 	var dir := Vector2.UP.rotated(deg_to_rad(rotation_deg))
-	draw_line(center, center + dir * (CELL_SIZE * 0.3), Color.WHITE, 2.0)
+	draw_line(center, center + dir * (CELL_SIZE * 0.3), Color(1, 1, 1, alpha), 2.0)
 
 
 func _is_in_bounds(cell: Vector2i) -> bool:
@@ -89,15 +102,15 @@ func _gui_input(event: InputEvent) -> void:
 		if not _is_in_bounds(cell):
 			return
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			map.set_tile(cell.x, cell.y, selected_type)
+			map.set_tile(cell.x, cell.y, selected_type, 0, active_layer)
 			tile_placed.emit(cell.x, cell.y, selected_type)
 			queue_redraw()
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			map.remove_tile(cell.x, cell.y)
+			map.remove_tile(cell.x, cell.y, active_layer)
 			tile_removed.emit(cell.x, cell.y)
 			queue_redraw()
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		if _is_in_bounds(hovered_cell):
-			map.rotate_tile(hovered_cell.x, hovered_cell.y)
+			map.rotate_tile(hovered_cell.x, hovered_cell.y, active_layer)
 			tile_rotated.emit(hovered_cell.x, hovered_cell.y)
 			queue_redraw()

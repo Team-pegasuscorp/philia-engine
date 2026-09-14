@@ -22,8 +22,23 @@ static func build_scene(map: PhiliaMap, cell_size: int = CELL_SIZE) -> Node2D:
 	tiles_root.name = "Tiles"
 	root.add_child(tiles_root)
 	tiles_root.owner = root
+
+	var layer_nodes := {}
+	for layer_name in map.layers:
+		var layer_node := Node2D.new()
+		layer_node.name = layer_name
+		tiles_root.add_child(layer_node)
+		layer_nodes[layer_name] = layer_node
+
 	for tile in map.tiles:
-		tiles_root.add_child(_build_tile_node(tile, cell_size))
+		var layer_name: String = tile.get("layer", PhiliaMap.DEFAULT_LAYER)
+		var layer_node: Node2D = layer_nodes.get(layer_name)
+		if layer_node == null:
+			layer_node = Node2D.new()
+			layer_node.name = layer_name
+			tiles_root.add_child(layer_node)
+			layer_nodes[layer_name] = layer_node
+		layer_node.add_child(_build_tile_node(tile, cell_size))
 
 	var entities_root := Node2D.new()
 	entities_root.name = "Entities"

@@ -38,6 +38,29 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Importer dans la scène"
 
+[node name="LayerBar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LayerLabel" type="Label" parent="LayerBar"]
+layout_mode = 2
+text = "Calque :"
+
+[node name="LayerOption" type="OptionButton" parent="LayerBar"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(140, 0)
+
+[node name="NewLayerEdit" type="LineEdit" parent="LayerBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Nom du nouveau calque"
+
+[node name="AddLayerButton" type="Button" parent="LayerBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ajouter calque"
+
 [node name="StatusLabel" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
