@@ -1,0 +1,49 @@
+@tool
+class_name ArkMap
+extends RefCounted
+
+## Modèle de données d'une carte .arkmap : générique, indépendant du jeu qui l'importe.
+## Sérialisé en JSON lisible (voir docs/concept.md §21.2) pour rester diffable/mergeable.
+
+const FORMAT_VERSION := 1
+
+var format_version: int = FORMAT_VERSION
+var seed: int = 0
+var tiles: Array[Dictionary] = []
+var entities: Array[Dictionary] = []
+
+
+func to_dict() -> Dictionary:
+	return {
+		"format_version": format_version,
+		"seed": seed,
+		"tiles": tiles,
+		"entities": entities,
+	}
+
+
+static func from_dict(data: Dictionary) -> ArkMap:
+	var map := ArkMap.new()
+	map.format_version = data.get("format_version", FORMAT_VERSION)
+	map.seed = data.get("seed", 0)
+	map.tiles.assign(data.get("tiles", []))
+	map.entities.assign(data.get("entities", []))
+	return map
+
+
+func save(path: String) -> Error:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		return FileAccess.get_open_error()
+	file.store_string(JSON.stringify(to_dict(), "\t"))
+	return OK
+
+
+static func load(path: String) -> ArkMap:
+	if not FileAccess.file_exists(path):
+		return null
+	var file := FileAccess.open(path, FileAccess.READ)
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_DICTIONARY:
+		return null
+	return from_dict(parsed)
