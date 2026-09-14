@@ -1,6 +1,8 @@
 @tool
 extends Control
 
+signal import_requested(map: PhiliaMap)
+
 const PALETTE: Array[String] = [
 	"Sol", "Mur", "Coin", "Bord", "Terrain",
 	"Porte", "Fenêtre", "Escalier", "Pilier", "Caisse", "Machine",
@@ -14,6 +16,7 @@ const DEFAULT_MAP_PATH := "res://maps/example.philiamap"
 @onready var _new_button: Button = %NewMapButton
 @onready var _save_button: Button = %SaveMapButton
 @onready var _load_button: Button = %LoadMapButton
+@onready var _import_button: Button = %ImportSceneButton
 
 
 func _ready() -> void:
@@ -26,12 +29,21 @@ func _ready() -> void:
 	_new_button.pressed.connect(_on_new_pressed)
 	_save_button.pressed.connect(_on_save_pressed)
 	_load_button.pressed.connect(_on_load_pressed)
+	_import_button.pressed.connect(_on_import_pressed)
 
 	_canvas.tile_placed.connect(_on_map_changed)
 	_canvas.tile_removed.connect(_on_map_changed)
 	_canvas.tile_rotated.connect(_on_map_changed)
 
 	_update_status()
+
+
+func set_status(text: String) -> void:
+	_status_label.text = text
+
+
+func _on_import_pressed() -> void:
+	import_requested.emit(_canvas.map)
 
 
 func _on_palette_item_selected(index: int) -> void:
