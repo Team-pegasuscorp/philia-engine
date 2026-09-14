@@ -1,0 +1,398 @@
+{
+	"entities": [
+		{
+			"entity": "wolf_01",
+			"position": [
+				2,
+				0.5,
+				3
+			],
+			"rotation": 90,
+			"state": "idle"
+		}
+	],
+	"format_version": 4,
+	"layers": [
+		"Sol"
+	],
+	"seed": 42,
+	"tiles": [
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 6,
+			"x": 0,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 3,
+			"x": 0,
+			"y": 5
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 1,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 1,
+			"y": 5
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 2,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 2,
+			"y": 5
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 3,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 8,
+			"x": 3,
+			"y": 5
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 4,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 5,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 10,
+			"x": 6,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 2,
+			"x": 6,
+			"y": 5
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 12,
+			"x": 7,
+			"y": 0
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 9,
+			"x": 7,
+			"y": 5
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 0,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 7,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 0,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 7,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 0,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 7,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 0,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Mur",
+			"variant": 5,
+			"x": 7,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 6,
+			"x": 1,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 7,
+			"x": 1,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 7,
+			"x": 1,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 3,
+			"x": 1,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 14,
+			"x": 2,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 13,
+			"x": 2,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 15,
+			"x": 2,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 11,
+			"x": 2,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 10,
+			"x": 3,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Pilier",
+			"variant": 15,
+			"x": 3,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 14,
+			"x": 3,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 11,
+			"x": 3,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 14,
+			"x": 4,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 7,
+			"x": 4,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 13,
+			"x": 4,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 11,
+			"x": 4,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 14,
+			"x": 5,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 11,
+			"x": 5,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Caisse",
+			"variant": 15,
+			"x": 5,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 10,
+			"x": 5,
+			"y": 4
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 12,
+			"x": 6,
+			"y": 1
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 13,
+			"x": 6,
+			"y": 2
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 5,
+			"x": 6,
+			"y": 3
+		},
+		{
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Sol",
+			"variant": 9,
+			"x": 6,
+			"y": 4
+		},
+		{
+			"h": 1,
+			"layer": "Sol",
+			"rotation": 0,
+			"type": "Porte",
+			"w": 2,
+			"x": 4,
+			"y": 5
+		}
+	]
+}

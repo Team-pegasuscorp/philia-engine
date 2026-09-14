@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="MeshLibrary" path="res://addons/philia_engine/assets/philia_terrain_meshlibrary.tres" id="1_8ejk8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjr3s"]
+albedo_color = Color(0.55, 0.53, 0.5, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_0u7oi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ycul"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4pqpa"]
+albedo_color = Color(0.45, 0.3, 0.18, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_bc1ov"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4lu4q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knm1r"]
+albedo_color = Color(0.6, 0.4, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ht8xk"]
+size = Vector3(2, 1, 1)
+
+[node name="PhiliaMap3D" type="Node3D" unique_id=1753268871]
+metadata/philia_format_version = 4
+metadata/philia_seed = 42
+
+[node name="Tiles" type="Node3D" parent="." unique_id=325282306]
+
+[node name="Sol" type="Node3D" parent="Tiles" unique_id=431370229]
+
+[node name="Terrain" type="GridMap" parent="Tiles/Sol" unique_id=1788539074]
+mesh_library = ExtResource("1_8ejk8")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(0, 0, 1, 0, 5, 1, 1, 0, 1, 1, 5, 1, 2, 0, 1, 2, 5, 1, 3, 0, 1, 3, 5, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 6, 5, 1, 7, 0, 1, 7, 5, 1, 0, 1, 1, 7, 1, 1, 0, 2, 1, 7, 2, 1, 0, 3, 1, 7, 3, 1, 0, 4, 1, 7, 4, 1, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0, 2, 1, 0, 2, 2, 0, 2, 3, 0, 2, 4, 0, 3, 1, 0, 3, 3, 0, 3, 4, 0, 4, 1, 0, 4, 2, 0, 4, 3, 0, 4, 4, 0, 5, 1, 0, 5, 2, 0, 5, 4, 0, 6, 1, 0, 6, 2, 0, 6, 3, 0, 6, 4, 0)
+}
+
+[node name="Tile_3_2" type="Node3D" parent="Tiles/Sol" unique_id=318458016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 2.5)
+metadata/philia_type = "Pilier"
+metadata/philia_solid = true
+metadata/philia_material = "res://addons/philia_engine/assets/materials/stone.tres"
+
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_3_2" unique_id=385571305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_wjr3s")
+mesh = SubResource("BoxMesh_0u7oi")
+
+[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_3_2" unique_id=837011604]
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Tiles/Sol/Tile_3_2/Collision" unique_id=1379922437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_1ycul")
+
+[node name="Tile_5_3" type="Node3D" parent="Tiles/Sol" unique_id=946865733]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 3.5)
+metadata/philia_type = "Caisse"
+metadata/philia_solid = true
+metadata/philia_material = "res://addons/philia_engine/assets/materials/wood.tres"
+
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_5_3" unique_id=1431221910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_4pqpa")
+mesh = SubResource("BoxMesh_bc1ov")
+
+[node name="Collision" type="StaticBody3D" parent="Tiles/Sol/Tile_5_3" unique_id=1447135659]
+
+[node name="@CollisionShape3D@3" type="CollisionShape3D" parent="Tiles/Sol/Tile_5_3/Collision" unique_id=494748835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_4lu4q")
+
+[node name="Tile_4_5" type="Node3D" parent="Tiles/Sol" unique_id=630804908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5.5)
+metadata/philia_type = "Porte"
+metadata/philia_solid = false
+metadata/philia_footprint = Vector2i(2, 1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Tiles/Sol/Tile_4_5" unique_id=1281673222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_knm1r")
+mesh = SubResource("BoxMesh_ht8xk")
+
+[node name="Entities" type="Node3D" parent="." unique_id=1505126836]
+
+[node name="wolf_01" type="Node3D" parent="Entities" unique_id=2097216121]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0.5, 3)
+metadata/philia_entity = "wolf_01"
+metadata/philia_entity_state = "idle"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2147137744]
+transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1637477261]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 4, 6, 9)
+current = true
