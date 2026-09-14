@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://characters/quaternius/demo_character.tscn" id="1_x6jbu"]
+[ext_resource type="Script" path="res://characters/quaternius/demo_character_cycle.gd" id="2_hxkyv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8omwp"]
+albedo_color = Color(0.35, 0.55, 0.35, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xxos6"]
+material = SubResource("StandardMaterial3D_8omwp")
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8u6c8"]
+size = Vector3(10, 0.2, 10)
+
+[node name="PhiliaDemoCharacterScene" type="Node3D" unique_id=1538881522]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=396348393]
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground" unique_id=1793378080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_xxos6")
+
+[node name="@CollisionShape3D@2" type="CollisionShape3D" parent="Ground" unique_id=579686472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_8u6c8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1549823215]
+transform = Transform3D(0.8660254, 0.38302222, -0.32139382, 0, 0.64278764, 0.76604444, 0.5, -0.66341394, 0.5566704, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1514745631]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 1.6, 3.5)
+current = true
+
+[node name="PhiliaDemoCharacter" type="Node3D" parent="." unique_id=84295138 instance=ExtResource("1_x6jbu")]
+
+[node name="DemoCycle" type="Node" parent="PhiliaDemoCharacter" unique_id=1826714308]
+script = ExtResource("2_hxkyv")
