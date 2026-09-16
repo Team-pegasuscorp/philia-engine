@@ -845,3 +845,29 @@ Concrètement :
 - Éviter toute fonctionnalité qui n'existerait *que* dans un menu GUI : chaque nouvelle feature de l'éditeur doit être pensée "commande d'abord, bouton ensuite".
 
 Cette approche évite l'écueil déjà rencontré ailleurs (SpaceRPG) où un contrôle headless ne peut pas cliquer sur des boutons d'UI — ici l'agent n'a jamais besoin de cliquer, il appelle directement la commande.
+
+---
+
+# 22. Couche gameplay générique (temps, boucles, mémoire)
+
+La V6 (§19) prévoyait des systèmes de gameplay (quêtes, statistiques, triggers…) sans les détailler. Trois premiers outils génériques ont été ajoutés dans `addons/philia_engine/core/`, motivés par un concept de jeu narratif ("Le Couloir" : un couloir représentant une vie, boucle avancer/revenir, portes conditionnelles à l'heure) mais volontairement écrits sans rien connaître de ce jeu précis — même principe qu'ailleurs dans le moteur (§11, §20) : **l'éditeur/le moteur fournit l'outil, le jeu fournit le sens.**
+
+## 22.1 PhiliaClock
+
+Horloge générique jour/heure/minute (`core/philia_clock.gd`). Avance via `_process` (minutes de jeu par seconde réelle) ou manuellement via `advance_minutes()`. Expose `matches(condition)` pour qu'un système de jeu décide si une porte/scène/trigger est actif à l'instant présent — condition = `{day, hour, minute, hour_min, hour_max}`, sérialisable en JSON (cohérent avec §21.2/§21.3 : pas de logique cachée dans du code, un agent doit pouvoir lire/écrire une condition).
+
+## 22.2 PhiliaLoopController
+
+Mécanique générique "avancer puis revenir exactement la même distance" (`core/philia_loop_controller.gd`). Ne connaît ni couloir ni portes : suit une distance signée (`advance`/`retreat`) à travers trois phases (`FORWARD`, `RETURN`, `COMPLETE`) et expose des signaux (`phase_changed`, `loop_reset`, `loop_completed`). Le jeu décide ce qu'"avancer" veut dire (axe d'un couloir, case d'une grille, autre chose) et quand basculer en phase de retour (`start_return()`) — cette décision reste toujours narrative, jamais automatique.
+
+## 22.3 PhiliaJournal
+
+Carnet du joueur générique (`core/philia_journal.gd`), sérialisé en JSON comme une `.philiamap`. Entrées libres classées par catégorie, persistantes à travers les boucles (contrairement à la position, remise à zéro par `PhiliaLoopController.reset_loop()`). `has_matching_entry()` permet de conditionner du contenu sur "le joueur sait déjà que X" sans coupler le carnet à une logique de jeu particulière.
+
+## 22.4 PhiliaConditions
+
+Pont entre les trois : évalue le champ optionnel `"conditions"` d'une tuile/entité `.philiamap` contre une `PhiliaClock` et un `PhiliaJournal` (`core/philia_conditions.gd`). Volontairement séparé des trois autres — évaluer une condition a besoin des trois à la fois, alors que chacun doit rester utilisable seul.
+
+## 22.5 Prototype de validation
+
+Les quatre briques n'ont besoin d'aucune autre partie de l'addon pour fonctionner (pas de `PhiliaMap`/`PhiliaImporter`, pas de dock éditeur) : un jeu peut les copier seules dans un projet Godot minimal, sans activer de plugin. Le premier prototype ("Le Couloir") vit donc dans son propre projet Godot séparé plutôt que dans ce dépôt. Si ce jeu a par la suite besoin de la grille/l'autotiling/l'import de `.philiamap`, il pourra toujours ajouter le reste de l'addon à ce moment-là.
